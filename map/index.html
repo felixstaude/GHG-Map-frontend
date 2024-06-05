@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Pins</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+    <link rel="stylesheet" href="style.css"/>
+    <script src="script.js"></script>
+</head>
+<body>
+    <div id="map"></div>
+	<script>
+		// set height
+		function adjustHeight() {
+			let height = window.innerHeight;
+			let map = document.getElementById('map');
+			map.style.height = `${height}px`;
+		}
+		adjustHeight()
+		window.addEventListener('resize', adjustHeight)
+	</script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/dropzone/dist/dropzone.js"></script>
+    <script>
+        const map = L.map('map').setView([51.163361, 10.447683], 7);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19
+        }).addTo(map);
+
+        map.on('click', async function(e) {
+            const { lat, lng } = e.latlng;
+
+            const popupContent = `
+                <form id="pin-form" class="popup-content">
+                    <div class="wrapperDescription">
+                        <span id="textDescription">Beschreibung</span>
+                        <input type="text" class="popupButtons" id="description" required />
+                    </div>
+                    <div class="wrapperDescription">
+                        <input type="file" class="popupButtons" id="image" accept="image/*" hidden required />
+                        <label class="imageLabel" id="textPicture" for="image">Bild hochladen</label>
+                    </div>
+                    <div class="wrapperDescription">
+                        <button class="popupButtons popupSubmit" type="submit">Pin hinzufügen</button>
+                    </div>
+                </form>
+            `;
+
+            const popup = L.popup()
+                .setLatLng(e.latlng)
+                .setContent(popupContent)
+                .openOn(map);
+
+            document.getElementById('pin-form').addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                const description = document.getElementById('description').value;
+                const imageFile = document.getElementById('image').files[0];
+
+                const formData = new FormData();
+                formData.append('lat', lat);
+                formData.append('lng', lng);
+                formData.append('description', description);
+                formData.append('image', imageFile);
+
+                const response = await fetch('/api/pins', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const pin = await response.json();
+                L.marker([pin.lat, pin.lng])
+                    .addTo(map)
+                    .bindPopup(`<b>${pin.description}</b><br><img src="${pin.imageUrl}" width="100" />`);
+            });
+        });
+
+        // Alle Pins laden und anzeigen
+        async function loadPins() {
+            const response = await fetch('/api/pins');
+            const pins = await response.json();
+
+            pins.forEach(pin => {
+                L.marker([pin.lat, pin.lng])
+                    .addTo(map)
+                    .bindPopup(`<b>${pin.description}</b><br><img src="${pin.imageUrl}" width="100" />`);
+            });
+        }
+        loadPins();
+    </script>
+</body>
+</html>

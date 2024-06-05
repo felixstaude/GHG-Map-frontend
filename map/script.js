@@ -4,11 +4,11 @@ window.addEventListener('load', (e) => {
         //nicer input for description
         document.getElementById('description').addEventListener('input', (e) => {
             if (document.getElementById('description').value.length > 0) {
-                document.getElementById('textDescription').innerHTML = '';
-                document.getElementById('description').classList.add('filled');
+                document.getElementById('textDescription').innerHTML = '&nbsp;';
+                document.getElementById('textDescription').classList.add('filled');
             } else {
                 document.getElementById('textDescription').innerHTML = 'Beschreibung';
-                document.getElementById('description').classList.remove('filled');
+                document.getElementById('textDescription').classList.remove('filled');
             }
         });
 

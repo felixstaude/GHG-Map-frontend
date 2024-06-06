@@ -1,0 +1,6 @@
+.successPopup {
+    background: radial-gradient(circle at top right, #909, transparent),
+                radial-gradient(circle at bottom left, #9146FF, #fff);
+    padding: 5px;
+    box-shadow: 0 0 5px #000;
+}

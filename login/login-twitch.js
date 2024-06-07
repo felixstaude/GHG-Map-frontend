@@ -25,30 +25,67 @@ window.addEventListener('load', (e) => {
     let hash = window.location.hash.substring(1);
 
     if (hash) {
+        loadingCircle('start');
         let response = Object.fromEntries(new URLSearchParams(hash));
         //console.log(response);
         let verifyUser = localStorage.getItem('state');
-        if (verifyUser = response.state) { //validate response
+        if (verifyUser = response.state && response.access_token != 'access_denied') { //validate response
             localStorage.setItem('accessToken', response.access_token)
             localStorage.setItem('scope', response.scope)
-            localStorage.setItem('tokenType', response.token_type)
             loginSuccess();
+        } else if (response.access_token === 'access_denied') {
+            loginFail();
         } else {
             window.location.replace('../?connectionIssue=1')
         }
     }
 });
 
-function loginSuccess() {
+async function loginSuccess() {
+    window.location.hash = '';
     document.getElementById('twitchConnection').remove();
-    
-    const successElement = document.createElement('div');
-    successElement.classList.add('successPopup');
-    successElement.innerHTML=`
-        <h3>Login Erfolgreich</h3>
+
+    let accessToken = localStorage.getItem('accessToken');
+    const loginData = await validateToken(accessToken);
+
+    localStorage.setItem('username', loginData.login)
+    localStorage.setItem('userId', loginData.user_id)
+
+    let username = loginData.login;
+    loadingCircle(username);
+        
+    const responseElement = document.createElement('div');
+    responseElement.classList.add('successPopup');
+    responseElement.innerHTML=`
+        <h3>Login als <i>${username}</i> erfolgreich</h3>
         <p>hier kann nach Belieben ein Popup erstellt werden, das kommt, wenn login successful 👍</p>
         <a href="../">Zurück zur Startseite</a>
         `;
     let parent = document.getElementById('wrapper')
-    parent.appendChild(successElement);
+    parent.appendChild(responseElement);
+}
+
+function loginFail() {
+    const responseElement = document.createElement('div');
+    responseElement.classList.add('failPopup');
+    responseElement.innerHTML=`
+        <h3>Login fehlgeschlagen</h3>
+        <p>hier kann nach Belieben ein Popup erstellt werden, das kommt, wenn user abgelehnt hat :/</p>
+        <a href="../">Zurück zur Startseite</a>
+        `;
+    let parent = document.getElementById('wrapper')
+    parent.appendChild(responseElement);
+}
+
+function loadingCircle(x) { // Platz um eine Ladeschnecke einzubauen, die user zeigt, dass weitere Daten geladen werden
+    if (x === 'start') {
+        const loadingElement = document.createElement('div');
+        loadingElement.classList.add('loadingCircle');
+        loadingElement.setAttribute('id', 'loadingWrapper')
+        loadingElement.innerHTML='&nbsp;';
+        let parent = document.getElementById('wrapper')
+        parent.appendChild(loadingElement);
+    } else if (x) {
+        document.getElementById('loadingWrapper').remove();
+    }
 }

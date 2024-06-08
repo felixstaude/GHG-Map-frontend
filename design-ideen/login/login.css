@@ -1,0 +1,89 @@
+
+html {
+    min-height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Helvetica, sans-serif;
+    background-image:  url('bastistadt.jpg');
+    background-attachment: fixed;
+  }
+
+.loadingCircle {
+    width: 50px;
+    height: 50px;
+    aspect-ratio: 1;
+    border: 3px solid transparent;
+    border-top: 3px solid #909;
+    border-radius: 50%;
+
+    animation: 1s linear loadingCircle infinite;
+}
+
+@keyframes loadingCircle {
+    0%{transform: rotate(0deg)}
+    100%{transform: rotate(360deg)}
+}
+
+.successPopup {
+    background: radial-gradient(circle at top right, #909, transparent),
+                radial-gradient(circle at bottom left, #9146FF, #fff);
+    padding: 5px;
+    box-shadow: 0 0 5px #000;
+}
+#wrapper {
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 200px;
+    padding: 0px;
+    border-radius: 10px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headline {
+    display: flex;
+    align-items: center;
+    font-size: 40px;
+    color: rgb(146, 68, 255);
+    margin: 0px;
+    padding-left: 20px;
+    border-radius: 10px;
+}
+
+.headline h3 {
+    margin-right: 0px; 
+    text-shadow: -3px 3px rgba(0, 33, 66, 0.8);
+    padding: 20px;
+}
+
+.headline img {
+    padding: 0px;
+    margin: 0px;
+    height: 150px;
+    box-shadow: -4px 4px 4px rgba(0, 33, 66, 0.7); 
+}
+
+#twitchConnection {
+    color: rgb(0, 33, 66); 
+    text-decoration: none;
+    padding: 0px;
+    border-style: solid;
+    border-width: 2px;
+    border-color:  rgb(0, 33, 66); 
+    margin-top: 30px; 
+    padding: 10px;
+    border-radius: none;
+    align-self: center;
+    transition: transform 0.3s ease;
+}
+
+#twitchConnection:hover {
+    color: rgb(146, 68, 255);
+    border-color: rgb(146, 68, 255);
+    border-bottom-width: 10px; 
+    border-left-width: 10px; 
+    transform: translate(10px, -10px); 
+}

@@ -61,3 +61,101 @@ body {
     background-position: -2px;
     cursor: pointer;
 }
+
+/*Charlie Stuff*/
+html {
+    min-height: 100%;
+      background-image: url('fakebackground.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+  }
+  
+  body {
+      font-family: Helvetica, sans-serif;
+      //*background-color: rgb(0, 33, 66); */
+      
+  }
+  
+  h2 {
+    margin: auto;
+    width: 230px;
+    background-color: rgba(0, 33, 66, 0.2);
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .nurfuerprototyp img {
+    width: 3%;
+  }
+  
+  .sidenav img {
+    width: 30%;
+    padding: 8px 0 8px 0;
+  }
+  
+  p {
+    padding: 8px 0 8px 0;
+    text-decoration: none;
+    font-size: 30px;
+    color: rgb(197, 195, 199);
+    display: block;
+  }
+  
+  .sidenav {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      right: -270px;
+      background-image: linear-gradient(to bottom right, rgba(3, 23, 43, 0.9), rgba(153, 0, 153, 0.9));
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding: 10px;
+      padding-top: 60px;
+      /*background-color:rgb(0, 33, 66);*/
+      z-index:999; /*#lljw🕊*/
+    }
+    
+    .sidenav a {
+      padding: 8px 0 8px 0;
+      text-decoration: none;
+      font-size: 25px;
+      color: rgb(197, 195, 199);
+      display: block;
+      transition: 0.3s;
+    }
+    
+    .sidenav a:hover {
+      color: rgb(146, 68, 255);
+    }
+    
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+    
+    @media screen and (max-height: 450px) {
+      .sidenav {padding-top: 15px;}
+      .sidenav a {font-size: 20px;}
+    }
+
+.openNav {
+    position: fixed;
+    color:#909;
+    font-size: 35px;
+    font-weight: 650;
+    text-decoration: none;
+    right: 10px;
+    top: 80px;
+    transition-duration: 0.2s;
+    z-index: 998;
+}
+
+.openNav:hover {
+    text-shadow: 0 0 2px #909;
+}

@@ -77,13 +77,15 @@ html {
     padding: 10px;
     border-radius: none;
     align-self: center;
-    transition: transform 0.3s ease;
+    transition: 0.3s ease;
 }
 
 #twitchConnection:hover {
     color: rgb(146, 68, 255);
     border-color: rgb(146, 68, 255);
-    border-bottom-width: 10px; 
-    border-left-width: 10px; 
-    transform: translate(10px, -10px); 
+    /*border-bottom-width: 10px; 
+    border-left-width: 10px;*/
+    transform: translate(5px, -5px);
+    box-shadow: -5px 5px 2px rgba(0,0,0,0.4);
+    text-shadow: -5px 5px 2px rgba(0,0,0,0.4);
 }

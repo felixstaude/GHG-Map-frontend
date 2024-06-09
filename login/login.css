@@ -86,7 +86,6 @@ html {
     padding: 0px;
     margin: 0px;
     height: 150px;
-    box-shadow: 0 0 2px rgba(0,0,0,0.4);
 }
 
 #twitchConnection {

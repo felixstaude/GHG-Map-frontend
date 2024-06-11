@@ -1,3 +1,5 @@
+let onladTime = new Date().getTime();
+
 window.addEventListener('load', (e) => {
     // generate link
     let responseType = 'token';
@@ -5,11 +7,11 @@ window.addEventListener('load', (e) => {
     let redirectUri = 'http://localhost:8080/login';
     let scope = 'user%3Aread%3Aemail'
     function generateRandomString(length) {
-        const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,._-';
         const values = crypto.getRandomValues(new Uint8Array(length));
         return values.reduce((acc, x) => acc + possible[x % possible.length], "");
     }
-    let state = generateRandomString(128);
+    let state = generateRandomString(114) + "|" + onladTime;
     localStorage.setItem('state', state);
     
     let linkToTwitch = `https://id.twitch.tv/oauth2/authorize
@@ -47,9 +49,11 @@ async function loginSuccess() {
 
     let accessToken = localStorage.getItem('accessToken');
     const loginData = await validateToken(accessToken);
+    let rTT = onladTime + loginData.expires_in; //renew token time in ms
 
     localStorage.setItem('username', loginData.login)
     localStorage.setItem('userId', loginData.user_id)
+    localStorage.setItem('renewLogin', rTT)
 
     let username = loginData.login;
     loadingCircle(username);

@@ -28,32 +28,10 @@ html {
     background-repeat: no-repeat;
     background-size: cover;
     font-family: Helvetica, sans-serif;
-    background-image:  url('bastistadt.jpg');
+    background-image: url('bastistadt.jpg');
     background-attachment: fixed;
-  }
-
-.loadingCircle {
-    width: 50px;
-    height: 50px;
-    aspect-ratio: 1;
-    border: 3px solid transparent;
-    border-top: 3px solid #909;
-    border-radius: 50%;
-
-    animation: 1s linear loadingCircle infinite;
 }
 
-@keyframes loadingCircle {
-    0%{transform: rotate(0deg)}
-    100%{transform: rotate(360deg)}
-}
-
-.successPopup {
-    background: radial-gradient(circle at top right, #909, transparent),
-                radial-gradient(circle at bottom left, #9146FF, #fff);
-    padding: 5px;
-    box-shadow: 0 0 5px #000;
-}
 #wrapper {
     width: fit-content;
     margin: 0 auto;
@@ -97,7 +75,7 @@ html {
     border-color:  rgb(0, 33, 66); 
     margin-top: 30px; 
     padding: 10px;
-    border-radius: none;
+    border-radius: 0;
     align-self: center;
     transition: 0.3s ease;
 }

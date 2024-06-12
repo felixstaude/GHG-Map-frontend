@@ -1,6 +1,6 @@
 let onladTime = new Date().getTime();
 
-window.addEventListener('load', (e) => {
+window.addEventListener('load', async (e) => {
     // generate link
     let responseType = 'token';
     let clientId = 'aof6xcm9xha35dqsm087mqowout2p6';
@@ -25,26 +25,28 @@ window.addEventListener('load', (e) => {
 
     // get hash if given in url
     let hash = window.location.hash.substring(1);
+    let valid = await validateToken(localStorage.getItem('accessToken'));
 
-    if (hash) {
+
+    if (hash || valid.login) {
         loadingCircle('start');
         let response = Object.fromEntries(new URLSearchParams(hash));
-        //console.log(response);
         let verifyUser = localStorage.getItem('state');
-        if (verifyUser = response.state && response.access_token != 'access_denied') { //validate response
+        
+        //validate response to prevent cors attacks
+        if ((verifyUser = response.state && response.access_token != 'access_denied')) {
             localStorage.setItem('accessToken', response.access_token)
-            localStorage.setItem('scope', response.scope)
             loginSuccess();
         } else if (response.access_token === 'access_denied') {
             loginFail();
-        } else {
-            window.location.replace('../?connectionIssue=1')
+        } else if (valid.login) {
+            loginSuccess();
         }
     }
 });
 
 async function loginSuccess() {
-    window.location.hash = '';
+    window.location.hash = '1';
     document.getElementById('twitchConnection').remove();
 
     let accessToken = localStorage.getItem('accessToken');
@@ -62,7 +64,7 @@ async function loginSuccess() {
     responseElement.classList.add('successPopup');
     responseElement.innerHTML=`
         <h3>Login als <i>${username}</i> erfolgreich</h3>
-        <p>hier kann nach Belieben ein Popup erstellt werden, das kommt, wenn login successful 👍</p>
+        <p>hier kann nach Belieben ein Popup erstellt werden, das kommt, wenn login successful <a href="../map">👍</a></p>
         <a href="../">Zurück zur Startseite</a>
         `;
     let parent = document.getElementById('wrapper')

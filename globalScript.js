@@ -1,27 +1,44 @@
+// validate token and get username
 async function validateToken(x) {
-    // validate token and get username
+    let time = new Date().getTime();
+    let lastValidation = localStorage.getItem('lastValidation')
 
-    try {
-        const response = await fetch('https://id.twitch.tv/oauth2/validate', {
-            method: 'GET',
-            headers: {
-                'Authorization': `OAuth ${x}`
+    if (((lastValidation + 300000) < time) || !lastValidation) {
+        console.log(lastValidation)
+        try {
+            const response = await fetch('https://id.twitch.tv/oauth2/validate', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `OAuth ${x}`
+                }
+            });
+
+            if (!response.ok) {
+                console.error(response);
+                throw new Error('Network response was not ok ' + response.statusText);
+            } else {
+                let lastValidation = new Date().getTime();
+                localStorage.setItem('lastValidation', lastValidation);
+                console.log('%c' + 'validation via API successfull', 'color:#6f6; background-color:#050; border-radius:3px; padding:1px');
             }
-        });
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
+            const data = await response.json();
+            localStorage.setItem('userdata', JSON.stringify(data));
+            return data;
+
+        } catch (error) {
+            throw error;
         }
-
-        const data = await response.json();
-        return data;
-
-    } catch (error) {
-        throw error;
+    } else {
+        console.log('%c' + 'validation not needed, returned latest response', 'color:#66f; background-color:#005; border-radius:3px; padding:1px')
+        let userdata = localStorage.getItem('userdata');
+        return JSON.parse(userdata);
     }
+
 }
 
 window.addEventListener('load', async (e)=> {
+    console.log('check login')
     let onloadTime = new Date().getTime();
     let renewLogin = localStorage.getItem('renewLogin') //compare to onlaod time -> if still valid, validate -> create profile link and remove login
     let accessToken = localStorage.getItem('accessToken');
@@ -58,6 +75,17 @@ window.addEventListener('load', async (e)=> {
                 accountDetails.appendChild(ppImg);        
             } catch (error) {
                 throw error;
+            }
+        }
+    } else {
+        let loginPref = localStorage.getItem('loginPref');
+
+        if (loginPref === null) {
+            if (window.confirm('Twitch-Login ist abgelaufen\nMelde dich neu an oder fahre ohne Anmeldung fort') === true) {
+                localStorage.setItem('loginPref', true);
+                window.location.replace('http://localhost:8080/login/');
+            } else {
+                localStorage.setItem('loginPref', false);
             }
         }
     }

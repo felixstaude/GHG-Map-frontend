@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Map Pins</title>
+        <title>Map - Sticker Map</title>
+        <link rel="icon" type="image/png" href="../bastisticker-64x64.png">
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
         <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
         <link rel="stylesheet" href="style.css"/>
@@ -15,7 +16,7 @@
         <div id="map"></div>
         <aside id="mySidenav" class="sidenav">
             <a href="javascript:closeNav()" class="closebtn">&times;</a>
-            <img src="../bastisticker.jpg" alt="bastisticker">
+            <img src="../bastisticker.png" alt="bastisticker">
             <p>BastiGHG Sticker Map</p> 
             <a href="../">Home</a>
             <a href="../map">Map</a>
@@ -45,66 +46,64 @@
                 maxZoom: 19
             }).addTo(map);
 
-            async function e() { // function to check is a user is validated
-                const validLogin = await validateToken(localStorage.getItem('accessToken'));
-                let valid = Object.keys(validLogin).length > 0;
+            map.on('click', async function(e) {
+                const { lat, lng } = e.latlng;
 
-                if (valid === true) {
-                    map.on('click', async function(e) {
-                        const { lat, lng } = e.latlng;
+                const popupContent = `
+                    <form id="pin-form" class="popup-content">
+                        <div class="wrapperDescription">
+                            <span class="popupButtons"" id="textDescription">Beschreibung</span>
+                            <input type="text" class="popupButtons" id="description" required />
+                        </div>
+                        <div class="wrapperDescription">
+                            <input type="file" class="popupButtons" id="image" accept="image/*" hidden required />
+                            <label class="imageLabel" id="textPicture" for="image">Bild hochladen</label>
+                        </div>
+                        <div class="wrapperDescription">
+                            <button class="popupButtons popupSubmit" type="submit">Pin hinzufügen</button>
+                        </div>
+                    </form>
+                `;
 
-                        const popupContent = `
-                            <form id="pin-form" class="popup-content">
-                                <div class="wrapperDescription">
-                                    <span class="popupButtons"" id="textDescription">Beschreibung</span>
-                                    <input type="text" class="popupButtons" id="description" required />
-                                </div>
-                                <div class="wrapperDescription">
-                                    <input type="file" class="popupButtons" id="image" accept="image/*" hidden required />
-                                    <label class="imageLabel" id="textPicture" for="image">Bild hochladen</label>
-                                </div>
-                                <div class="wrapperDescription">
-                                    <button class="popupButtons popupSubmit" type="submit">Pin hinzufügen</button>
-                                </div>
-                            </form>
-                        `;
+                const popup = L.popup()
+                    .setLatLng(e.latlng)
+                    .setContent(popupContent)
+                    .openOn(map);
 
-                        const popup = L.popup()
-                            .setLatLng(e.latlng)
-                            .setContent(popupContent)
-                            .openOn(map);
+                document.getElementById('pin-form').addEventListener('submit', async function(event) {
+                    event.preventDefault();
 
-                        document.getElementById('pin-form').addEventListener('submit', async function(event) {
-                            event.preventDefault();
+                    const validLogin = await validateToken(localStorage.getItem('accessToken'));
+                    let valid = Object.keys(validLogin).length > 0;
 
-                            const description = document.getElementById('description').value;
-                            const imageFile = document.getElementById('image').files[0];
+                    if (valid === true) {
 
-                            const formData = {
-                                "lat": lat,
-                                "lng": lng,
-                                "description": description,
-                                "image": imageFile,
-                                "user_id": localStorage.getItem('userId')
-                            }
-                            console.log(formData)
+                        const description = document.getElementById('description').value;
+                        const imageFile = document.getElementById('image').files[0];
 
-                            const response = await fetch('/api/pins', {
-                                method: 'POST',
-                                body: formData
-                            });
+                        const formData = {
+                            "lat": lat,
+                            "lng": lng,
+                            "description": description,
+                            "image": imageFile,
+                            "user_id": localStorage.getItem('userId')
+                        }
+                        console.log(formData)
 
-                            const pin = await response.json();
-                            L.marker([pin.lat, pin.lng])
-                                .addTo(map)
-                                .bindPopup(`<b>${pin.description}</b><br><img src="${pin.imageUrl}" width="100" />`);
+                        const response = await fetch('/api/pins', {
+                            method: 'POST',
+                            body: formData
                         });
-                    });
-                } else {
-                    console.log('please log in') //needs to be tranformes in popup
-                }
-            }
-            e();
+
+                        const pin = await response.json();
+                        L.marker([pin.lat, pin.lng])
+                            .addTo(map)
+                            .bindPopup(`<b>${pin.description}</b><br><img src="${pin.imageUrl}" width="100" />`);
+                    } else {
+                        console.log('nichts')
+                    }
+                });
+            });
 
             // Alle Pins laden und anzeigen
             async function loadPins() {

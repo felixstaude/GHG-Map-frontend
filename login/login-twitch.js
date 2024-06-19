@@ -25,10 +25,9 @@ window.addEventListener('load', async (e) => {
 
     // get hash if given in url
     let hash = window.location.hash.substring(1);
-    let valid = await validateToken(localStorage.getItem('accessToken'));
 
 
-    if (hash || valid.login) {
+    if (hash) {
         loadingCircle('start');
         let response = Object.fromEntries(new URLSearchParams(hash));
         let verifyUser = localStorage.getItem('state');
@@ -39,14 +38,18 @@ window.addEventListener('load', async (e) => {
             loginSuccess();
         } else if (response.access_token === 'access_denied') {
             loginFail();
-        } else if (valid.login) {
-            loginSuccess();
         }
+    }
+    
+    let valid = await validateToken(localStorage.getItem('accessToken'));
+    if (valid.valid) {
+        loadingCircle('start');
+        loginSuccess();
     }
 });
 
 async function loginSuccess() {
-    window.location.hash = '1';
+    window.location.hash = '';
     document.getElementById('twitchConnection').remove();
 
     let accessToken = localStorage.getItem('accessToken');

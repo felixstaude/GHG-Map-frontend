@@ -1,7 +1,48 @@
-<head>
-    <title>Startseite - Sticker Map</title>
-    <link rel="icon" type="image/png" href="../bastisticker-64x64.png">
-</head>
-startseite
-<a href="/login">login</a>
-<a href="/map">map</a>
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Map - Startseite</title>
+        <link rel="icon" type="image/png" href="bastisticker-64x64.png">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+        <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+        <link rel="stylesheet" href="stylesHome.css"/>
+        <link rel="stylesheet" href="globalStyles.css"/>
+        <script src="scriptHome.js"></script>
+        <script src="globalScript.js"></script>
+    </head>
+    <body>
+        <header>
+            <h3>BastiGHG Sticker Map</h3>
+        </header>
+
+        <main>
+            <div class="container">
+                <a class="navOuter" id="linkMap">
+                    <div class="navInner" id="mapEl">
+                        Map
+                    </div>
+                </a>
+                <a class="navOuter" id="linkLogin">
+                    <div class="navInner" id="loginEl">
+                        Login
+                    </div>
+                </a>
+                <a class="navOuter" id="linkSearch">
+                    <div class="navInner" id="searchEl">
+                        Search Users
+                    </div>
+                </a>
+            </div>
+        </main>
+
+        <footer>
+            <div>Dieses Projekt steht nicht in direkter Verbindung zu dem Twitch-Streamer BastiGHG, es ist ein Projekt aus der Community für die Community &#60;3</div>
+            <hr class="footerTrennlinie"/>
+            <div>Hauptsächlich verantwortlich sind <span class="likeALink" id="bxrbeqLink">bxrbeq</span> und <span class="likeALink" id="felixLink">TheEpicFlexo</span> und ein besonderer Dank geht an <span class="likeALink" id="chalieLink">Charlieluchsini</span></div>
+            <hr class="footerTrennlinie"/>
+            <div><a href="https://github.com/felixstaude/GHG-Map" class="leadingAway"> GitHub</a></div>
+            <!-- ist versteckt, bis man in die Region hovert. Dann bewegt er sich so weit raus, jenachdem wie weit man die Maus unten hat-->
+        </footer>
+    </body>

@@ -16,11 +16,12 @@
         <div id="map"></div>
         <aside id="mySidenav" class="sidenav">
             <a href="javascript:closeNav()" class="closebtn">&times;</a>
-            <img src="../bastisticker.png" alt="bastisticker">
+            <a href="../" class="bastiSticker">&nbsp;</a>
             <p>BastiGHG Sticker Map</p> 
             <a href="../">Home</a>
             <a href="../map">Map</a>
             <a href="#">About</a>
+            <a id="getPositionEl" href="javascript:getPosition()">Meine Position</a>
             <a id="loginLink" href="../login">Login</a>
             <hr>
             <a id="accountDetails" href=""></a>
@@ -74,9 +75,11 @@
                     event.preventDefault();
 
                     const validLogin = await validateToken(localStorage.getItem('accessToken'));
+                    console.log(validLogin)
                     let valid = Object.keys(validLogin).length > 0;
 
                     if (valid === true) {
+                        popupActive = true;
 
                         const description = document.getElementById('description').value;
                         const imageFile = document.getElementById('image').files[0];
@@ -90,12 +93,12 @@
                         }
                         console.log(formData)
 
-                        const response = await fetch('/api/pins', {
+                        const response = await fetch('http://localhost:8080/api/pin/add', {
                             method: 'POST',
                             body: formData
                         });
 
-                        const pin = await response.json();
+                        const pin = formData.json();
                         L.marker([pin.lat, pin.lng])
                             .addTo(map)
                             .bindPopup(`<b>${pin.description}</b><br><img src="${pin.imageUrl}" width="100" />`);
@@ -107,7 +110,7 @@
 
             // Alle Pins laden und anzeigen
             async function loadPins() {
-                const response = await fetch('/api/pins');
+                const response = await fetch('http://localhost:8080/api/pin/get/all');
                 const pins = await response.json();
 
                 pins.forEach(pin => {

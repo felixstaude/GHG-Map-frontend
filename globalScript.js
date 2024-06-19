@@ -1,10 +1,12 @@
 // validate token and get username
+let lastValidation = sessionStorage.getItem('lastValidation')
+
 async function validateToken(x) {
     let time = new Date().getTime();
-    let lastValidation = localStorage.getItem('lastValidation')
+    let lastValidation = sessionStorage.getItem('lastValidation')
+
 
     if (((lastValidation + 300000) < time) || !lastValidation) {
-        console.log(lastValidation)
         try {
             const response = await fetch('https://id.twitch.tv/oauth2/validate', {
                 method: 'GET',
@@ -18,11 +20,12 @@ async function validateToken(x) {
                 throw new Error('Network response was not ok ' + response.statusText);
             } else {
                 let lastValidation = new Date().getTime();
-                localStorage.setItem('lastValidation', lastValidation);
+                sessionStorage.setItem('lastValidation', lastValidation);
                 console.log('%c' + 'validation via API successfull', 'color:#6f6; background-color:#050; border-radius:3px; padding:1px');
             }
 
             const data = await response.json();
+            data.valid= true;
             localStorage.setItem('userdata', JSON.stringify(data));
             return data;
 
@@ -34,11 +37,9 @@ async function validateToken(x) {
         let userdata = localStorage.getItem('userdata');
         return JSON.parse(userdata);
     }
-
 }
 
 window.addEventListener('load', async (e)=> {
-    console.log('check login')
     let onloadTime = new Date().getTime();
     let renewLogin = localStorage.getItem('renewLogin') //compare to onlaod time -> if still valid, validate -> create profile link and remove login
     let accessToken = localStorage.getItem('accessToken');
@@ -62,17 +63,20 @@ window.addEventListener('load', async (e)=> {
         
                 const data = await response.json();
 
-                document.getElementById('loginLink').remove();
+                //stuff to adujst aside navigationn which is NOT on main page so it would throw an error
+                if (document.getElementsByTagName('aside').length > 0) {
+                    document.getElementById('loginLink').remove();
 
-                //create link with profile picture
-                let accountDetails = document.getElementById('accountDetails');
-                const ppImg = document.createElement('img');
-                ppImg.src = data.data[0].profile_image_url;
-                ppImg.classList.add('userPofilepicture');
+                    //create link with profile picture
+                    let accountDetails = document.getElementById('accountDetails');
+                    const ppImg = document.createElement('img');
+                    ppImg.src = data.data[0].profile_image_url;
+                    ppImg.classList.add('userPofilepicture');
 
-                accountDetails.href = `http://localhost:8080/user#${localStorage.getItem('username')}`
-                accountDetails.innerHTML = `&nbsp;${localStorage.getItem('username')}`;
-                accountDetails.appendChild(ppImg);        
+                    accountDetails.href = `http://localhost:8080/user#${localStorage.getItem('username')}`
+                    accountDetails.innerHTML = `&nbsp;${localStorage.getItem('username')}`;
+                    accountDetails.appendChild(ppImg);
+                }
             } catch (error) {
                 throw error;
             }

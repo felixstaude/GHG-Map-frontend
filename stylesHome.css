@@ -1,16 +1,16 @@
 body {
+    position: relative;
     height:100vh;
     margin:0;
     padding:0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    overflow: hidden;
+    text-shadow: 0 0 2px #909;
 }
 
 .likeALink, a {
     padding: 0;
     text-decoration: none;
-    color: rgb(197, 195, 199);
+    color: rgb(255, 0, 255);
     transition: 0.3s;
 }
 
@@ -26,11 +26,12 @@ body {
 }
 
 footer, header{
+    position: absolute;
     display:flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background-color: #909;
+    background-color: #fff;
     width: 100%;
     height: fit-content;
     padding: 5px 0 5px 0;
@@ -43,29 +44,39 @@ header {
 }
 
 main {
+    position:relative;
     height:100%;
     background-color: #000;
 }
 
 .container {
     height:100%;
-    display:flex;
+    display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+    align-content: center;
     justify-content: space-around;
-    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('bastistadt.png');
+    background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('sticker.jpg');
+    background-position: center;
     background-blend-mode: multiply;
-    background-size: cover;
-    background-position-y: center;
-    transition-duration: 1s;
+    background-size: cover !important;
+}
+
+@media screen and (max-width: 1053px) {
+    .container {
+        flex-direction: column;
+        justify-content: center;
+    }
 }
 
 .navOuter {
     width: 350px;
     height: 100px;
+    margin: 5px 0;
     text-align: center;
     border-radius: 10px;
-    background-image: url('bastistadt.png');
+    background-image: url('sticker.jpg');
     background-position-y: center;
     overflow: hidden;
 }
@@ -80,6 +91,36 @@ main {
     color: #000;
     font-weight: 900;
     font-size:25px;
+    backdrop-filter: blur(5px);
+    transition-duration: 220ms;
+}
+
+.navInner:hover {
+    color: rgb(77, 19, 158);
+}
+
+.searchWrapper {
+    position: absolute;
+    top: 100px;
+    left: auto;
+}
+
+footer {
+    padding-top:0;
+    padding-bottom:0;
+    bottom:0;
+    background-color: transparent;
+}
+
+.footerMove {
+    height: fit-content;
+    background-color: #fff;
+    width: 100%;
+    transition-duration: 0.3s;
+}
+
+.footerTasty {
+    margin-top: 0 !important;
 }
 
 .footerTrennlinie {
@@ -89,5 +130,37 @@ main {
                 radial-gradient(circle at bottom left, #9146FF, #fff);
     border:0;
     border-radius: 5px;
-    margin-left: -33.3%;
+    box-shadow: -2px 2px 2px #9146FF, 2px -2px 2px #909;
+}
+
+.creatorLink {
+    position: relative;
+    display: inline-block;
+}
+
+.creatorLink:hover {
+    color: inherit;
+    cursor: pointer;
+}
+
+.createrPopup {
+    position: absolute;
+    width: 100px;
+    max-height: 0;
+    color: transparent;
+    text-shadow: none;
+    backdrop-filter: blur(5px);
+    border-radius: 5px;
+    transition: color 0.2s ease-in-out, text-shadow 0.2s ease-in-out, max-height 0.2s ease-in-out 0.2s;
+}
+
+.createrPopup a {
+    color: inherit;
+}
+
+.creatorLink:hover .createrPopup {
+    color: initial;
+    text-shadow: inherit;
+    max-height: 200px;
+    transition: max-height 0.5s ease-in-out, color 0.2s ease-in-out 0.2s, text-shadow 0.2s ease-in-out 0.2s;
 }

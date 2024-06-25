@@ -19,30 +19,61 @@
 
         <main>
             <div class="container">
-                <a class="navOuter" id="linkMap">
+                <a class="navOuter" id="linkMap" href="/map">
                     <div class="navInner" id="mapEl">
                         Map
                     </div>
                 </a>
-                <a class="navOuter" id="linkLogin">
+                <a class="navOuter" id="linkLogin" href="/login">
                     <div class="navInner" id="loginEl">
                         Login
                     </div>
                 </a>
-                <a class="navOuter" id="linkSearch">
+                <a class="navOuter" id="linkSearch" href="#q">
                     <div class="navInner" id="searchEl">
                         Search Users
                     </div>
                 </a>
             </div>
+            <div class="searchWrapper" id="searchWrapper">
+                <input type="text" placeholder="user suchen">
+            </div>
         </main>
 
         <footer>
-            <div>Dieses Projekt steht nicht in direkter Verbindung zu dem Twitch-Streamer BastiGHG, es ist ein Projekt aus der Community für die Community &#60;3</div>
-            <hr class="footerTrennlinie"/>
-            <div>Hauptsächlich verantwortlich sind <span class="likeALink" id="bxrbeqLink">bxrbeq</span> und <span class="likeALink" id="felixLink">TheEpicFlexo</span> und ein besonderer Dank geht an <span class="likeALink" id="chalieLink">Charlieluchsini</span></div>
-            <hr class="footerTrennlinie"/>
-            <div><a href="https://github.com/felixstaude/GHG-Map" class="leadingAway"> GitHub</a></div>
-            <!-- ist versteckt, bis man in die Region hovert. Dann bewegt er sich so weit raus, jenachdem wie weit man die Maus unten hat-->
+            <div class="footerMove" id="footerMove">
+                <hr class="footerTrennlinie" style="margin-top:0;"/>
+                <div>Dieses Projekt steht nicht in direkter Verbindung zu dem Twitch-Streamer BastiGHG, es ist ein Projekt aus der Community für die Community &#60;3</div>
+                <!--hr class="footerTrennlinie"/-->
+                <div>
+                    Hauptsächlich verantwortlich sind
+                    <span class="likeALink creatorLink" id="felixLink">
+                        TheEpicFlexo
+                        <div class="createrPopup" id="felixPopup">
+                            <a href="https://github.com/felixstaude">GitHub</a><br/>
+                            <a href="https://www.twitch.tv/theepicflexo">twitch</a>
+                        </div>
+                    </span>
+                    und
+                    <span class="likeALink creatorLink" id="bxrbeqLink">
+                        bxrbeq
+                        <div class="createrPopup" id="bxrbeqPopup">
+                            <a href="https://github.com/bxrbeq">GitHub</a><br/>
+                            <a href="https://www.twitch.tv/bxrbeq">twitch</a>
+                        </div>
+                    </span>,
+                    ein besonderer Dank geht an
+                    <span class="likeALink  creatorLink" id="charlieLink">
+                        Charlieluchsini
+                        <div class="createrPopup" id="charliePopup">
+                            <a href="https://github.com/charlieluchsin">GitHub</a><br/>
+                            <a href="https://www.twitch.tv/charlieluchsini">twitch</a>
+                        </div>
+                    </span>
+                </div>
+                <!--hr class="footerTrennlinie"/-->
+                <div><a href="https://github.com/felixstaude/GHG-Map" class="leadingAway"> GitHub</a></div>
+            </div>
         </footer>
     </body>
+</html>

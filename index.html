@@ -5,8 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Map - Startseite</title>
         <link rel="icon" type="image/png" href="bastisticker-64x64.png">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-        <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
         <link rel="stylesheet" href="stylesHome.css"/>
         <link rel="stylesheet" href="globalStyles.css"/>
         <script src="scriptHome.js"></script>
@@ -31,12 +29,13 @@
                 </a>
                 <a class="navOuter" id="linkSearch" href="#q">
                     <div class="navInner" id="searchEl">
-                        Search Users
+                        Benutzer suchen
                     </div>
                 </a>
             </div>
             <div class="searchWrapper" id="searchWrapper">
-                <input type="text" placeholder="user suchen">
+                <input class="searchBox" id="textBox" type="text" id="searchUsers" name="searchUsers" autocomplete="false">
+                <label class="searchLable" id="searchlable" for="searchUsers">Nach anderen Usern auf der Seite suchen</label>
             </div>
         </main>
 

@@ -23,8 +23,6 @@ window.addEventListener('load', async function() {
     setBGOffset(map,login,search);
 
     //  --  hover effect for navigation buttons
-
-
     //make nav white on hover
     map.addEventListener('mouseover', (e) => (navHover(e,mapEl,'#fff', 'transparent')))
     login.addEventListener('mouseover', (e) => (navHover(e,loginEl,'#fff', 'transparent')))
@@ -35,7 +33,7 @@ window.addEventListener('load', async function() {
     login.addEventListener('mouseout', (e) => (navHover(e,loginEl,'transparent','#fff')))
     search.addEventListener('mouseout', (e) => (navHover(e,searchEl,'transparent','#fff')))
 
-    //move footer when user has mouse
+    //  --  move footer when user has mouse
     let move = document.getElementById('footerMove');
 
     setFooter();
@@ -64,10 +62,18 @@ window.addEventListener('load', async function() {
         });
     }
 
-    // set position for popups to make them stick to "Link"
+    //  --  set position for popups to make them stick to "Link"
     setPosition('bxrbeq');setPosition('felix');setPosition('charlie');
 
-    // show popups on hover
+    //   --  searchbar
+    document.getElementById('textBox').addEventListener('input', (e) =>{
+        const input = document.getElementById('textBox').value;
+        if (input.length > 0) {
+            document.getElementById('searchlable').classList.add('searchnoLabel');        
+        } else {
+            document.getElementById('searchlable').classList.remove('searchnoLabel');        
+        }
+    });
 });
 
 function setPosition(x) {

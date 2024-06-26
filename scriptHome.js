@@ -66,12 +66,45 @@ window.addEventListener('load', async function() {
     setPosition('bxrbeq');setPosition('felix');setPosition('charlie');
 
     //   --  searchbar
-    document.getElementById('textBox').addEventListener('input', (e) =>{
-        const input = document.getElementById('textBox').value;
-        if (input.length > 0) {
-            document.getElementById('searchlable').classList.add('searchnoLabel');        
+    let element = document.getElementById('searchElement');
+    let box = document.getElementById('searchBox');
+    let lable = document.getElementById('searchLable');
+
+    // move in field of view and back out
+    search.addEventListener('click', (e) => {
+        let x;
+        if (element.offsetTop < document.getElementsByTagName('header')[0].offsetHeight + 20) {
+            x = 0;
         } else {
-            document.getElementById('searchlable').classList.remove('searchnoLabel');        
+            x = 100;
+        }
+        moveSearchBox(x);
+    });
+
+    document.getElementById('hideSearch').addEventListener('click', (e) => {
+        moveSearchBox(100);
+    });
+
+    async function moveSearchBox(x) {
+        let progress = 0;
+        let t = document.getElementsByTagName('header')[0].offsetHeight + 20;
+        while (progress <= t) {
+            x++;
+            progress++;
+            let a = - (t / 10000);
+            let b = t * 0.02;
+            let vt = Math.ceil(a * (x * x) + b * x);
+            element.style.top = `${vt}px`;
+            await sleep(1);
+        }
+    }
+
+    box.addEventListener('input', (e) =>{
+        const input = document.getElementById('searchBox').value;
+        if (input.length > 0) {
+            lable.classList.add('searchnoLabel');        
+        } else {
+            lable.classList.remove('searchnoLabel');        
         }
     });
 });

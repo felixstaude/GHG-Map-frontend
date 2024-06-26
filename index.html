@@ -7,6 +7,7 @@
         <link rel="icon" type="image/png" href="bastisticker-64x64.png">
         <link rel="stylesheet" href="stylesHome.css"/>
         <link rel="stylesheet" href="globalStyles.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
         <script src="scriptHome.js"></script>
         <script src="globalScript.js"></script>
     </head>
@@ -27,15 +28,19 @@
                         Login
                     </div>
                 </a>
-                <a class="navOuter" id="linkSearch" href="#q">
+                <a class="navOuter" id="linkSearch">
                     <div class="navInner" id="searchEl">
                         Benutzer suchen
                     </div>
                 </a>
             </div>
-            <div class="searchWrapper" id="searchWrapper">
-                <input class="searchBox" id="textBox" type="text" id="searchUsers" name="searchUsers" autocomplete="false">
-                <label class="searchLable" id="searchlable" for="searchUsers">Nach anderen Usern auf der Seite suchen</label>
+            <div class="searchElement" id="searchElement">
+                <i class="searchButtons fa-solid fa-arrow-up" id="hideSearch"></i>
+                <div class="searchWrapper">
+                    <input class="searchBox" id="searchBox" type="text" name="searchBox" autocomplete="false">
+                    <label class="searchLable" id="searchLable" for="searchBox">Nach anderen Benutzern auf der Seite suchen</label>
+                </div>
+                <i class="searchButtons fa-solid fa-magnifying-glass" id="searchUser"></i>
             </div>
         </main>
 

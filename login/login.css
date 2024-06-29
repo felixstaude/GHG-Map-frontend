@@ -14,13 +14,6 @@
     100%{transform: rotate(360deg)}
 }
 
-.successPopup {
-    background: radial-gradient(circle at top right, #909, transparent),
-                radial-gradient(circle at bottom left, #9146FF, #fff);
-    padding: 5px;
-    box-shadow: 0 0 5px #000;
-}
-
 /*Charlies Login-popup designs*/
 .successPopup {
     background: white;
@@ -45,30 +38,46 @@
 }
 
 .successPopup button {
-    background-color: white;
-    border: none;
-    transition-duration: 0.5s;
     padding: 5px;
     position: relative; 
     top: -20px; 
     left: 40px; 
+
+    border: 2px solid transparent;
+    border-radius: 3px;
+
+    background-color: transparent;
+    background-image: linear-gradient(to right, #909 33.33%, transparent 66.67%);
+    background-size: calc(300% + 4px); 
+    background-position: calc(100% + 2px);
+
+    transition-duration: 0.5s;
 }
 
 .failPopup button {
-    background-color: white;
-    border: none;
-    transition-duration: 0.5s;
     padding: 5px;
     position: relative; 
     top: -20px; 
     left: 60px; 
+
+    
+    border: 2px solid transparent;
+    border-radius: 3px;
+
+    background-color: transparent;
+    background-image: linear-gradient(to right, #909 33.33%, transparent 66.67%);
+    background-size: calc(300% + 4px); 
+    background-position: calc(100% + 2px);
+
+    transition-duration: 0.5s;
 }
 
 .successPopup button:hover, .failPopup button:hover {
+    color: #fff;
+    outline: none;
+    background-position: -2px;
     cursor: pointer;
-    background-color: rgb(153, 0, 153);
-    border-radius: 3px;
-    color: rgb(255, 255, 255);
+    text-decoration: none;
 }
 
 .successPopup a, .failPopup a {
@@ -166,3 +175,4 @@ html {
     box-shadow: -5px 5px 2px rgba(0,0,0,0.4);
     text-shadow: -5px 5px 2px rgba(0,0,0,0.4);
 }
+

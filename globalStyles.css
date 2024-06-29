@@ -44,27 +44,39 @@ p {
     padding-top: 8px;
     padding-bottom: 8px;
     padding-left: 8px;
+    display: block;
+
     text-decoration: none;
     font-size: 25px;
     color: #333;
-    display: block;
+
+    border: 2px solid transparent;
     border-radius: 5px;
-    transition: 0.3s;
+
+    background-color: transparent;
+    background-image: linear-gradient(to right, #909 33.33%, transparent 66.67%);
+    background-size: calc(300% + 4px);
+    background-position: calc(100% + 2px);
+
+    transition-duration: 0.5s;
 }
 
 .bastiSticker {
     width: 30%;
     aspect-ratio: 1;
-    background-image: url(../bastisticker.png);
-    background-size: contain;
+    background-image: url(../bastisticker.png) !important;
+    background-size: contain !important;
     padding: 0 !important;
     border-radius: 0 !important;
+    border: none !important;
+    background-position: calc(100%) !important;
 }
 
 .sidenav a:hover {
     color: #fff;
-    background-color: #909;
-    border-radius: 5px;
+    border: 2px solid transparent;
+    background-position: -2px;
+    cursor: pointer;
 }
 
 .bastiSticker:hover {
@@ -77,12 +89,19 @@ p {
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+    transition: none !important;
 }
 
 .closebtn:hover {
-    background-color: #fff !important;
+    transition: none;
+    background: transparent;
+    color: #333;
+}
+
+.wegklicken:hover {
     color: #909 !important;
 }
+
 
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}

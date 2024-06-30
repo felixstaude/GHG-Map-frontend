@@ -21,7 +21,7 @@ p {
     padding: 8px 0 8px 0;
     text-decoration: none;
     font-size: 30px;
-    color: rgb(197, 195, 199);
+    color: #333;
     display: block;
 }
 
@@ -32,8 +32,7 @@ p {
     z-index: 1;
     top: 0;
     right: -270px;
-    background-image: linear-gradient(to bottom right, rgba(3, 23, 43, 0.9), rgba(153, 0, 153, 0.9));
-    overflow-x: hidden;
+    background-color: #fff;
     transition: 0.5s;
     padding: 10px;
     padding-top: 60px;
@@ -41,24 +40,47 @@ p {
 }
 
 .sidenav a {
-    padding: 8px 0 8px 0;
+    padding: 0px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    display: block;
+
     text-decoration: none;
     font-size: 25px;
-    color: rgb(197, 195, 199);
-    display: block;
-    transition: 0.3s;
+    color: #333;
+
+    border: 2px solid transparent;
+    border-radius: 5px;
+
+    background-color: transparent;
+    background-image: linear-gradient(to right, #909 33.33%, transparent 66.67%);
+    background-size: calc(300% + 4px);
+    background-position: calc(100% + 2px);
+
+    transition-duration: 0.5s;
 }
 
 .bastiSticker {
     width: 30%;
     aspect-ratio: 1;
-    background-image: url(../bastisticker.png);
-    background-size: contain;
+    background-image: url(../bastisticker.png) !important;
+    background-size: contain !important;
     padding: 0 !important;
+    border-radius: 0 !important;
+    border: none !important;
+    background-position: calc(100%) !important;
 }
 
 .sidenav a:hover {
-    color: rgb(146, 68, 255);
+    color: #fff;
+    border: 2px solid transparent;
+    background-position: -2px;
+    cursor: pointer;
+}
+
+.bastiSticker:hover {
+    background-color: #fff !important;
 }
 
 .sidenav .closebtn {
@@ -67,7 +89,19 @@ p {
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+    transition: none !important;
 }
+
+.closebtn:hover {
+    transition: none;
+    background: transparent;
+    color: #333;
+}
+
+.wegklicken:hover {
+    color: #909 !important;
+}
+
 
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}

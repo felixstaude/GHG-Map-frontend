@@ -14,11 +14,97 @@
     100%{transform: rotate(360deg)}
 }
 
+/*Charlies Login-popup designs*/
 .successPopup {
-    background: radial-gradient(circle at top right, #909, transparent),
-                radial-gradient(circle at bottom left, #9146FF, #fff);
+    background: white;
+    padding: 10px;
+    padding-top: 0px;
+    margin: 20px;
+    box-shadow: 0 0 10px rgba(51, 51, 51, 0.7);
+    width: 380px;
+    height: 80px;
+    border-radius: 8px;
+}
+
+.failPopup {
+    background: white;
+    padding: 10px;
+    padding-top: 0px;
+    margin: 20px;
+    box-shadow: 0 0 10px rgba(51, 51, 51, 0.7);
+    width: 300px;
+    height: 80px;
+    border-radius: 8px;
+}
+
+.successPopup button {
     padding: 5px;
-    box-shadow: 0 0 5px #000;
+    position: relative; 
+    top: -20px; 
+    left: 40px; 
+
+    border: 2px solid transparent;
+    border-radius: 3px;
+
+    background-color: transparent;
+    background-image: linear-gradient(to right, #909 33.33%, transparent 66.67%);
+    background-size: calc(300% + 4px); 
+    background-position: calc(100% + 2px);
+
+    transition-duration: 0.5s;
+}
+
+.failPopup button {
+    padding: 5px;
+    position: relative; 
+    top: -20px; 
+    left: 60px; 
+
+    
+    border: 2px solid transparent;
+    border-radius: 3px;
+
+    background-color: transparent;
+    background-image: linear-gradient(to right, #909 33.33%, transparent 66.67%);
+    background-size: calc(300% + 4px); 
+    background-position: calc(100% + 2px);
+
+    transition-duration: 0.5s;
+}
+
+.successPopup button:hover, .failPopup button:hover {
+    color: #fff;
+    outline: none;
+    background-position: -2px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.successPopup a, .failPopup a {
+    color: rgb(51, 51, 51); 
+    text-decoration: none;
+    font-size: 18px;
+    transition-duration: 0.5s;
+}
+
+.successPopup a:hover, .failPopup a:hover {
+    color: rgb(255, 255, 255); 
+}
+
+.successPopup h3, .failPopup h3 {
+    color: rgb(51, 51, 51); 
+    padding: 0px;
+    padding-top: 5px;
+    font-size: 20px;
+    text-align: center;
+    position: relative; 
+    top: -15px; 
+}
+
+.successPopup span {
+    color: rgb(51, 51, 51);  
+    padding: 0px;
+    padding-right: 30px;
 }
 
  /*Charlies Stuff*/
@@ -89,3 +175,4 @@ html {
     box-shadow: -5px 5px 2px rgba(0,0,0,0.4);
     text-shadow: -5px 5px 2px rgba(0,0,0,0.4);
 }
+

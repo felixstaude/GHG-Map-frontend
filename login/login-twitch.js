@@ -66,9 +66,9 @@ async function loginSuccess() {
     const responseElement = document.createElement('div');
     responseElement.classList.add('successPopup');
     responseElement.innerHTML=`
-        <h3>Login als <i>${username}</i> erfolgreich</h3>
-        <p>hier kann nach Belieben ein Popup erstellt werden, das kommt, wenn login successful <a href="../map">👍</a></p>
-        <a href="../">Zurück zur Startseite</a>
+            <h3>Login als <i>${username}</i> erfolgreich</h3>
+            <span><button><a href="../map">Zur Map</a></button></span>
+            <button><a href="../">Zurück zur Startseite</a></button>
         `;
     let parent = document.getElementById('wrapper')
     parent.appendChild(responseElement);
@@ -78,9 +78,8 @@ function loginFail() {
     const responseElement = document.createElement('div');
     responseElement.classList.add('failPopup');
     responseElement.innerHTML=`
-        <h3>Login fehlgeschlagen</h3>
-        <p>hier kann nach Belieben ein Popup erstellt werden, das kommt, wenn user abgelehnt hat :/</p>
-        <a href="../">Zurück zur Startseite</a>
+            <h3>Login fehlgeschlagen :/</h3>
+            <button><a href="../">Zurück zur Startseite</a></button>
         `;
     let parent = document.getElementById('wrapper')
     parent.appendChild(responseElement);

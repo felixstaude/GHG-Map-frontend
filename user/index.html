@@ -1,3 +1,91 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Map - Startseite</title>
+        <link rel="icon" type="image/png" href="../bastisticker-64x64.png">
+        <link rel="stylesheet" href="userStyles.css"/>
+        <link rel="stylesheet" href="../globalStyles.css"/>
+        <script src="userScript.js"></script>
+        <script src="../globalScript.js"></script>
+    </head>
+    <body>
+        <header>
+            <h3>BastiGHG Sticker Map</h3>
+        </header>
+
+        <main>
+            <div class="container">
+                <div class="userInfo contentBox">
+                    <img src="../bastistadt.png" class="userPfp" id="userPfp"/>
+                    <span class="userName" id="userName">username</span>
+                </div>
+                <div class="userPins contentBox">
+                    <h4>Pins von _username_</h4>
+                    <ul>
+                        <li><a href="../map/?lat=0.005&lng=10.007">
+                            <span id="pinName-1" class="pinName">Pin Name</span>
+                            <span id="pinCoords-1" class="pinCoords">lat: 51.163361, lng: 10.447683</span>
+                        </a>--link testen mit internet--</li>
+                    </ul>
+                </div>
+                <div class="userPictures contentBox">
+
+                </div>
+            </div>
+        </main>
+
+        <aside id="mySidenav" class="sidenav">
+            <a href="javascript:closeNav()" class="closebtn">&times;</a>
+            <a href="../" class="bastiSticker">&nbsp;</a>
+            <p>BastiGHG Sticker Map</p> 
+            <a href="../">Home</a>
+            <a href="../map">Map</a>
+            <a href="#">About</a>
+            <a id="loginLink" href="../login">Login</a>
+            <hr>
+            <a id="accountDetails" href=""></a>
+        </aside>
+        <a class="openNav" href="javascript:openNav()">&#9776;</a>
+
+        <footer>
+            <div class="footerMove" id="footerMove">
+                <hr class="footerTrennlinie" style="margin-top:0;"/>
+                <div>Dieses Projekt steht nicht in direkter Verbindung zu dem Twitch-Streamer BastiGHG, es ist ein Projekt aus der Community für die Community &#60;3</div>
+                <!--hr class="footerTrennlinie"/-->
+                <div>
+                    Hauptsächlich verantwortlich sind
+                    <span class="likeALink creatorLink" id="felixLink">
+                        TheEpicFlexo
+                        <div class="createrPopup" id="felixPopup">
+                            <a href="https://github.com/felixstaude">GitHub</a><br/>
+                            <a href="https://www.twitch.tv/theepicflexo">twitch</a>
+                        </div>
+                    </span>
+                    und
+                    <span class="likeALink creatorLink" id="bxrbeqLink">
+                        bxrbeq
+                        <div class="createrPopup" id="bxrbeqPopup">
+                            <a href="https://github.com/bxrbeq">GitHub</a><br/>
+                            <a href="https://www.twitch.tv/bxrbeq">twitch</a>
+                        </div>
+                    </span>,
+                    ein besonderer Dank geht an
+                    <span class="likeALink  creatorLink" id="charlieLink">
+                        Charlieluchsini
+                        <div class="createrPopup" id="charliePopup">
+                            <a href="https://github.com/charlieluchsin">GitHub</a><br/>
+                            <a href="https://www.twitch.tv/charlieluchsini">twitch</a>
+                        </div>
+                    </span>
+                </div>
+                <!--hr class="footerTrennlinie"/-->
+                <div><a href="https://github.com/felixstaude/GHG-Map" class="leadingAway"> GitHub</a></div>
+            </div>
+        </footer>
+    </body>
+</html>
 <!--
  - site for each user to see any pin
  - if user of current site is logged in, will be able to manage own pins

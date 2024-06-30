@@ -10,17 +10,18 @@ window.addEventListener('load', async function() {
     let width = window.innerWidth;
     let factor = width / 3.5;
     
+    //set size of backgound for nav elements
+    map.style.backgroundSize = `${factor}%`;
+    login.style.backgroundSize = `${factor}%`;
+    search.style.backgroundSize = `${factor}%`;
+    setBGOffset(map,login,search);
+
     let accessToken = localStorage.getItem('accessToken');
 
     if (accessToken) {
         const data = await validateToken(accessToken);
         loginEl.textContent = `Hallo ${data.login}`;
     }
-    //set size of backgound for nav elements
-    map.style.backgroundSize = `${factor}%`;
-    login.style.backgroundSize = `${factor}%`;
-    search.style.backgroundSize = `${factor}%`;
-    setBGOffset(map,login,search);
 
     //  --  hover effect for navigation buttons
     //make nav white on hover
@@ -110,7 +111,6 @@ window.addEventListener('load', async function() {
 });
 
 function setPosition(x) {
-    let move = document.getElementById('footerMove');
     let link = document.getElementById(`${x}Link`);
     let posX = link.offsetWidth / 2 - 50; // margin to left
     let posY = link.offsetHeight; // margin to bottom from top edge

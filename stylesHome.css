@@ -89,7 +89,8 @@ main {
     margin: auto;
     line-height: 100px;
     text-align: center;
-    color: #000;
+    color: #fff;
+    text-shadow: 0px 0px 5px #909;
     font-weight: 900;
     font-size:25px;
     backdrop-filter: blur(5px);

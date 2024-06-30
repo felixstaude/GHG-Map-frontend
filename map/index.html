@@ -41,7 +41,15 @@
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <script src="https://unpkg.com/dropzone/dist/dropzone.js"></script>
         <script>
-            const map = L.map('map').setView([51.163361, 10.447683], 7);
+            let lat = (51.163361);
+            let lng = (10.447683);
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.size > 0) {
+                lat = urlParams.get('lat')*1;
+                lng = urlParams.get('lng')*1;
+            }
+            console.log(urlParams);
+            const map = L.map('map').setView([lat, lng], 7);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19

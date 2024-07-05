@@ -26,6 +26,14 @@ window.addEventListener('load', async (e) => {
     // get hash if given in url
     let hash = window.location.hash.substring(1);
 
+    let accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+        let valid = await validateToken(accessToken);
+        if (valid.valid) {
+            loadingCircle('start');
+            loginSuccess();
+        }
+    }
 
     if (hash) {
         loadingCircle('start');
@@ -39,12 +47,6 @@ window.addEventListener('load', async (e) => {
         } else if (response.access_token === 'access_denied') {
             loginFail();
         }
-    }
-    
-    let valid = await validateToken(localStorage.getItem('accessToken'));
-    if (valid.valid) {
-        loadingCircle('start');
-        loginSuccess();
     }
 });
 
@@ -64,11 +66,14 @@ async function loginSuccess() {
     loadingCircle(username);
         
     const responseElement = document.createElement('div');
-    responseElement.classList.add('successPopup');
+    responseElement.className = 'popup success';
     responseElement.innerHTML=`
             <h3>Login als <i>${username}</i> erfolgreich</h3>
-            <span><button><a href="../map">Zur Map</a></button></span>
-            <button><a href="../">Zurück zur Startseite</a></button>
+            <div>
+                <span><a href="../map">Map</a></span>
+                <span><a href="../">Startseite</a></span>
+            </div>
+            <span><a class="logout" onclick="logout()">Abmelden</a></span>
         `;
     let parent = document.getElementById('wrapper')
     parent.appendChild(responseElement);
@@ -76,16 +81,16 @@ async function loginSuccess() {
 
 function loginFail() {
     const responseElement = document.createElement('div');
-    responseElement.classList.add('failPopup');
+    responseElement.className = 'popup fail';
     responseElement.innerHTML=`
             <h3>Login fehlgeschlagen :/</h3>
-            <button><a href="../">Zurück zur Startseite</a></button>
+            <div><a href="../">Zurück zur Startseite</a></div>
         `;
     let parent = document.getElementById('wrapper')
     parent.appendChild(responseElement);
 }
 
-function loadingCircle(x) { // Platz um eine Ladeschnecke einzubauen, die user zeigt, dass weitere Daten geladen werden
+function loadingCircle(x) { // Ladeschnecke, die user zeigt, dass weitere Daten geladen werden
     if (x === 'start') {
         const loadingElement = document.createElement('div');
         loadingElement.classList.add('loadingCircle');
@@ -95,5 +100,26 @@ function loadingCircle(x) { // Platz um eine Ladeschnecke einzubauen, die user z
         parent.appendChild(loadingElement);
     } else if (x) {
         document.getElementById('loadingWrapper').remove();
+    }
+}
+
+async function logout() {
+    let clientId = 'aof6xcm9xha35dqsm087mqowout2p6';
+    let accessToken = encodeURIComponent(localStorage.getItem('accessToken'));
+    let bodyString = `client_id=${clientId}&token=${accessToken}`;
+    console.log(bodyString)
+
+    const response = fetch('https://id.twitch.tv/oauth2/revoke', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: bodyString
+    });
+    let challenge = await response.ok;
+    if (challenge) {
+        localStorage.clear();
+        sessionStorage.clear();
+        location.reload();
     }
 }

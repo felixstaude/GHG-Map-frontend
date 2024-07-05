@@ -5,7 +5,6 @@ async function validateToken(x) {
     let time = new Date().getTime();
     let lastValidation = sessionStorage.getItem('lastValidation')
 
-
     if (((lastValidation + 300000) < time) || !lastValidation) {
         try {
             const response = await fetch('https://id.twitch.tv/oauth2/validate', {
@@ -81,7 +80,7 @@ window.addEventListener('load', async (e)=> {
                 throw error;
             }
         }
-    } else {
+    }/* else {
         let loginPref = localStorage.getItem('loginPref');
 
         if (loginPref === null) {
@@ -92,7 +91,7 @@ window.addEventListener('load', async (e)=> {
                 localStorage.setItem('loginPref', false);
             }
         }
-    }
+    }*/
 });
 
 

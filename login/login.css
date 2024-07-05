@@ -14,97 +14,61 @@
     100%{transform: rotate(360deg)}
 }
 
-/*Charlies Login-popup designs*/
-.successPopup {
+/*Charlies Login-popup designs (war fr chalie, ich hab nur den code ordentlich gemacht)*/
+.popup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background: white;
     padding: 10px;
     padding-top: 0px;
     margin: 20px;
     box-shadow: 0 0 10px rgba(51, 51, 51, 0.7);
     width: 380px;
-    height: 80px;
     border-radius: 8px;
 }
 
-.failPopup {
-    background: white;
-    padding: 10px;
-    padding-top: 0px;
-    margin: 20px;
-    box-shadow: 0 0 10px rgba(51, 51, 51, 0.7);
-    width: 300px;
-    height: 80px;
-    border-radius: 8px;
-}
-
-.successPopup button {
-    padding: 5px;
-    position: relative; 
-    top: -20px; 
-    left: 40px; 
-
-    border: 2px solid transparent;
-    border-radius: 3px;
-
-    background-color: transparent;
-    background-image: linear-gradient(to right, #909 33.33%, transparent 66.67%);
-    background-size: calc(300% + 4px); 
-    background-position: calc(100% + 2px);
-
-    transition-duration: 0.5s;
-}
-
-.failPopup button {
-    padding: 5px;
-    position: relative; 
-    top: -20px; 
-    left: 60px; 
-
-    
-    border: 2px solid transparent;
-    border-radius: 3px;
-
-    background-color: transparent;
-    background-image: linear-gradient(to right, #909 33.33%, transparent 66.67%);
-    background-size: calc(300% + 4px); 
-    background-position: calc(100% + 2px);
-
-    transition-duration: 0.5s;
-}
-
-.successPopup button:hover, .failPopup button:hover {
-    color: #fff;
-    outline: none;
-    background-position: -2px;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.successPopup a, .failPopup a {
-    color: rgb(51, 51, 51); 
-    text-decoration: none;
-    font-size: 18px;
-    transition-duration: 0.5s;
-}
-
-.successPopup a:hover, .failPopup a:hover {
-    color: rgb(255, 255, 255); 
-}
-
-.successPopup h3, .failPopup h3 {
+.popup h3 {
     color: rgb(51, 51, 51); 
     padding: 0px;
     padding-top: 5px;
     font-size: 20px;
     text-align: center;
-    position: relative; 
-    top: -15px; 
 }
 
-.successPopup span {
-    color: rgb(51, 51, 51);  
-    padding: 0px;
-    padding-right: 30px;
+.popup span {
+    padding: 5px;
+    margin: 2px 0;
+    display: inline-block;
+
+    border-radius: 3px;
+    color: rgb(51, 51, 51); 
+
+    background-color: transparent;
+    background-image: linear-gradient(to right, #909 33.33%, transparent 66.67%);
+    background-size: 300%; 
+    background-position: 100%;
+
+    transition: color 0.3s linear 0.2s, background-position 0.5s ease-in-out;
+}
+
+.popup a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.logout {
+    color: rgb(102, 102, 102) !important;
+    font-size: 15px !important;
+}
+
+.popup span:hover, .logout:hover {
+    color: #fff !important;
+    outline: none;
+    background-position: 0;
+    cursor: pointer;
+    text-decoration: none;
 }
 
  /*Charlies Stuff*/

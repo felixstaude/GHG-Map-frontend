@@ -21,10 +21,12 @@
             <a href="../" class="sidenav909">Home</a>
             <a href="../map" class="sidenav909">Map</a>
             <a href="#" class="sidenav909">About</a>
-            <a id="getPositionEl" href="javascript:getPosition()" class="sidenav909">Meine Position</a>
-            <a id="loginLink" href="../login" class="sidenav909">Login</a>
+            <hr/>
+            <a id="getPositionEl" class="sidenav909">Meine Position</a>
+            <a id="manuelPositionEl" class="sidenav909">Koords eingeben</a>
             <hr>
-            <a id="accountDetails" class="sidenav909" href=""></a>
+            <a id="loginLink" href="../login" class="sidenav909">Login</a>
+            <a id="accountDetails" class="sidenav909" href="../login"></a>
         </aside>
         <a class="openNav" href="javascript:openNav()">&#9776;</a>
 
@@ -49,7 +51,6 @@
                 lat = urlParams.get('lat')*1;
                 lng = urlParams.get('lng')*1;
             }
-            console.log(urlParams);
             const map = L.map('map').setView([lat, lng], 7);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -121,9 +122,15 @@
             async function loadPins() {
                 const response = await fetch('http://localhost:8080/api/pin/get/all');
                 const pins = await response.json();
+                let bastiIcon = L.icon({
+                    iconUrl: '../bastisticker-64x64.png',
+                    iconSize: [16, 16],
+                    iconAnchor: [8, 8],
+                    popupAnchor: [0, -8]
+                });
 
                 pins.forEach(pin => {
-                    L.marker([pin.lat, pin.lng])
+                    L.marker([pin.lat, pin.lng], {icon:bastiIcon})
                         .addTo(map)
                         .bindPopup(`<b>${pin.description}</b><br><img src="${pin.imageUrl}" width="100" />`);
                 });

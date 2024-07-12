@@ -19,7 +19,7 @@ window.addEventListener('load', async (e) => {
         &client_id=${clientId}
         &redirect_uri=${redirectUri}
         &scope=${scope}
-        &state=${state}`.replace(/\s/g, "");;
+        &state=${state}`.replace(/\s/g, "");
 
     document.getElementById('twitchConnection').href = linkToTwitch;
 
@@ -30,13 +30,13 @@ window.addEventListener('load', async (e) => {
     if (accessToken) {
         let valid = await validateToken(accessToken);
         if (valid.valid) {
-            loadingCircle('start');
+            let parent = document.getElementById('wrapper');
+            loadingCircle('start', parent);
             loginSuccess();
         }
-    }
-
-    if (hash) {
-        loadingCircle('start');
+    } else if (hash != 'logoutSuccess' && hash.length > 0) {
+        let parent = document.getElementById('wrapper');
+        loadingCircle('start', parent);
         let response = Object.fromEntries(new URLSearchParams(hash));
         let verifyUser = localStorage.getItem('state');
         
@@ -47,35 +47,36 @@ window.addEventListener('load', async (e) => {
         } else if (response.access_token === 'access_denied') {
             loginFail();
         }
+    } else if (hash === 'logoutSuccess') {
+        logoutSuccess();
     }
 });
 
 async function loginSuccess() {
-    window.location.hash = '';
+    //window.location.hash = '';
     document.getElementById('twitchConnection').remove();
 
     let accessToken = localStorage.getItem('accessToken');
     const loginData = await validateToken(accessToken);
     let rTT = onladTime + loginData.expires_in; //renew token time in ms
 
-    localStorage.setItem('username', loginData.login)
-    localStorage.setItem('userId', loginData.user_id)
-    localStorage.setItem('renewLogin', rTT)
+    localStorage.setItem('username', loginData.login);
+    localStorage.setItem('userId', loginData.user_id);
+    localStorage.setItem('renewLogin', rTT);
 
     let username = loginData.login;
-    loadingCircle(username);
         
+    loadingCircle();
     const responseElement = document.createElement('div');
     responseElement.className = 'popup success';
     responseElement.innerHTML=`
             <h3>Login als <i>${username}</i> erfolgreich</h3>
             <div>
-                <span><a href="../map">Map</a></span>
-                <span><a href="../">Startseite</a></span>
+                <a href="../map">Map</a>
+                <a href="../">Startseite</a>
             </div>
-            <span><a class="logout" onclick="logout()">Abmelden</a></span>
-        `;
-    let parent = document.getElementById('wrapper')
+            <a class="logout" onclick="logout()">Abmelden</a>`;
+    let parent = document.getElementById('wrapper');
     parent.appendChild(responseElement);
 }
 
@@ -84,23 +85,28 @@ function loginFail() {
     responseElement.className = 'popup fail';
     responseElement.innerHTML=`
             <h3>Login fehlgeschlagen :/</h3>
-            <div><a href="../">Zurück zur Startseite</a></div>
+            <div>
+                <a href="../map">Map</a>
+                <a href="../">Startseite</a>
+            </div>
         `;
     let parent = document.getElementById('wrapper')
     parent.appendChild(responseElement);
+    loadingCircle();
 }
 
-function loadingCircle(x) { // Ladeschnecke, die user zeigt, dass weitere Daten geladen werden
-    if (x === 'start') {
-        const loadingElement = document.createElement('div');
-        loadingElement.classList.add('loadingCircle');
-        loadingElement.setAttribute('id', 'loadingWrapper')
-        loadingElement.innerHTML='&nbsp;';
-        let parent = document.getElementById('wrapper')
-        parent.appendChild(loadingElement);
-    } else if (x) {
-        document.getElementById('loadingWrapper').remove();
-    }
+function logoutSuccess() {
+    window.location.hash = '';
+    const responseElement = document.createElement('div');
+    responseElement.className = 'popup success';
+    responseElement.innerHTML=`
+            <h3>Logout Erfolgreich</h3>
+            <div>
+                <a href="../map">Map</a>
+                <a href="../">Startseite</a>
+            </div>        `;
+    let parent = document.getElementById('wrapper')
+    parent.appendChild(responseElement);
 }
 
 async function logout() {
@@ -109,17 +115,21 @@ async function logout() {
     let bodyString = `client_id=${clientId}&token=${accessToken}`;
     console.log(bodyString)
 
-    const response = fetch('https://id.twitch.tv/oauth2/revoke', {
+    const response = await fetch('https://id.twitch.tv/oauth2/revoke', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: bodyString
     });
-    let challenge = await response.ok;
+    //const data = await response.json();
+    console.log(response.ok);
+
+    let challenge = response.ok;
     if (challenge) {
         localStorage.clear();
         sessionStorage.clear();
-        location.reload();
+        window.location.hash = 'logoutSuccess';
+        window.location.reload();
     }
 }

@@ -1,6 +1,7 @@
 body {
     position: relative;
     height:100vh;
+    width: 100vw;
     margin:0;
     padding:0;
     overflow: hidden;
@@ -47,88 +48,106 @@ header {
 
 
 
-main {
-    position:relative;
-    height:100%;
-    background-color:aqua;
-}
-
-.userPfp {
-    width: 61px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-}
-
-.userName {
-    display:inline-block;
-    margin-left: 5px;
-}
-
-.container {
+main {    
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: -15px;
+    height: 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('../sticker.jpg');
+    background-position: center;
+    background-blend-mode: multiply;
+    background-size: cover !important;
 }
 
-
-
-footer {
-    position: absolute;
-    padding-top:0;
-    padding-bottom:0;
-    bottom:0;
-    background-color: transparent;
-}
-
-.footerMove {
-    height: fit-content;
+.contentBox {
     background-color: #fff;
-    width: 100%;
-    transition-duration: 0.3s;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(51,51,51,0.7);
+    margin-top: 10px;
+    padding: 10px;
 }
 
-.footerTasty {
-    margin-top: 0 !important;
+.contentBox h4 {
+    margin-top: 20px;
+    margin-bottom: 0;
+    height: 20px;
 }
 
-.footerTrennlinie {
-    width: 100%;
-    height: 3px;
-    background: radial-gradient(circle at top right, #909, transparent),
-                radial-gradient(circle at bottom left, #9146FF, #fff);
-    border:0;
-    border-radius: 5px;
-    box-shadow: -2px 2px 2px #9146FF, 2px -2px 2px #909;
+.userInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding:0;
+    border-radius: 30px 10px 10px 30px;
+    font-size: 25px;
+    height: 32px;
 }
 
-.creatorLink {
+.userPfp {
+    height: 32px;
+    border-radius: 50%;
+}
+
+.userPins {
     position: relative;
-    display: inline-block;
+    width: 750px;
+    max-width: 75vw;
+    max-height: calc(50% - 82px);
 }
 
-.creatorLink:hover {
-    color: inherit;
-    cursor: pointer;
+.pinListWrapper {
+    height: calc(100% - 40px);
+    overflow-y: scroll;
 }
 
-.createrPopup {
+.pinList li {
+    position: relative;
+    padding: 5px;
+    padding-left: 20px;
+}
+
+.pinList li::before {
+    content: "";
+    display: block;
     position: absolute;
-    width: 100px;
-    max-height: 0;
-    color: transparent;
-    text-shadow: none;
-    backdrop-filter: blur(5px);
+    left:0;
+    width: 16px;
+    height: 16px;
+    background-image: url('../bastisticker-64x64.png'); /* Pfad zu deinem Bild */
+    background-size: contain; /* Passt das Bild in die Größe des Markers ein */
+}
+
+.userPictures {
+    width: 750px;
+    max-width: 75vw;
+    height: calc(50% - 82px);
+    max-height: 750px;
+}
+
+.picturesDraggableSlider {
+    display: flex;
+    flex-direction: row;
+    height: calc(100% - 40px);
+    width: 100%;
+    border-radius: 5px;;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    cursor: grab;
+}
+
+.picturesDraggableSlider::-webkit-scrollbar {
+    display: none;
+}
+
+.picturesDraggableSlider img {
+    height: 100%;
     border-radius: 5px;
-    transition: color 0.2s ease-in-out, text-shadow 0.2s ease-in-out, max-height 0.2s ease-in-out 0.2s;
-}
 
-.createrPopup a {
-    color: inherit;
-}
-
-.creatorLink:hover .createrPopup {
-    color: initial;
-    text-shadow: inherit;
-    max-height: 200px;
-    transition: max-height 0.5s ease-in-out, color 0.2s ease-in-out 0.2s, text-shadow 0.2s ease-in-out 0.2s;
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }

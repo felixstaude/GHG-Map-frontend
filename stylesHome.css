@@ -101,6 +101,10 @@ main {
     color: rgb(77, 19, 158);
 }
 
+.loadingCircle {
+    margin: auto;
+}
+
 .searchElement {
     position: absolute;
     top: 1px;

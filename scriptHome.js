@@ -19,6 +19,8 @@ window.addEventListener('load', async function() {
     let accessToken = localStorage.getItem('accessToken');
 
     if (accessToken) {
+        loginEl.innerHTML = '';
+        loadingCircle('start', loginEl)
         const data = await validateToken(accessToken);
         loginEl.textContent = `Hallo ${data.login}`;
     }
@@ -112,9 +114,11 @@ window.addEventListener('load', async function() {
             searchAlertText.textContent = '';
         }
 
-        const input = document.getElementById('searchBox').value;
+        let input = document.getElementById('searchBox').value;
+        let correctedInput = input.toLowerCase().replace(/\W/, '');
+        document.getElementById('searchBox').value = correctedInput;
 
-        if (input.length > 0) { // hide text in teh background
+        if (input.length > 0) { // hide text in the background
             lable.classList.add('searchnoLabel');        
         } else {
             lable.classList.remove('searchnoLabel');        
@@ -130,7 +134,10 @@ window.addEventListener('load', async function() {
 
     async function searchUserOnPage() {
         console.log('searching...')
-        let user = document.getElementById('searchBox').value;
+        let input = document.getElementById('searchBox').value;
+        let user = input.replace(' ', '');
+        input = user.toLowerCase();
+
         let verifyInput = user.split('').length > 0; // verify input
         let alertBox = document.getElementById('searchAlert');
         let searchAlertText = document.getElementById('searchAlertText');
@@ -163,7 +170,7 @@ window.addEventListener('load', async function() {
                     
                     // send id to backend end verify user has pins
                     //alertBox.className = 'searchAlertSuccess';
-                    //searchAlertText.innerHTML = `<a href="/user/u#${user}" style="color:#00ff00;width:100%;heigth:100%;">${user}</a>`; // link erstellen
+                    //searchAlertText.innerHTML = `<a href="/user#${user}" style="color:#00ff00;width:100%;heigth:100%;">${user}</a>`; // link erstellen
                 } else {
                     alertBox.className = 'searchAlertError';
                     searchAlertText.textContent = `${user} konnte nicht gefunden werden`; // user has no twitch account

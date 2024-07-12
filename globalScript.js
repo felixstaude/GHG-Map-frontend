@@ -3,9 +3,12 @@ let lastValidation = sessionStorage.getItem('lastValidation')
 
 async function validateToken(x) {
     let time = new Date().getTime();
-    let lastValidation = sessionStorage.getItem('lastValidation')
+    let lastValidation = sessionStorage.getItem('lastValidation');
+    let renewLogin = localStorage.getItem('renewLogin');
+    let testtext = `1:${((lastValidation + 300000) < time)} | 2:${!lastValidation} | 3:${renewLogin < time}`;
+    console.log('%c' + testtext, 'color:#000;background-color:#fff; border-radius:3px;padding:1px')
 
-    if (((lastValidation + 300000) < time) || !lastValidation) {
+    if (((lastValidation + 300000) < time) || !lastValidation || renewLogin < time) {
         try {
             const response = await fetch('https://id.twitch.tv/oauth2/validate', {
                 method: 'GET',
@@ -24,8 +27,9 @@ async function validateToken(x) {
             }
 
             const data = await response.json();
-            data.valid= true;
+            data.valid = true;
             localStorage.setItem('userdata', JSON.stringify(data));
+            localStorage.setItem('renewLogin', (data.expires_in + new Date().getTime()));
             return data;
 
         } catch (error) {
@@ -72,7 +76,6 @@ window.addEventListener('load', async (e)=> {
                     ppImg.src = data.data[0].profile_image_url;
                     ppImg.classList.add('userPofilepicture');
 
-                    accountDetails.href = `http://localhost:8080/user#${localStorage.getItem('username')}`
                     accountDetails.innerHTML = `&nbsp;${localStorage.getItem('username')}`;
                     accountDetails.appendChild(ppImg);
                 }
@@ -103,4 +106,16 @@ function openNav() {
   
 function closeNav() {
     document.getElementById("mySidenav").style.right = "-270px";
+}
+
+function loadingCircle(x, parent) { // Ladeschnecke, die user zeigt, dass weitere Daten geladen werden
+    if (x === 'start') {
+        const loadingElement = document.createElement('div');
+        loadingElement.classList.add('loadingCircle');
+        loadingElement.setAttribute('id', 'loadingWrapper')
+        loadingElement.innerHTML='&nbsp;';
+        parent.appendChild(loadingElement);
+    } else {
+        document.getElementById('loadingWrapper').remove();
+    }
 }

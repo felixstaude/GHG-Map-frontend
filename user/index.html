@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Map - Startseite</title>
+        <link rel="icon" type="image/png" href="../bastisticker-64x64.png">
+        <link rel="stylesheet" href="userStyles.css"/>
+        <link rel="stylesheet" href="../globalStyles.css"/>
+        <script src="userScript.js"></script>
+        <script src="../globalScript.js"></script>
+    </head>
+    <body>
+        <header>
+            <h3>BastiGHG Sticker Map</h3>
+        </header>
+
+        <main>
+            <div class="userInfo contentBox" id="userInfo">
+                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/6babb794-5371-4f0b-99b8-99777a95cabc-profile_image-300x300.png" class="userPfp" id="userPfp"/>
+                &nbsp;<span class="userName" id="userName">Username</span>&nbsp;
+            </div>
+            <div class="userPins contentBox" id="userPins">
+                <h4>Pins von <span class="userName">Username</span></h4>
+                <div class="pinListWrapper"><ol class="pinList" id="pinList"> <!-- content from api below -->
+                    <li>
+                        <span id="pinName-1" class="pinName">Pin Name</span>:
+                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-1" class="pinCoords">51.163361, 10.447683</span></a>
+                    </li>
+                    <li>
+                        <span id="pinName-1" class="pinName">Pin Name</span>:
+                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-1" class="pinCoords">51.163361, 10.447683</span></a>
+                    </li>
+                    <li>
+                        <span id="pinName-1" class="pinName">Pin Name</span>:
+                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-1" class="pinCoords">51.163361, 10.447683</span></a>
+                    </li>
+                    <li>
+                        <span id="pinName-1" class="pinName">Pin Name</span>:
+                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-1" class="pinCoords">51.163361, 10.447683</span></a>
+                    </li>
+                    <li>
+                        <span id="pinName-1" class="pinName">Pin Name</span>:
+                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-1" class="pinCoords">51.163361, 10.447683</span></a>
+                    </li>
+                    <li>
+                        <span id="pinName-1" class="pinName">Pin Name</span>:
+                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-1" class="pinCoords">51.163361, 10.447683</span></a>
+                    </li>
+                    <li>
+                        <span id="pinName-1" class="pinName">Pin Name</span>:
+                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-1" class="pinCoords">51.163361, 10.447683</span></a>
+                    </li>
+                    <li>
+                        <span id="pinName-1" class="pinName">Pin Name</span>:
+                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-1" class="pinCoords">51.163361, 10.447683</span></a>
+                    </li>
+                    <li>
+                        <span id="pinName-1" class="pinName">Pin Name</span>:
+                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-1" class="pinCoords">51.163361, 10.447683</span></a>
+                    </li>
+                    <li>
+                        <span id="pinName-1" class="pinName">Pin Name</span>:
+                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-1" class="pinCoords">51.163361, 10.447683</span></a>
+                    </li>
+                </ol></div>
+            </div>
+            <div class="userPictures contentBox" id="userPictures">
+                <h4>Bilder von <span class="userName">Username</span></h4>
+                <div class="picturesDraggableSlider" id="picturesDraggableSlider"> <!-- content from api below -->
+                    <img src="../sticker.jpg"/>
+                    <img src="../sticker.jpg"/>
+                    <img src="../sticker.jpg"/>
+                    <img src="../sticker.jpg"/>
+                </div>
+            </div>
+        </main>
+
+        <aside id="mySidenav" class="sidenav">
+            <a href="javascript:closeNav()" class="closebtn"><div class="wegklicken">&times;</div></a>
+            <a href="../" class="bastiSticker">&nbsp;</a>
+            <p>BastiGHG Sticker Map</p>
+            <a href="../" class="sidenav909">Home</a>
+            <a href="../map" class="sidenav909">Map</a>
+            <a href="#" class="sidenav909">About</a>
+            <hr/>
+            <a id="getPositionEl" class="sidenav909">Meine Position</a>
+            <a id="manuelPositionEl" class="sidenav909">Koords eingeben</a>
+            <hr>
+            <a id="loginLink" href="../login" class="sidenav909">Login</a>
+            <a id="accountDetails" class="sidenav909" href="../login"></a>
+        </aside>
+        <a class="openNav" href="javascript:openNav()">&#9776;</a>
+
+    </body>
+</html>
+<!--
+ - site for each user to see any pin
+ - if user of current site is logged in, will be able to manage own pins
+ - get current user via hash
+-->

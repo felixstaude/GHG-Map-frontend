@@ -29,6 +29,11 @@ window.addEventListener('load', (e) => {
     /*if (e.currentTarget.clientInformation.userAgentData.platform = 'Windows') {
         document.getElementById('getPositionEl').remove();
     }*/
+    document.getElementById('getPositionEl').addEventListener('click', getPosition);
+    document.getElementById('manuelPositionEl').addEventListener('click', (e) => {
+        const error = {code: 69};
+        showError(error); //kein error aber damit code nicht doppelt ist
+    })
 });
 
 
@@ -41,7 +46,7 @@ window.addEventListener('load', (e) => {
     let defaultValue = '51.163361,10.447683'
 
     let coords;
-    if (Snavigator.geolocation) {
+    if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError, options);
     } else {
         coords = window.prompt(message, defaultValue);
@@ -49,7 +54,7 @@ window.addEventListener('load', (e) => {
         let lan = coords.split(',')[1];
     
         const position = {"coords": {"latitude": lat, "longitude": lan}}
-        showPosition(position)
+        showPosition(position, 'Du bist gerade ungefähr hier')
     }
 }
 
@@ -59,16 +64,18 @@ function showPosition(position, msg) {
     const longitude = position.coords.longitude;
     
     // Update the map view to the current position
-    map.flyTo([latitude, longitude], 18);
+    map.flyTo([latitude, longitude], 15);
     
     // add a marker to the current position
-    L.marker([latitude, longitude]).addTo(map)
-        .bindPopup('Du bist gerade hier').openPopup();
+    L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup(msg)
+        .openPopup();
 }
 
 // Function to handle geolocation errors
 function showError(error) {
-    let message = ', du kannst deine Coords jedoch auch hier eintragen. Bitte tage es so ein, wie es das Beispiel zeigt:';
+    let message = ', du kannst deine Coords jedoch auch hier eintragen. Bitte trage sie so ein, wie es das Beispiel zeigt:';
     let defaultValue = '51.163361,10.447683'
     let coords;
     switch(error.code) {
@@ -84,10 +91,13 @@ function showError(error) {
         case error.UNKNOWN_ERROR:
             coords = window.prompt('Ein unbekannter Fehler ist aufgetreten. Versuche es später erneut' + message, defaultValue);
             break;
+        case 69:
+            coords = window.prompt('Bitte trage sie so ein, wie es das Beispiel zeigt:', defaultValue)
+            break;
     }
     let lat = coords.split(',')[0];
     let lan = coords.split(',')[1];
 
     const position = {"coords": {"latitude": lat, "longitude": lan}}
-    showPosition(position)
+    showPosition(position, 'Hier ist der Ort, den du suchst')
 }

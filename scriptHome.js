@@ -31,7 +31,7 @@ window.addEventListener('load', async function() {
     login.addEventListener('mouseover', (e) => (navHover(e,loginEl,'#fff', 'transparent')))
     search.addEventListener('mouseover', (e) => (navHover(e,searchEl,'#fff', 'transparent')))
     
-    //make nav bg back to transparent/bg-image 
+    //make nav bg back to transparent/bg-image
     map.addEventListener('mouseout', (e) => (navHover(e,mapEl,'transparent','#fff')))
     login.addEventListener('mouseout', (e) => (navHover(e,loginEl,'transparent','#fff')))
     search.addEventListener('mouseout', (e) => (navHover(e,searchEl,'transparent','#fff')))

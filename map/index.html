@@ -15,7 +15,7 @@
     <body>
      <div id="map"></div>
         <aside id="mySidenav" class="sidenav">
-            <a href="javascript:closeNav()" class="closebtn"><div class="wegklicken">&times;</div></a>
+            <a href="javascript:closeNav()" class="closebtn">&times;</a>
             <a href="../" class="bastiSticker">&nbsp;</a>
             <p>BastiGHG Sticker Map</p>
             <a href="../" class="sidenav909">Home</a>
@@ -46,12 +46,14 @@
         <script>
             let lat = (51.163361);
             let lng = (10.447683);
+            let zoom = 7;
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.size > 0) {
                 lat = urlParams.get('lat')*1;
                 lng = urlParams.get('lng')*1;
+                zoom = urlParams.get('zoom')*1;
             }
-            const map = L.map('map').setView([lat, lng], 7);
+            const map = L.map('map').setView([lat, lng], zoom);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19

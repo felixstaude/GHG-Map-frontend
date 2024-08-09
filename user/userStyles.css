@@ -85,6 +85,7 @@ main {
 }
 
 .userPfp {
+    margin-left: -0.5px;
     height: 32px;
     border-radius: 50%;
 }
@@ -140,9 +141,17 @@ main {
     display: none;
 }
 
+.imgName {
+    position: absolute;
+    bottom:0;
+    left: 2px;
+    text-shadow: 0 0 3px #fff;
+}
+
 .picturesDraggableSlider img {
     height: 100%;
     border-radius: 5px;
+    margin-right: 5px;
 
     user-drag: none;
     -webkit-user-drag: none;

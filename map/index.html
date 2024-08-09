@@ -69,7 +69,7 @@
                             <input type="text" class="popupButtons" id="description" required />
                         </div>
                         <div class="wrapperDescription">
-                            <input type="file" class="popupButtons" id="image" accept="image/*" hidden required />
+                            <input type="file" class="popupButtons" id="image" accept=".png,.jpg" hidden required />
                             <label class="imageLabel" id="textPicture" for="image">Bild hochladen</label>
                         </div>
                         <div class="wrapperDescription">
@@ -96,14 +96,18 @@
                         const description = document.getElementById('description').value;
                         const imageFile = document.getElementById('image').files[0];
 
-                        const formData = {
+                        const formData = new FormData();
+
+                        const pin = JSON.stringify({
                             "lat": lat,
                             "lng": lng,
                             "description": description,
-                            "image": imageFile,
                             "user_id": localStorage.getItem('userId')
-                        }
-                        console.log(formData)
+                        });
+                        formData.append("json", pin);
+
+                        // Füge die Bilddatei hinzu
+                        formData.append("image", imageFile);
 
                         const response = await fetch('http://localhost:8080/api/pin/add', {
                             method: 'POST',
@@ -112,7 +116,7 @@
 
                         L.marker([formData.lat, formData.lng])
                             .addTo(map)
-                            .bindPopup(`<b>${formData.description}</b><br><img src="${formData.imageUrl}" width="100" />`);
+                            .bindPopup(`<b>${formData.description}</b><br><img src="${response.imageUrl}" width="100" />`);
                     } else {
                         console.log('nichts')
                     }

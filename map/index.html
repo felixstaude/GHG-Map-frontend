@@ -110,10 +110,9 @@
                             body: formData
                         });
 
-                        const pin = formData.json();
-                        L.marker([pin.lat, pin.lng])
+                        L.marker([formData.lat, formData.lng])
                             .addTo(map)
-                            .bindPopup(`<b>${pin.description}</b><br><img src="${pin.imageUrl}" width="100" />`);
+                            .bindPopup(`<b>${formData.description}</b><br><img src="${formData.imageUrl}" width="100" />`);
                     } else {
                         console.log('nichts')
                     }
@@ -122,7 +121,9 @@
 
             // Alle Pins laden und anzeigen
             async function loadPins() {
-                const response = await fetch('http://localhost:8080/api/pin/get/all');
+                const response = await fetch('http://localhost:8080/api/pin/get/all', {
+                    method: 'GET'
+                });
                 const pins = await response.json();
                 let bastiIcon = L.icon({
                     iconUrl: '../bastisticker-64x64.png',

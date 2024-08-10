@@ -21,7 +21,7 @@ body {
 }
 
 .leadingAway::before {
-    content: url('../img/linkArrow.webp');
+    content: url('../linkArrow.webp');
     padding: 0;
     margin:0;
 }
@@ -68,6 +68,15 @@ main {
     padding: 10px;
 }
 
+.pinBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width:90%;
+    max-height:calc(90% - 82px);
+    overflow:hidden;
+}
+
 .contentBox h4 {
     margin-top: 20px;
     margin-bottom: 0;
@@ -97,9 +106,11 @@ main {
     max-height: calc(50% - 82px);
 }
 
-.pinListWrapper {
-    height: calc(100% - 40px);
+.pinList {
+    list-style-image: none;
     overflow-y: scroll;
+    height: calc(100% - 20px);
+    margin-top: 20px;
 }
 
 .pinList li {
@@ -115,58 +126,26 @@ main {
     left:0;
     width: 16px;
     height: 16px;
-    background-image: url('../img/bastisticker-64x64.png'); /* Pfad zu deinem Bild */
-    background-size: contain; /* Passt das Bild in die Größe des Markers ein */
+    background-size: contain;
 }
 
-.userPictures {
-    width: 750px;
-    max-width: 75vw;
-    height: calc(50% - 82px);
-    max-height: 750px;
+.unapproved li::before {
+    background-image: url('../img/bastisticker-unapproved.png');
 }
 
-.picturesDraggableSlider {
-    display: flex;
-    flex-direction: row;
-    height: calc(100% - 40px);
-    width: 100%;
-    border-radius: 5px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    cursor: grab;
+.approved li::before {
+    background-image: url('../img/bastisticker-approved.png');
 }
 
-.picturesDraggableSlider::-webkit-scrollbar {
-    display: none;
+.approved, .unapproved {
+    position:relative;
 }
 
-.picturesDraggableSlider > div {
-    position: relative;
-    white-space: nowrap;
-    flex-shrink: 0;
-    width: auto;
-}
-
-.imgName {
-    position: absolute;
-    bottom: 0;
-    left: 2px;
-    text-shadow: 0 0 3px #fff;
-    pointer-events: none;
-}
-
-.picturesDraggableSlider img {
-    max-width:fit-content;
-    max-height:100%;
-    border-radius: 5px;
-    margin-right: 5px;
-
-    pointer-events: none;
-    user-drag: none;
-    -webkit-user-drag: none;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
+.approved h4, .unapproved h4 {
+    position:absolute;
+    background-image: linear-gradient(to bottom, #fff 80%, transparent 100%);
+    z-index: 3;
+    margin:5px auto;
+    width:100%;
+    text-align:center;
 }

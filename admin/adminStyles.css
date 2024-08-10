@@ -151,7 +151,8 @@ main {
     background-image: linear-gradient(to bottom, #fff 80%, transparent 100%);
     z-index: 3;
     margin:5px auto;
-    width:100%;
+    width:fit-content;
+    white-space: nowrap;
     text-align:center;
 }
 

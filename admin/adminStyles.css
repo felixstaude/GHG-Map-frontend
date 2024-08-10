@@ -149,3 +149,9 @@ main {
     width:100%;
     text-align:center;
 }
+
+.grau {
+    color: #444;
+    background-color: #bbb;
+    border-radius: 5px;
+}

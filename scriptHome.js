@@ -290,9 +290,9 @@ function test() {
     }, 600);
 }
 
-const { userAgent } = navigator
+/*const { userAgent } = navigator
 if (userAgent.includes('Firefox/')) {
     // Firefox
     console.log(`Firefox v${userAgent.split('Firefox/')[1]}`)
     window.alert('du benutzt mozilla. Die Seite ist optimal auf Chromium basierende Browser abgestimmt, was du bemerken wirst. Wenn etwas nicht funktioniert, melde es @bxrbeq oder benutzte einen anderen Browser.')
-}
+}*/

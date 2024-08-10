@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', async () =>{
             del.setAttribute('onclick', `decision('delete', 'DELETE, ${pin.pinId})`);
             del.classList.add('deletePin');
             del.innerHTML = '&nbsp;🪣';
-            
 
             const line = document.createElement('li');
             line.setAttribute('id', `pin-${pin}`);
@@ -44,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
 })
 
 async function decision(a, b, id) {
-    const response = await fetch(`http://localhost:8080/api/pin/admin/${b}?userId=${localStorage.userId}&pinId=${id}`, {
+    const response = await fetch(`http://localhost:8080/api/pin/admin/${a}?userId=${localStorage.userId}&pinId=${id}`, {
         method: b,
         headers: {'access_token': localStorage.accessToken}
     })

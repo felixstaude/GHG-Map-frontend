@@ -18,12 +18,12 @@ document.addEventListener('DOMContentLoaded', async () =>{
             link.textContent = pin.town;
             
             const app = document.createElement('div')
-            app.line.setAttribute('onclick', `decision('app',${pin.pinId})`);
+            app.setAttribute('onclick', `decision('app',${pin.pinId})`);
             app.classList.add('approvePin');
             app.textContent = '&nbsp;✔️';
 
             const del = document.createElement('div')
-            del.line.setAttribute('onclick', `decision('del', ${pin.pinId})`);
+            del.setAttribute('onclick', `decision('del', ${pin.pinId})`);
             del.classList.add('deletePin');
             del.textContent = '&nbsp;🪣';
             

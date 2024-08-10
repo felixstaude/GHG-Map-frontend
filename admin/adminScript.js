@@ -9,17 +9,20 @@ document.addEventListener('DOMContentLoaded', async () =>{
         })
         const data = await response.json()
         if (data.ok) {
-            data.pins.forEach(pin => {
+            data.pins.forEach(async pin => {
                 const line = document.createElement('li');
                 line.setAttribute('id', `pin-${pin.pinId}`);
 
                 const user = document.createElement('span');
                 let username = await getUsername(pin.userId);
-                user.textContent = username + ':';
+                user.textContent = username;
 
                 const title = document.createElement('a');
                 title.setAttribute('href', `http://localhost:8080/${pin.imagePath}`);
                 title.textContent = pin.description + ':';
+
+                const seperator = document.createElement('span');
+                seperator.innerHTML = "&nbsp;|&nbsp;";
 
                 const link = document.createElement('a');
                 link.setAttribute('href', `../map/?lat=${pin.lat}&lng=${pin.lng}&zoom=14`)
@@ -38,7 +41,9 @@ document.addEventListener('DOMContentLoaded', async () =>{
 
                 line.appendChild(user);
                 line.appendChild(title);
+                line.appendChild(seperator)
                 line.appendChild(link);
+                line.appendChild(seperator)
                 if(x === 'unapp') {
                     const app = document.createElement('span')
                     app.setAttribute('onclick', `decision('approve', 'POST' ,${pin.pinId})`);
@@ -46,6 +51,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
                     app.innerHTML = '&nbsp;✔️';
                     line.appendChild(app);
                 }
+                line.appendChild(seperator)
                 line.appendChild(del);
                 document.getElementById(`pinList-${x}`).appendChild(line);
             })

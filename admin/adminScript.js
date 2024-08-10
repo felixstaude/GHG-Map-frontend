@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', async () =>{
 
     //get pins
     async function createLists(x) {
-        const response = await fetch(`http://localhost:8080/api/pin/admin/${x}roved.json`, {
-        //const response = await fetch(`http://localhost:8080/api/pin/admin/all/${x}roved?userId=${localStorage.userId}`, {
+        //const response = await fetch(`http://localhost:8080/api/pin/admin/${x}roved.json`, {
+        const response = await fetch(`http://localhost:8080/api/pin/admin/all/${x}roved?userId=${localStorage.userId}`, {
                 method: 'GET',
             headers: {'access_token': localStorage.accessToken}
         })
@@ -72,7 +72,7 @@ async function decision(a, b, id) {
         let li = document.getElementById(`pin-${id}`);
         li.classList.add('grau');
         let app = li.children[3];
-        let del = li.children[2];
+        let del = li.children[4];
         app.remove();
         del.remove();
     }

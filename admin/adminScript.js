@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
             app.innerHTML = '&nbsp;✔️';
 
             const del = document.createElement('span')
-            del.setAttribute('onclick', `decision('delete', 'DELETE, ${pin.pinId})`);
+            del.setAttribute('onclick', `decision('delete', 'DELETE', ${pin.pinId})`);
             del.classList.add('deletePin');
             del.innerHTML = '&nbsp;🪣';
 

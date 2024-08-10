@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 user.textContent = username + ':';
 
                 const title = document.createElement('a');
-                link.setAttribute('href', `http://localhost:8080/${pin.imagePath}`);
+                title.setAttribute('href', `http://localhost:8080/${pin.imagePath}`);
                 title.textContent = pin.description + ':';
 
                 const link = document.createElement('a');

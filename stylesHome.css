@@ -20,7 +20,7 @@ body {
 }
 
 .leadingAway::before {
-    content: url('linkArrow.webp');
+    content: url('img/linkArrow.webp');
     padding: 0;
     margin:0;
 }
@@ -58,7 +58,7 @@ main {
     align-items: center;
     align-content: center;
     justify-content: space-around;
-    background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('sticker.jpg');
+    background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('img/sticker.jpg');
     background-position: center;
     background-blend-mode: multiply;
     background-size: cover !important;
@@ -77,7 +77,7 @@ main {
     margin: 5px 0;
     text-align: center;
     border-radius: 10px;
-    background-image: url('sticker.jpg');
+    background-image: url('img/sticker.jpg');
     background-position-y: center;
     overflow: hidden;
 }

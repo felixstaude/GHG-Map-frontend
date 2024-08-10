@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Map - Sticker Map</title>
-        <link rel="icon" type="image/png" href="../bastisticker-64x64.png">
+        <link rel="icon" type="image/png" href="../img/bastisticker-64x64.png">
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
         <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
         <link rel="stylesheet" href="style.css"/>
@@ -135,7 +135,7 @@
                 for (let pin in data) {
                     L.marker([data[pin].lat, data[pin].lng], {icon:bastiIcon})
                         .addTo(map)
-                        .bindPopup(`<h3 id="title-${pin}">:)</h3><p id="user-${pin}"></p><img id="img-${pin}" /><img loading="lazy" src="../a.webp" onload="loadPin(${pin})" style="height:1px;opacity:0.1;"/>`,{minWidth:150});
+                        .bindPopup(`<h3 id="title-${pin}">:)</h3><p id="user-${pin}"></p><img id="img-${pin}" /><img loading="lazy" src="../img/a.webp" onload="loadPin(${pin})" style="height:1px;opacity:0.1;"/>`,{minWidth:150});
                 }
             }
             loadPins();

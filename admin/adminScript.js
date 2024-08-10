@@ -25,12 +25,10 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 link.classList.add('pinCoords');
                 link.textContent = pin.town;
                 
-                if(x === 'unapp') {
-                    const app = document.createElement('span')
-                    app.setAttribute('onclick', `decision('approve', 'POST' ,${pin.pinId})`);
-                    app.classList.add('approvePin');
-                    app.innerHTML = '&nbsp;✔️';
-                }
+                const app = document.createElement('span')
+                app.setAttribute('onclick', `decision('approve', 'POST' ,${pin.pinId})`);
+                app.classList.add('approvePin');
+                app.innerHTML = '&nbsp;✔️';
 
                 const del = document.createElement('span')
                 del.setAttribute('onclick', `decision('delete', 'DELETE', ${pin.pinId})`);
@@ -39,7 +37,13 @@ document.addEventListener('DOMContentLoaded', async () =>{
 
                 line.appendChild(title);
                 line.appendChild(link);
-                if(x === 'unapp') {line.appendChild(app);}
+                if(x === 'unapp') {
+                    const app = document.createElement('span')
+                    app.setAttribute('onclick', `decision('approve', 'POST' ,${pin.pinId})`);
+                    app.classList.add('approvePin');
+                    app.innerHTML = '&nbsp;✔️';
+                    line.appendChild(app);
+                }
                 line.appendChild(del);
                 document.getElementById(`pinList-${x}`).appendChild(line);
             })

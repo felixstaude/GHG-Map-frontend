@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
             link.textContent = pin.town;
             
             const app = document.createElement('span')
-            app.setAttribute('onclick', `decision('appove', 'POST' ,${pin.pinId})`);
+            app.setAttribute('onclick', `decision('approve', 'POST' ,${pin.pinId})`);
             app.classList.add('approvePin');
             app.innerHTML = '&nbsp;✔️';
 

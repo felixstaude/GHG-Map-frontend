@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', async () =>{
 
     //get pins
-
     async function createLists(x) {
-        const response = await fetch(`http://localhost:8080/api/pin/admin/all/${x}roved/userId=${localStorage.userId}`, {
+        const response = await fetch(`http://localhost:8080/api/pin/admin/all/${x}roved?userId=${localStorage.userId}`, {
                 method: 'GET',
             headers: {'access_token': localStorage.accessToken}
         })
@@ -54,8 +53,8 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 document.getElementById(`pinList-${x}`).appendChild(line);
             })
         } else if (!data.ok){
-            console.log('no admin');
-            window.location.replace = "../";
+            console.log('no admin or no good');
+            window.location.href = "../";
         }
     }
     createLists('unapp'); //unapproved

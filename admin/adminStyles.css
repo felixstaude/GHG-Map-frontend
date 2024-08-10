@@ -99,8 +99,37 @@ main {
     border-radius: 50%;
 }
 
+.pinTable {
+    border-collapse: collapse;
+}
+
+.pinList td {
+    padding:0 5px;
+    border-radius: 3px;
+}
+
+.pinList tr:hover {
+    background-color: #eee;
+    border-bottom: 1px solid #000;
+}
+
 .grau {
     color: #444;
     background-color: #bbb;
     border-radius: 5px;
+}
+
+.approvePin, .deletePin {
+    cursor: pointer;
+    text-align: center;
+    background-color: transparent;
+    transition-duration: 0.2;
+}
+
+.approvePin:hover {
+    background-color:#6fe664;
+}
+
+.deletePin:hover {
+    background-color:#e6647a;   
 }

@@ -20,18 +20,15 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 const title = document.createElement('td');
                 const titleLink = document.createElement('a');
                 titleLink.setAttribute('href', `http://localhost:8080/${pin.imagePath}`);
+                titleLink.setAttribute('target', '_blank');
                 titleLink.textContent = pin.description;
 
                 const location = document.createElement('td');
                 const locationLink = document.createElement('a');
-                locationLink.setAttribute('href', `../map/?lat=${pin.lat}&lng=${pin.lng}&zoom=14`)
+                locationLink.setAttribute('href', `../map/?lat=${pin.lat}&lng=${pin.lng}&zoom=14`);
+                locationLink.setAttribute('target', '_blank');
                 locationLink.classList.add('pinCoords');
                 locationLink.textContent = pin.town;
-                
-                const app = document.createElement('td');
-                app.setAttribute('onclick', `decision('approve', 'POST' ,${pin.pinId})`);
-                app.classList.add('approvePin');
-                app.innerHTML = '&nbsp;✔️';
 
                 const del = document.createElement('td');
                 del.setAttribute('onclick', `decision('delete', 'DELETE', ${pin.pinId})`);
@@ -44,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 location.appendChild(locationLink)
                 line.appendChild(location);
                 if(x === 'unapp') {
-                    const app = document.createElement('span')
+                    const app = document.createElement('td')
                     app.setAttribute('onclick', `decision('approve', 'POST' ,${pin.pinId})`);
                     app.classList.add('approvePin');
                     app.innerHTML = '&nbsp;✔️';
@@ -69,10 +66,10 @@ async function decision(a, b, id) {
     })
     const data = await response.json();
     if (data.ok) {
-        let li = document.getElementById(`pin-${id}`);
-        li.classList.add('grau');
-        let app = li.children[3];
-        let del = li.children[4];
+        let tr = document.getElementById(`pin-${id}`);
+        tr.classList.add('grau');
+        let app = tr.children[3];
+        let del = tr.children[4];
         app.remove();
         del.remove();
     }

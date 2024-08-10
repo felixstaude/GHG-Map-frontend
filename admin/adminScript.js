@@ -17,11 +17,12 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 let username = getUsername(pin.userId);
                 user.textContent = username + ':';
 
-                const title = document.createElement('span');
+                const title = document.createElement('a');
+                link.setAttribute('href', `http://localhost:8080/${pin.imagePath}`);
                 title.textContent = pin.description + ':';
 
                 const link = document.createElement('a');
-                link.setAttribute('href', `http://localhost:8080/${pin.imagePath}`);
+                link.setAttribute('href', `../map/?lat=${pin.lat}&lng=${pin.lng}&zoom=14`)
                 link.classList.add('pinCoords');
                 link.textContent = pin.town;
                 
@@ -35,6 +36,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 del.classList.add('deletePin');
                 del.innerHTML = '&nbsp;🪣';
 
+                line.appendChild(user);
                 line.appendChild(title);
                 line.appendChild(link);
                 if(x === 'unapp') {
@@ -65,8 +67,8 @@ async function decision(a, b, id) {
     if (data.ok) {
         let li = document.getElementById(`pin-${id}`);
         li.classList.add('grau');
-        let app = li.children[2];
-        let del = li.children[3];
+        let app = li.children[3];
+        let del = li.children[2];
         app.remove();
         del.remove();
     }

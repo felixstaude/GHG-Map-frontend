@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
             del.innerHTML = '&nbsp;🪣';
 
             const line = document.createElement('li');
-            line.setAttribute('id', `pin-${pin}`);
+            line.setAttribute('id', `pin-${pin.pinId}`);
 
             line.appendChild(title);
             line.appendChild(link);
@@ -49,7 +49,7 @@ async function decision(a, b, id) {
     })
     const data = await response.json();
     if (data.ok) {
-        const li = document.getElementById(`pin-${id}`);
+        let li = document.getElementById(`pin-${id}`);
         li.classList.add('grau');
         let app = li.children[2];
         let del = li.children[3];

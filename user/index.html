@@ -25,7 +25,7 @@
                 <div class="pinListWrapper"><ol class="pinList" id="pinList"> <!-- content from api below pinCoords: 'https://nominatim.openstreetmap.org/reverse?lat=<lat>&lon=<lon>&format=json'-->
                     <li>
                         <span id="pinName-1" class="pinName">Pin Name</span>:
-                        <a href="../map/?lat=51.163361&lng=10.447683"><span id="pinCoords-1" class="pinCoords">51.163361, 10.447683</span></a>
+                        <a href="../map/?lat=51.163361&lng=10.447683&zoom=19"><span id="pinCoords-1" class="pinCoords">51.163361, 10.447683</span></a>
                     </li>
                     <li>
                         <span id="pinName-1" class="pinName">Pin Name</span>:
@@ -67,16 +67,27 @@
             </div>
             <div class="userPictures contentBox" id="userPictures">
                 <h4>Bilder von <span class="userName">Username</span></h4>
-                <div class="picturesDraggableSlider" id="picturesDraggableSlider"> <!-- content from api below -->
-                    <span style="position:relative"><span id="imgName-1" class="imgName">Pin Name</span><img src="../sticker.jpg"/></span>
-                    <span style="position:relative"><span id="imgName-1" class="imgName">Pin Name</span><img src="../sticker.jpg"/></span>
-                    <span style="position:relative"><span id="imgName-1" class="imgName">Pin Name</span><img src="../sticker.jpg"/></span>
-                    <span style="position:relative"><span id="imgName-1" class="imgName">Pin Name</span><img src="../sticker.jpg"/></span>
-                    <span style="position:relative"><span id="imgName-1" class="imgName">Pin Name</span><img src="../sticker.jpg"/></span>
-                    <span style="position:relative"><span id="imgName-1" class="imgName">Pin Name</span><img src="../sticker.jpg"/></span>
-                    <span style="position:relative"><span id="imgName-1" class="imgName">Pin Name</span><img src="../sticker.jpg"/></span>
+                <div class="picturesDraggableSlider" id="picturesDraggableSlider"> 
+                    <!-- Content from API below -->
+                    <div>
+                        <img src="../sticker.jpg" class="imgImg"/>
+                        <div id="imgName-1" class="imgName">Pin Name</div>
+                    </div>
+                    <div>
+                        <img src="../1.jpg" class="imgImg"/>
+                        <div id="imgName-2" class="imgName">Pin Name</div>
+                    </div>
+                    <!-- Weitere Elemente... -->
                 </div>
             </div>
+            <script type="text/javascript">
+                let imgs = document.getElementsByClassName('imgImg');
+                Array.from(imgs).forEach(img => {
+                    img.addEventListener('load', () => {
+                        img.style.width = img.width + 'px';
+                    });
+                });
+            </script>            
         </main>
 
         <aside id="mySidenav" class="sidenav">

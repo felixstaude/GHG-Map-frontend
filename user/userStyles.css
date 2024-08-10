@@ -131,8 +131,8 @@ main {
     flex-direction: row;
     height: calc(100% - 40px);
     width: 100%;
-    border-radius: 5px;;
-    overflow-x: scroll;
+    border-radius: 5px;
+    overflow-x: auto;
     overflow-y: hidden;
     cursor: grab;
 }
@@ -141,18 +141,28 @@ main {
     display: none;
 }
 
+.picturesDraggableSlider > div {
+    position: relative;
+    white-space: nowrap;
+    flex-shrink: 0;
+    width: auto;
+}
+
 .imgName {
     position: absolute;
-    bottom:0;
+    bottom: 0;
     left: 2px;
     text-shadow: 0 0 3px #fff;
+    pointer-events: none;
 }
 
 .picturesDraggableSlider img {
-    height: 100%;
+    max-width:fit-content;
+    max-height:100%;
     border-radius: 5px;
     margin-right: 5px;
 
+    pointer-events: none;
     user-drag: none;
     -webkit-user-drag: none;
     user-select: none;

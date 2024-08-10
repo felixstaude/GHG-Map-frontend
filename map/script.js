@@ -26,9 +26,6 @@ window.addEventListener('load', (e) => {
         }
     });
 
-    /*if (e.currentTarget.clientInformation.userAgentData.platform = 'Windows') {
-        document.getElementById('getPositionEl').remove();
-    }*/
     document.getElementById('getPositionEl').addEventListener('click', getPosition);
     document.getElementById('manuelPositionEl').addEventListener('click', (e) => {
         const error = {code: 69};
@@ -54,12 +51,12 @@ window.addEventListener('load', (e) => {
         let lan = coords.split(',')[1];
     
         const position = {"coords": {"latitude": lat, "longitude": lan}}
-        showPosition(position, 'Du bist gerade ungefähr hier')
+        showPosition(position);
     }
 }
 
 // Function to show the position and update the map view
-function showPosition(position, msg) {
+function showPosition(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
     
@@ -69,7 +66,7 @@ function showPosition(position, msg) {
     // add a marker to the current position
     L.marker([latitude, longitude])
         .addTo(map)
-        .bindPopup(msg)
+        .bindPopup('Du bist gerade ungefähr hier')
         .openPopup();
 }
 

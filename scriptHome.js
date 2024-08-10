@@ -73,7 +73,7 @@ window.addEventListener('load', async function() {
     let lable = document.getElementById('searchLable');
 
     // move in field of view and back out
-    search.addEventListener('click', (e) => {
+    search.addEventListener('click', () => {
         let x;
         let element = document.getElementById('searchElement');
         if (element.offsetTop < document.getElementsByTagName('header')[0].offsetHeight + 20) {
@@ -90,7 +90,7 @@ window.addEventListener('load', async function() {
         }
     });
 
-    document.getElementById('hideSearch').addEventListener('click', (e) => {
+    document.getElementById('hideSearch').addEventListener('click', () => {
         let t = document.getElementsByTagName('header')[0].offsetHeight + 20;
         let element = document.getElementById('searchElement');
         moveSearchBox(element, 110, t);
@@ -101,11 +101,11 @@ window.addEventListener('load', async function() {
         }
     });
 
-    box.addEventListener('focusin', (e) => {lable.classList.add('searchnoLabel');});
-    box.addEventListener('focusout', (e) => {if(box.value.split('').length === 0){lable.classList.remove('searchnoLabel');}});
+    box.addEventListener('focusin', () => {lable.classList.add('searchnoLabel');});
+    box.addEventListener('focusout', () => {if(box.value.split('').length === 0){lable.classList.remove('searchnoLabel');}});
 
     // actual search function with verification
-    box.addEventListener('input', (e) =>{
+    box.addEventListener('input', () =>{
         let alertBox = document.getElementById('searchAlert');
 
         if (alertBox.offsetTop > 35) { //hide alertbox
@@ -154,7 +154,7 @@ window.addEventListener('load', async function() {
         
                 if (!response.ok) {
                     alertBox.className = 'searchAlertError';
-                    searchAlertText.textContent = 'Bitte stelle sicher, dass du eine aktive Internetverbindung hast und angemeldet bist'; // useris not logged in, other issues
+                    searchAlertText.textContent = 'Bitte stelle sicher, dass du eine aktive Internetverbindung hast und angemeldet bist'; // user is not logged in, other issues
                     searchAlert.style.height = 'fit-content';
                     moveSearchBox(alertBox, 0, 50);
                     throw new Error('Network response was not ok ' + response.statusText);

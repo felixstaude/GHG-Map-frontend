@@ -16,6 +16,7 @@ window.addEventListener('load', (e) => {
         if (!notScroll) {
             let end = e.pageX;
             pictureScroll.scrollLeft = currentScroll + start - end;
+            window.getSelection().removeAllRanges();
         }
     });
 

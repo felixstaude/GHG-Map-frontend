@@ -6,11 +6,34 @@ body {
     background-color: #f0f0f0; /* Hintergrund des Moduswechsel-Buttons, wenn im Erstellmodus */
 }
 
-.popup-content {
+form.popup-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 301px;
+}
+
+.leaflet-popup-content-wrapper {
+    overflow:hidden;
+    padding:0 !important;
+}
+
+.leaflet-popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width:fit-content;
+}
+
+.leaflet-popup-content p {
+    display:block;
+    width: fit-content;
+    text-align: center;
+    margin:0;
+}
+
+.leaflet-popup-content img {
+    width: 100%;
 }
 
 .wrapperDescription {

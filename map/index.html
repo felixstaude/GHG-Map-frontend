@@ -108,6 +108,7 @@
                             body: formData
                         });
                         const data = response.json();
+                        console.log(data)
                         if (data.ok) {
                             window.location.reload();
                         }
@@ -135,7 +136,7 @@
                 for (let pin in data) {
                     L.marker([data[pin].lat, data[pin].lng], {icon:bastiIcon})
                         .addTo(map)
-                        .bindPopup(`<h3 id="title-${pin}">:)</h3><p id="user-${pin}"></p><img id="img-${pin}" /><img loading="lazy" src="../img/a.webp" onload="loadPin(${pin})" style="height:1px;opacity:0.1;"/>`,{minWidth:150});
+                        .bindPopup(`<h3 id="title-${pin}">:)</h3><p id="user-${pin}"></p><a id="imgLink-${pin}" target="_blank"><img id="img-${pin}" /></a><img loading="lazy" src="../img/a.webp" onload="loadPin(${pin})" style="height:1px;width:1px;opacity:0.1;"/>`,{minWidth:150});
                 }
             }
             loadPins();
@@ -144,28 +145,19 @@
                 console.log('loadPin');
                 let title = document.getElementById(`title-${id}`);
                 let user = document.getElementById(`user-${id}`);
+                let imgLink = document.getElementById(`imgLink-${id}`);
                 let img = document.getElementById(`img-${id}`);
 
                 const responsePin = await fetch(`http://localhost:8080/api/pin/get/data?pinId=${id}`, {
                     method: 'GET'
                 })
                 const dataPin = await responsePin.json();
-
-                /*const responseUser = await fetch(`https://api.twitch.tv/helix/users?id=${dataPin.userId}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.accessToken}`,
-                        'Client-Id': 'aof6xcm9xha35dqsm087mqowout2p6'
-                    }
-                });
-                const dataUser = await responseUser.json();
-                console.log(dataUser)*/
                 const username = await loadUser(dataPin.userId);
-                //console.log(username)
 
                 title.textContent = dataPin.description;
-                img.src = 'http://localhost:8080/' + dataPin.imagePath;
                 user.textContent = 'von ' + username;
+                imgLink.href = 'http://localhost:8080/' + dataPin.imagePath;
+                img.src = 'http://localhost:8080/' + dataPin.imagePath;
             }
             async function loadUser(id) {
                 let user = sessionStorage.getItem(`user-${id}`);

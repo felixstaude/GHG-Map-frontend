@@ -126,6 +126,7 @@ main {
 .table-header th, .table-body td {
     padding: 8px;
     text-align: left;
+    overflow: hidden;
 }
 
 .table-header th {

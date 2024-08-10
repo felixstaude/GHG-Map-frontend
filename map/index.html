@@ -146,7 +146,7 @@
                 let user = document.getElementById(`user-${id}`);
                 let img = document.getElementById(`img-${id}`);
 
-                const responsePin = await fetch(`http://localhost:8080/api/pin/get/data?${id}`, {
+                const responsePin = await fetch(`http://localhost:8080/api/pin/get/data?pinId=${id}`, {
                     method: 'GET'
                 })
                 const dataPin = await responsePin.json();

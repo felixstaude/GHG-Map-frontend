@@ -5,7 +5,7 @@ async function validateToken(x) {
     let time = new Date().getTime();
     let lastValidation = sessionStorage.getItem('lastValidation');
     let renewLogin = localStorage.getItem('renewLogin');
-    let testtext = `1:${((lastValidation + 300000) < time)} | 2:${!lastValidation} | 3:${renewLogin < time}`;
+    let testtext = `5min: ${((lastValidation + 300000) < time)} | not available: ${!lastValidation} | twitch requires new login: ${renewLogin < time}`;
     console.log('%c' + testtext, 'color:#000;background-color:#fff; border-radius:3px;padding:1px')
 
     if (((lastValidation + 300000) < time) || !lastValidation || renewLogin < time) {
@@ -42,7 +42,7 @@ async function validateToken(x) {
     }
 }
 
-window.addEventListener('load', async (e)=> {
+window.addEventListener('load', async ()=> {
     let onloadTime = new Date().getTime();
     let renewLogin = localStorage.getItem('renewLogin') //compare to onlaod time -> if still valid, validate -> create profile link and remove login
     let accessToken = localStorage.getItem('accessToken');

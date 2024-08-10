@@ -13,19 +13,19 @@ document.addEventListener('DOMContentLoaded', async () =>{
             title.textContent = pin.description + ':';
 
             const link = document.createElement('a');
-            link.setAttribute('href', `../map/?lat=${pin.lat}&lng=${pin.lng}&zoom=19`);
+            link.setAttribute('href', `../map/?lat=${pin.lat}&lng=${pin.lng}&zoom=14`);
             link.classList.add('pinCoords');
             link.textContent = pin.town;
             
-            const app = document.createElement('div')
-            app.setAttribute('onclick', `decision('app',${pin.pinId})`);
+            const app = document.createElement('span')
+            app.setAttribute('onclick', `decision('appove', 'POST' ,${pin.pinId})`);
             app.classList.add('approvePin');
-            app.textContent = '&nbsp;✔️';
+            app.innerHTML = '&nbsp;✔️';
 
-            const del = document.createElement('div')
-            del.setAttribute('onclick', `decision('del', ${pin.pinId})`);
+            const del = document.createElement('span')
+            del.setAttribute('onclick', `decision('delete', 'DELETE, ${pin.pinId})`);
             del.classList.add('deletePin');
-            del.textContent = '&nbsp;🪣';
+            del.innerHTML = '&nbsp;🪣';
             
 
             const line = document.createElement('li');
@@ -37,15 +37,20 @@ document.addEventListener('DOMContentLoaded', async () =>{
             line.appendChild(del);
             document.getElementById('pinListUn').appendChild(line);
         })
-    } else {
+    } else if (!data.ok){
         console.log('no admin');
-        return
-    }
-
-    async function decision(x, id) {
-        console.log(x, id)
+        window.location.href = "../";
     }
 })
+
+async function decision(a, b, id) {
+    const response = await fetch(`http://localhost:8080/api/pin/admin/${b}?userId=${localStorage.userId}&pinId=${id}`, {
+        method: b,
+        headers: {'access_token': localStorage.accessToken}
+    })
+    const data = await response.json();
+    console.log(data);
+}
 
 //<li>
 //    <span id="pinName-1" class="pinName">Pin Name</span>:

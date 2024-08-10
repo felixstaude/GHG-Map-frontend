@@ -10,31 +10,36 @@ document.addEventListener('DOMContentLoaded', async () =>{
         const data = await response.json()
         if (data.ok) {
             data.pins.forEach(pin => {
+                const line = document.createElement('li');
+                line.setAttribute('id', `pin-${pin.pinId}`);
+
+                const user = document.createElement('span');
+                let username = getUsername(pin.userId);
+                user.textContent = username + ':';
+
                 const title = document.createElement('span');
-                title.classList.add('pinName');
                 title.textContent = pin.description + ':';
 
                 const link = document.createElement('a');
-                link.setAttribute('href', `../map/?lat=${pin.lat}&lng=${pin.lng}&zoom=14`);
+                link.setAttribute('href', `http://localhost:8080/${pin.imagePath}`);
                 link.classList.add('pinCoords');
                 link.textContent = pin.town;
                 
-                const app = document.createElement('span')
-                app.setAttribute('onclick', `decision('approve', 'POST' ,${pin.pinId})`);
-                app.classList.add('approvePin');
-                app.innerHTML = '&nbsp;✔️';
+                if(x === 'unapp') {
+                    const app = document.createElement('span')
+                    app.setAttribute('onclick', `decision('approve', 'POST' ,${pin.pinId})`);
+                    app.classList.add('approvePin');
+                    app.innerHTML = '&nbsp;✔️';
+                }
 
                 const del = document.createElement('span')
                 del.setAttribute('onclick', `decision('delete', 'DELETE', ${pin.pinId})`);
                 del.classList.add('deletePin');
                 del.innerHTML = '&nbsp;🪣';
 
-                const line = document.createElement('li');
-                line.setAttribute('id', `pin-${pin.pinId}`);
-
                 line.appendChild(title);
                 line.appendChild(link);
-                line.appendChild(app);
+                if(x === 'unapp') {line.appendChild(app);}
                 line.appendChild(del);
                 document.getElementById(`pinList-${x}`).appendChild(line);
             })

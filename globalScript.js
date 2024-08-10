@@ -119,3 +119,22 @@ function loadingCircle(x, parent) { // Ladeschnecke, die user zeigt, dass weiter
         document.getElementById('loadingWrapper').remove();
     }
 }
+
+async function getUsername(id) {
+    let user = sessionStorage.getItem(`user-${id}`);
+    console.log(id, user)
+    if (!user) {
+        const response = await fetch(`https://api.twitch.tv/helix/users?id=${id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.accessToken}`,
+                'Client-Id': 'aof6xcm9xha35dqsm087mqowout2p6'
+            }
+        });
+        let data = await response.json();
+        user = data.data[0].display_name;
+        sessionStorage.setItem(`user-${id}`, user);
+        console.log('this is the user: ' + user);
+    }
+    return user;
+}

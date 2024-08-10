@@ -48,10 +48,17 @@ async function decision(a, b, id) {
         headers: {'access_token': localStorage.accessToken}
     })
     const data = await response.json();
-    console.log(data);
+    if (data.ok) {
+        const li = document.getElementById(`pin-${id}`);
+        li.classList.add('grau');
+        let app = li.children[2];
+        let del = li.children[3];
+        console.log(app);
+        console.log(del);
+    }
 }
 
 //<li>
 //    <span id="pinName-1" class="pinName">Pin Name</span>:
-//    <a href="../map/?lat=51.163361&lng=10.447683&zoom=19"><span id="pinCoords-1" class="pinCoords">51.163361, 10.447683</span></a>
+//    <a href="../map/?lat=51.163361&lng=10.447683&zoom=19" class="pinCoords">51.163361, 10.447683</a>
 //</li>

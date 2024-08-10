@@ -151,7 +151,7 @@
                 })
                 const dataPin = await responsePin.json();
 
-                const responseUser = await fetch(`https://api.twitch.tv/helix/users?id=${dataPin.userId}`, {
+                /*const responseUser = await fetch(`https://api.twitch.tv/helix/users?id=${dataPin.userId}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${localStorage.accessToken}`,
@@ -159,29 +159,31 @@
                     }
                 });
                 const dataUser = await responseUser.json();
-                console.log(dataUser)
+                console.log(dataUser)*/
+                const username = await loadUser(dataPin.userId);
+                //console.log(username)
 
                 title.textContent = dataPin.description;
                 img.src = dataPin.imagePath;
-                user.textContent = 'von ' + dataUser.data[0].display_name;
+                user.textContent = 'von ' + username;
             }
             async function loadUser(id) {
                 let user = sessionStorage.getItem(`user-${id}`);
-                if (user === undefined) {
-                    console.log('angefragt');
-                    let accessToken = localStorage.getItem('accessToken');
+                console.log(id, user)
+                if (!user) {
                     const response = await fetch(`https://api.twitch.tv/helix/users?id=${id}`, {
                         method: 'GET',
                         headers: {
-                            'Authorization': `Bearer ${accessToken}`,
+                            'Authorization': `Bearer ${localStorage.accessToken}`,
                             'Client-Id': 'aof6xcm9xha35dqsm087mqowout2p6'
                         }
                     });
                     let data = await response.json();
                     user = data.data[0].display_name;
                     sessionStorage.setItem(`user-${id}`, user);
+                    console.log('this is the user: ' + user);
                 }
-                document.getElementsByName(`uID-${id}`)[0].textContent = `von ${user}`;
+                return user;
             }
         </script>
     </body>

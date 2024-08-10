@@ -21,8 +21,10 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 title.setAttribute('href', `http://localhost:8080/${pin.imagePath}`);
                 title.textContent = pin.description + ':';
 
-                const seperator = document.createElement('span');
-                seperator.innerHTML = "&nbsp;|&nbsp;";
+                const s1 = document.createElement('span');
+                const s2 = document.createElement('span');
+                const s3 = document.createElement('span');
+                s1.innerHTML, s2.innerHTML, s3.innerHTML = "&nbsp;|&nbsp;";
 
                 const link = document.createElement('a');
                 link.setAttribute('href', `../map/?lat=${pin.lat}&lng=${pin.lng}&zoom=14`)
@@ -41,9 +43,9 @@ document.addEventListener('DOMContentLoaded', async () =>{
 
                 line.appendChild(user);
                 line.appendChild(title);
-                line.appendChild(seperator)
+                line.appendChild(s1);
                 line.appendChild(link);
-                line.appendChild(seperator)
+                line.appendChild(s2);
                 if(x === 'unapp') {
                     const app = document.createElement('span')
                     app.setAttribute('onclick', `decision('approve', 'POST' ,${pin.pinId})`);
@@ -51,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
                     app.innerHTML = '&nbsp;✔️';
                     line.appendChild(app);
                 }
-                line.appendChild(seperator)
+                line.appendChild(s3);
                 line.appendChild(del);
                 document.getElementById(`pinList-${x}`).appendChild(line);
             })

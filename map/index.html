@@ -164,7 +164,7 @@
                 //console.log(username)
 
                 title.textContent = dataPin.description;
-                img.src = dataPin.imagePath;
+                img.src = 'http://localhost:8080/' + dataPin.imagePath;
                 user.textContent = 'von ' + username;
             }
             async function loadUser(id) {

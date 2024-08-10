@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 line.setAttribute('id', `pin-${pin.pinId}`);
 
                 const user = document.createElement('span');
-                let username = getUsername(pin.userId);
+                let username = await getUsername(pin.userId);
                 user.textContent = username + ':';
 
                 const title = document.createElement('a');

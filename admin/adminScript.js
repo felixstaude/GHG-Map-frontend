@@ -21,10 +21,9 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 title.setAttribute('href', `http://localhost:8080/${pin.imagePath}`);
                 title.textContent = pin.description + ':';
 
-                const s1 = document.createElement('span');
-                const s2 = document.createElement('span');
-                const s3 = document.createElement('span');
-                s1.innerHTML, s2.innerHTML, s3.innerHTML = "&nbsp;|&nbsp;";
+                const s1 = document.createElement('span');s1.innerHTML = "&nbsp;|&nbsp;";
+                const s2 = document.createElement('span');s2.innerHTML = "&nbsp;|&nbsp;";
+                const s3 = document.createElement('span');s3.innerHTML = "&nbsp;|&nbsp;";
 
                 const link = document.createElement('a');
                 link.setAttribute('href', `../map/?lat=${pin.lat}&lng=${pin.lng}&zoom=14`)

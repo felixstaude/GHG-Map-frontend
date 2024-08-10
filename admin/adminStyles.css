@@ -106,54 +106,38 @@ main {
     max-height: calc(50% - 82px);
 }
 
-.pinList {
-    list-style-image: none;
-    overflow-y: scroll;
-    height: calc(100% - 20px);
-    margin-top: 20px;
+.table-container {
+    width: 100%;
 }
 
-.pinList li {
-    position: relative;
-    padding: 5px;
-    padding-left: 20px;
+.table-header, .table-body table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
 }
 
-.pinList li::marker {
-    content: none;
-}
-
-.pinList li::before {
-    content: "";
+.table-body {
     display: block;
-    position: absolute;
-    left:0;
-    width: 16px;
-    height: 16px;
-    background-size: contain;
+    max-height: 300px; /* Du kannst die Höhe anpassen */
+    overflow-y: auto;
+    width: 100%;
 }
 
-.unapproved li::before {
-    background-image: url('../img/bastisticker-unapproved.png');
+.table-header th, .table-body td {
+    padding: 8px;
+    text-align: left;
 }
 
-.approved li::before {
-    background-image: url('../img/bastisticker-approved.png');
+.table-header th {
+    background-color: #f2f2f2;
 }
 
-.approved, .unapproved {
-    position:relative;
-}
-
-.approved h4, .unapproved h4 {
-    position:absolute;
-    background-image: linear-gradient(to bottom, #fff 80%, transparent 100%);
-    z-index: 3;
-    margin:5px auto;
-    width:fit-content;
-    white-space: nowrap;
-    text-align:center;
-}
+/* Hier stellst du sicher, dass die Spalten gleich breit sind */
+th:nth-child(1), td:nth-child(1) { width: 20%; }
+th:nth-child(2), td:nth-child(2) { width: 20%; }
+th:nth-child(3), td:nth-child(3) { width: 20%; }
+th:nth-child(4), td:nth-child(4) { width: 20%; }
+th:nth-child(5), td:nth-child(5) { width: 20%; }
 
 .grau {
     color: #444;

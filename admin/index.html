@@ -23,16 +23,49 @@
             </div>
             <div class="pinBox contentBox">
                 <div class="unapproved">
-                    <h4>nicht angenommene Pins</h4>
-                    <ul class="pinList unapproved" id="pinList-unapp">
-                        <!-- content from api below -->
-                    </ul>
+                    <h3>nicht angenommene Pins</h3>
+                    <div class="table-container">
+                        <table class="table-header">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Titel</th>
+                                    <th>Ort</th>
+                                    <th>ok</th>
+                                    <th>nich ok</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div class="table-body">
+                            <table>
+                                <tbody class="pinList approved" id="pinList-unapp">
+                                    <!-- content from api below -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <div class="approved">
-                    <h4>angenommene Pins</h4>
-                    <ul class="pinList unapproved" id="pinList-app">
-                        <!-- content from api below -->
-                    </ul>
+                    <h3>angenommene Pins</h3>
+                    <div class="table-container">
+                        <table class="table-header">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Titel</th>
+                                    <th>Ort</th>
+                                    <th>nich ok</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div class="table-body">
+                            <table>
+                                <tbody class="pinList approved" id="pinList-app">
+                                    <!-- content from api below -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>

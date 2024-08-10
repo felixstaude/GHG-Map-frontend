@@ -3,48 +3,47 @@ document.addEventListener('DOMContentLoaded', async () =>{
     //get pins
 
     async function createLists(x) {
-        const response = await fetch(`http://localhost:8080/api/pin/admin/all/${x}roved?userId=${localStorage.userId}`, {
-            method: 'GET',
+        const response = await fetch(`http://localhost:8080/api/pin/admin/${x}roved.json`, {
+        //const response = await fetch(`http://localhost:8080/api/pin/admin/all/${x}roved/userId=${localStorage.userId}`, {
+                method: 'GET',
             headers: {'access_token': localStorage.accessToken}
         })
         const data = await response.json()
         if (data.ok) {
             data.pins.forEach(async pin => {
-                const line = document.createElement('li');
+                const line = document.createElement('tr');
                 line.setAttribute('id', `pin-${pin.pinId}`);
 
-                const user = document.createElement('span');
+                const user = document.createElement('td');
                 let username = await getUsername(pin.userId);
                 user.textContent = username;
 
-                const title = document.createElement('a');
-                title.setAttribute('href', `http://localhost:8080/${pin.imagePath}`);
-                title.textContent = pin.description + ':';
+                const title = document.createElement('td');
+                const titleLink = document.createElement('a');
+                titleLink.setAttribute('href', `http://localhost:8080/${pin.imagePath}`);
+                titleLink.textContent = pin.description;
 
-                const s1 = document.createElement('span');s1.innerHTML = "&nbsp;|&nbsp;";
-                const s2 = document.createElement('span');s2.innerHTML = "&nbsp;|&nbsp;";
-                const s3 = document.createElement('span');s3.innerHTML = "&nbsp;|&nbsp;";
-
-                const link = document.createElement('a');
-                link.setAttribute('href', `../map/?lat=${pin.lat}&lng=${pin.lng}&zoom=14`)
-                link.classList.add('pinCoords');
-                link.textContent = pin.town;
+                const location = document.createElement('td');
+                const locationLink = document.createElement('a');
+                locationLink.setAttribute('href', `../map/?lat=${pin.lat}&lng=${pin.lng}&zoom=14`)
+                locationLink.classList.add('pinCoords');
+                locationLink.textContent = pin.town;
                 
-                const app = document.createElement('span')
+                const app = document.createElement('td');
                 app.setAttribute('onclick', `decision('approve', 'POST' ,${pin.pinId})`);
                 app.classList.add('approvePin');
                 app.innerHTML = '&nbsp;✔️';
 
-                const del = document.createElement('span')
+                const del = document.createElement('td');
                 del.setAttribute('onclick', `decision('delete', 'DELETE', ${pin.pinId})`);
                 del.classList.add('deletePin');
                 del.innerHTML = '&nbsp;🪣';
 
                 line.appendChild(user);
+                title.appendChild(titleLink);
                 line.appendChild(title);
-                line.appendChild(s1);
-                line.appendChild(link);
-                line.appendChild(s2);
+                location.appendChild(locationLink)
+                line.appendChild(location);
                 if(x === 'unapp') {
                     const app = document.createElement('span')
                     app.setAttribute('onclick', `decision('approve', 'POST' ,${pin.pinId})`);
@@ -52,7 +51,6 @@ document.addEventListener('DOMContentLoaded', async () =>{
                     app.innerHTML = '&nbsp;✔️';
                     line.appendChild(app);
                 }
-                line.appendChild(s3);
                 line.appendChild(del);
                 document.getElementById(`pinList-${x}`).appendChild(line);
             })

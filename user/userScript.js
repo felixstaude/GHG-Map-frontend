@@ -79,7 +79,7 @@ async function userData() {
             line.appendChild(location);
             if(validatedUser === requestedUser) {
                 const del = document.createElement('td');
-                del.setAttribute('onclick', `decision('delete', 'DELETE', ${pin.pinId})`);
+                del.setAttribute('onclick', `deletePin(${pin.pinId}, '${pin.description}')`);
                 del.classList.add('deletePin');
                 del.innerHTML = '&nbsp;🪣';
                 line.appendChild(del);
@@ -148,4 +148,22 @@ function smoothTransition(x, A) {
     const b = -100 * a; // Linearer Koeffizient basierend auf den Bedingungen
     
     return a * x * x + b * x;
+}
+
+//delete pin
+async function deletePin(id, name) {
+    let confirmation = confirm(`Bist du sicher, dass du den Pin ${name} mit allen dazugehörigen Daten löschen willst? Du kannst ihn dann nicht wiederherstellen!`);
+    if (confirmation) {
+        const response = await fetch(`http://localhost:8080/api/pin/admin/delete?userId=${localStorage.userId}&pinId=${id}`, {
+            method: 'DELETE',
+            headers: {'access_token': localStorage.accessToken}
+        })
+        const data = await response.json();
+        if (data.ok) {
+            let tr = document.getElementById(`pin-${id}`);
+            tr.classList.add('grau');
+            let bin = tr.children[2];
+            bin.remove();
+        }
+    }
 }

@@ -127,6 +127,13 @@ main {
     background-color:#e6647a !important;   
 }
 
+.grau, .grau td {
+    color: #222 !important;
+    background-color: #ccc !important;
+    border:none !important;
+    cursor: not-allowed !important;
+}
+
 .userPictures {
     width: 750px;
     max-width: 75vw;

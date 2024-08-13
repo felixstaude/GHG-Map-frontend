@@ -1,4 +1,25 @@
-window.addEventListener('load', (e) => {
+window.addEventListener('load', async () => {
+    // load all pins
+    const response = await fetch('http://localhost:8080/api/pin/get/all/json.json', { //just for testing
+    //const response = await fetch('http://localhost:8080/api/pin/get/all', {
+        method: 'GET'
+    });
+    const data = await response.json();
+
+    let bastiIcon = L.icon({
+        iconUrl: '../img/bastisticker-64x64.png',
+        iconSize: [16, 16],
+        iconAnchor: [8, 8],
+        popupAnchor: [0, -8]
+    });
+    
+    for (let pin in data) {
+        L.marker([data[pin].lat, data[pin].lng], {icon:bastiIcon})
+            .addTo(map)
+            .bindPopup(`<h3 id="title-${pin}">:)</h3><p id="user-${pin}"></p><a id="imgLink-${pin}" target="_blank"><img id="img-${pin}" /></a><img loading="lazy" src="../img/a.webp" onload="loadPin(${pin})" style="height:1px;width:1px;opacity:0.1;"/>`,{minWidth:150});
+    }
+
+    //for add pin field
     document.getElementById('map').addEventListener('click', function() {
         if (document.getElementById('description')) {
             //nicer input for description
@@ -27,11 +48,33 @@ window.addEventListener('load', (e) => {
     });
 
     document.getElementById('getPositionEl').addEventListener('click', getPosition);
-    document.getElementById('manuelPositionEl').addEventListener('click', (e) => {
+    document.getElementById('manuelPositionEl').addEventListener('click', () => {
         const error = {code: 69};
         showError(error); //kein error aber damit code nicht doppelt ist
     })
 });
+
+//load pin when use clicks on on it
+async function loadPin(id) {
+    console.log('load pin ', id);
+    let title = document.getElementById(`title-${id}`);
+    let user = document.getElementById(`user-${id}`);
+    let imgLink = document.getElementById(`imgLink-${id}`);
+    let img = document.getElementById(`img-${id}`);
+
+    const responsePin = await fetch(`http://localhost:8080/api/pin/get/data/pinId=3.json`, { // for testing
+    //const responsePin = await fetch(`http://localhost:8080/api/pin/get/data?pinId=${id}`, {
+        method: 'GET'
+    })
+    const dataPin = await responsePin.json();
+    const username = await getUser(dataPin.userId);
+
+    title.textContent = dataPin.description;
+    user.textContent = 'von ' + username;
+    imgLink.href = 'http://localhost:8080/' + dataPin.imagePath;
+    img.src = 'http://localhost:8080/' + dataPin.imagePath;
+    img.alt = `Bild zum Pin ${dataPin.description}`;
+}
 
 
 

@@ -117,48 +117,6 @@
                     }
                 });
             });
-
-            // load all pins
-            async function loadPins() {
-
-                const response = await fetch('http://localhost:8080/api/pin/get/all', {
-                    method: 'GET'
-                });
-                const data = await response.json();
-
-                let bastiIcon = L.icon({
-                    iconUrl: '../img/bastisticker-64x64.png',
-                    iconSize: [16, 16],
-                    iconAnchor: [8, 8],
-                    popupAnchor: [0, -8]
-                });
-                
-                for (let pin in data) {
-                    L.marker([data[pin].lat, data[pin].lng], {icon:bastiIcon})
-                        .addTo(map)
-                        .bindPopup(`<h3 id="title-${pin}">:)</h3><p id="user-${pin}"></p><a id="imgLink-${pin}" target="_blank"><img id="img-${pin}" /></a><img loading="lazy" src="../img/a.webp" onload="loadPin(${pin})" style="height:1px;width:1px;opacity:0.1;"/>`,{minWidth:150});
-                }
-            }
-            loadPins();
-
-            async function loadPin(id) {
-                console.log('loadPin');
-                let title = document.getElementById(`title-${id}`);
-                let user = document.getElementById(`user-${id}`);
-                let imgLink = document.getElementById(`imgLink-${id}`);
-                let img = document.getElementById(`img-${id}`);
-
-                const responsePin = await fetch(`http://localhost:8080/api/pin/get/data?pinId=${id}`, {
-                    method: 'GET'
-                })
-                const dataPin = await responsePin.json();
-                const username = await getUsername(dataPin.userId);
-
-                title.textContent = dataPin.description;
-                user.textContent = 'von ' + username;
-                imgLink.href = 'http://localhost:8080/' + dataPin.imagePath;
-                img.src = 'http://localhost:8080/' + dataPin.imagePath;
-            }
         </script>
     </body>
 </html>

@@ -103,33 +103,38 @@ main {
     border-collapse: collapse;
 }
 
+.pinList tr {
+    border-bottom: 1px solid #fff;
+}
+
 .pinList td {
     padding:0 5px;
-    border-radius: 3px;
+    cursor: pointer;
+    transition-duration: 200ms;
 }
 
-.pinList tr:hover {
-    background-color: #eee;
-    border-bottom: 1px solid #000;
-}
-
-.grau {
-    color: #444;
-    background-color: #bbb;
-    border-radius: 5px;
+.pinList tr:hover > td, .focus > td {
+    color: #fff;
+    background-color: #505;
 }
 
 .approvePin, .deletePin {
     cursor: pointer;
     text-align: center;
     background-color: transparent;
-    transition-duration: 0.2;
 }
 
 .approvePin:hover {
-    background-color:#6fe664;
+    background-color:#6fe664 !important;
 }
 
 .deletePin:hover {
-    background-color:#e6647a;   
+    background-color:#e6647a !important;   
+}
+
+.grau, .grau td {
+    color: #222 !important;
+    background-color: #ccc !important;
+    border:none !important;
+    cursor: not-allowed !important;
 }

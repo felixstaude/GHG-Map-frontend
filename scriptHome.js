@@ -164,13 +164,19 @@ window.addEventListener('load', async function() {
                 console.log(data);
 
                 if (data.data.length > 0){
-                    console.log(data.data[0].id, data.data[0].login);
-                    alertBox.className = 'searchAlertTwitch';
-                    searchAlertText.textContent = `${data.data[0].login} hat keine Pins gesetzt`; // twitch users exits but is not in the map database
-                    
-                    // send id to backend end verify user has pins
-                    //alertBox.className = 'searchAlertSuccess';
-                    //searchAlertText.innerHTML = `<a href="/user#${user}" style="color:#00ff00;width:100%;heigth:100%;">${user}</a>`; // link erstellen
+                    const usrResponse = await fetch(`http://localhost:8080/api/pin/admin/approved.json`, {
+                    //const response = await fetch(`http://localhost:8080/api/pin/get/user?userId=${data.data[0].id}`, {
+                        method: 'GET'
+                    })
+                    const usrData = await usrResponse.json();
+                    console.log(usrData);
+                    if (usrData.ok) {// send id to backend end verify user has pins
+                        alertBox.className = 'searchAlertSuccess';
+                        searchAlertText.innerHTML = `<a href="/user#${data.data[0].id}" style="color:#00ff00;width:100%;heigth:100%;">Pins von ${data.data[0].display_name}</a>`; // link erstellen
+                    } else {
+                        alertBox.className = 'searchAlertTwitch';
+                        searchAlertText.textContent = `${data.data[0].display_name} hat keine Pins gesetzt`; // twitch users exits but is not in the map database
+                    }
                 } else {
                     alertBox.className = 'searchAlertError';
                     searchAlertText.textContent = `${user} konnte nicht gefunden werden`; // user has no twitch account
@@ -264,9 +270,6 @@ async function navHover(a,e,c1,c2) {
         progress+=2;
         await sleep(1);
     };
-}
-const sleep = (ms) => {
-    return new Promise(resolve => setTimeout((resolve), ms));
 }
 
 // bin neidisch 🥹 (kontext: felix hat kiz album und merch)

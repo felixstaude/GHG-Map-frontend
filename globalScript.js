@@ -1,11 +1,11 @@
 // validate token and get username
-let lastValidation = sessionStorage.getItem('lastValidation')
+let lastValidation = sessionStorage.getItem('lastValidation');
 
 async function validateToken(x) {
     let time = new Date().getTime();
-    let lastValidation = sessionStorage.getItem('lastValidation');
     let renewLogin = localStorage.getItem('renewLogin');
-    let testtext = `5min: ${((lastValidation + 300000) < time)} | not available: ${!lastValidation} | twitch requires new login: ${renewLogin < time}`;
+    lastValidation = sessionStorage.getItem('lastValidation');
+    let testtext = `5min: ${((lastValidation + 300000) < time)} | not available: ${!lastValidation} | twitch new val: ${renewLogin < time}`;
     console.log('%c' + testtext, 'color:#000;background-color:#fff; border-radius:3px;padding:1px')
 
     if (((lastValidation + 300000) < time) || !lastValidation || renewLogin < time) {
@@ -21,8 +21,6 @@ async function validateToken(x) {
                 console.error(response);
                 throw new Error('Network response was not ok ' + response.statusText);
             } else {
-                let lastValidation = new Date().getTime();
-                sessionStorage.setItem('lastValidation', lastValidation);
                 console.log('%c' + 'validation via API successfull', 'color:#6f6; background-color:#050; border-radius:3px; padding:1px');
             }
 
@@ -30,6 +28,8 @@ async function validateToken(x) {
             data.valid = true;
             localStorage.setItem('userdata', JSON.stringify(data));
             localStorage.setItem('renewLogin', (data.expires_in + new Date().getTime()));
+            lastValidation = new Date().getTime();
+            sessionStorage.setItem('lastValidation', lastValidation);
             return data;
 
         } catch (error) {
@@ -79,6 +79,10 @@ window.addEventListener('load', async ()=> {
                     accountDetails.innerHTML = `&nbsp;${localStorage.getItem('username')}`;
                     accountDetails.appendChild(ppImg);
                 }
+                if (window.location.pathname === "/admin/") {
+                    document.getElementById('userPfp').src = data.data[0].profile_image_url;
+                    document.getElementById('userName').innerHTML = localStorage.getItem('username');
+                }
             } catch (error) {
                 throw error;
             }
@@ -86,7 +90,7 @@ window.addEventListener('load', async ()=> {
     }/* else {
         let loginPref = localStorage.getItem('loginPref');
 
-        if (loginPref === null) {
+        if (!loginPref) {
             if (window.confirm('Twitch-Login ist abgelaufen\nMelde dich neu an oder fahre ohne Anmeldung fort') === true) {
                 localStorage.setItem('loginPref', true);
                 window.location.replace('http://localhost:8080/login/');
@@ -120,10 +124,18 @@ function loadingCircle(x, parent) { // Ladeschnecke, die user zeigt, dass weiter
     }
 }
 
-async function getUsername(id) {
+const waitingForId = [];
+async function getUser(id) {
     let user = sessionStorage.getItem(`user-${id}`);
-    console.log(id, user)
+    if (waitingForId.includes(id)) {
+        while (waitingForId.includes(id)) {
+            console.log('wating for: ' + id)
+            await sleep(1000);
+        }
+    }
+    user = JSON.parse(sessionStorage.getItem(`user-${id}`));
     if (!user) {
+        waitingForId.push(id);
         const response = await fetch(`https://api.twitch.tv/helix/users?id=${id}`, {
             method: 'GET',
             headers: {
@@ -132,9 +144,18 @@ async function getUsername(id) {
             }
         });
         let data = await response.json();
-        user = data.data[0].display_name;
-        sessionStorage.setItem(`user-${id}`, user);
-        console.log('this is the user: ' + user);
+        user = data.data[0];
+        sessionStorage.setItem(`user-${id}`, JSON.stringify(user));
+        const index = waitingForId.indexOf(id);
+        if (index > -1) { // only splice array when item is found
+            waitingForId.splice(index, 1); // 2nd parameter means remove one item only
+        }
+        //thanks to https://stackoverflow.com/a/5767357
     }
     return user;
+}
+
+
+const sleep = (ms) => {
+    return new Promise(resolve => setTimeout((resolve), ms));
 }

@@ -138,17 +138,28 @@ main {
 
 .searchAlertError {
     background-color: #4c0000;
-    color: #ff0000;
+    color: #f00;
 }
 
 .searchAlertTwitch {
     background-color: #4c4c00;
-    color: #ffff00;
+    color: #ff0;
 }
 
 .searchAlertSuccess {
     background-color: #004c00;
-    color: #00ff00;
+    color: #0f0;
+    transition: text-shadow 200ms linear;
+}
+
+.searchAlertSuccess span, .searchAlertSuccess a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.searchAlertSuccess:hover {
+    text-shadow: 0 0 3px #0f0 !important;
 }
 
 #searchAlertText {

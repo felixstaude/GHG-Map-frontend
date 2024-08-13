@@ -17,77 +17,25 @@
 
         <main>
             <div class="userInfo contentBox" id="userInfo">
-                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/6babb794-5371-4f0b-99b8-99777a95cabc-profile_image-300x300.png" class="userPfp" id="userPfp"/>
-                &nbsp;<span class="userName" id="userName">Username</span>&nbsp;
+                <img src="" class="userPfp" id="userPfp"/>
+                &nbsp;<span class="userName" id="userName"></span>&nbsp;
             </div>
             <div class="userPins contentBox" id="userPins">
-                <h4>Pins von <span class="userName">Username</span></h4>
-                <div class="pinListWrapper"><ol class="pinList" id="pinList"> <!-- content from api below pinCoords: 'https://nominatim.openstreetmap.org/reverse?lat=<lat>&lon=<lon>&format=json'-->
-                    <li>
-                        <span id="pinName-1" class="pinName">Pin Name</span>:
-                        <a href="../map/?lat=51.163361&lng=10.447683&zoom=19"><span id="pinCoords-1" class="pinCoords">51.163361, 10.447683</span></a>
-                    </li>
-                    <li>
-                        <span id="pinName-1" class="pinName">Pin Name</span>:
-                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-2" class="pinCoords">51.163361, 10.447683</span></a>
-                    </li>
-                    <li>
-                        <span id="pinName-1" class="pinName">Pin Name</span>:
-                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-3" class="pinCoords">51.163361, 10.447683</span></a>
-                    </li>
-                    <li>
-                        <span id="pinName-1" class="pinName">Pin Name</span>:
-                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-4" class="pinCoords">51.163361, 10.447683</span></a>
-                    </li>
-                    <li>
-                        <span id="pinName-1" class="pinName">Pin Name</span>:
-                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-5" class="pinCoords">51.163361, 10.447683</span></a>
-                    </li>
-                    <li>
-                        <span id="pinName-1" class="pinName">Pin Name</span>:
-                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-6" class="pinCoords">51.163361, 10.447683</span></a>
-                    </li>
-                    <li>
-                        <span id="pinName-1" class="pinName">Pin Name</span>:
-                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-7" class="pinCoords">51.163361, 10.447683</span></a>
-                    </li>
-                    <li>
-                        <span id="pinName-1" class="pinName">Pin Name</span>:
-                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-8" class="pinCoords">51.163361, 10.447683</span></a>
-                    </li>
-                    <li>
-                        <span id="pinName-1" class="pinName">Pin Name</span>:
-                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-9" class="pinCoords">51.163361, 10.447683</span></a>
-                    </li>
-                    <li>
-                        <span id="pinName-1" class="pinName">Pin Name</span>:
-                        <a href="../map/?lat=0.005&lng=10.007"><span id="pinCoords-10" class="pinCoords">51.163361, 10.447683</span></a>
-                    </li>
-                </ol></div>
+                <h4>Pins von <span class="userName"></span></h4>
+                <div class="pinListWrapper"><table class="pinTable"><thead>
+                    <th>Titel</th>
+                    <th>Ort</th>
+                </thead><tbody class="pinList" id="pinList">
+                    <!-- content from api below -->
+                </tbody></table>
+            </div>
             </div>
             <div class="userPictures contentBox" id="userPictures">
-                <h4>Bilder von <span class="userName">Username</span></h4>
+                <h4>Bilder von <span class="userName"></span></h4>
                 <div class="picturesDraggableSlider" id="picturesDraggableSlider"> 
                     <!-- Content from API below -->
-                    <div>
-                        <img src="../img/sticker.jpg" class="imgImg"/>
-                        <div id="imgName-1" class="imgName">Pin Name</div>
-                    </div>
-                    <div>
-                        <img src="../img/1.jpg" class="imgImg"/>
-                        <div id="imgName-2" class="imgName">Pin Name</div>
-                    </div>
-                    <!-- Weitere Elemente... -->
                 </div>
-            </div>
-            <script type="text/javascript">
-                let imgs = document.getElementsByClassName('imgImg');
-                Array.from(imgs).forEach(img => {
-                    img.addEventListener('load', () => {
-                        img.style.width = img.width + 'px';
-                    });
-                });
-            </script>            
+            </div>           
         </main>
 
         <aside id="mySidenav" class="sidenav">

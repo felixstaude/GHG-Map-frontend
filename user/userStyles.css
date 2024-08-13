@@ -88,6 +88,7 @@ main {
     margin-left: -0.5px;
     height: 32px;
     border-radius: 50%;
+    box-shadow: -1px 0 3px 1px #000;
 }
 
 .userPins {
@@ -97,26 +98,33 @@ main {
     max-height: calc(50% - 82px);
 }
 
-.pinListWrapper {
-    height: calc(100% - 40px);
-    overflow-y: scroll;
+.pinTable {
+    border-collapse: collapse;
 }
 
-.pinList li {
-    position: relative;
-    padding: 5px;
-    padding-left: 20px;
+.pinList tr {
+    border-bottom: 1px solid #fff;
 }
 
-.pinList li::before {
-    content: "";
-    display: block;
-    position: absolute;
-    left:0;
-    width: 16px;
-    height: 16px;
-    background-image: url('../img/bastisticker-64x64.png'); /* Pfad zu deinem Bild */
-    background-size: contain; /* Passt das Bild in die Größe des Markers ein */
+.pinList td {
+    padding:0 5px;
+    cursor: pointer;
+    transition-duration: 200ms;
+}
+
+.pinList tr:hover > td, .focus > td {
+    color: #fff;
+    background-color: #505;
+}
+
+.deletePin {
+    cursor: pointer;
+    text-align: center;
+    background-color: transparent;
+}
+
+.deletePin:hover {
+    background-color:#e6647a !important;   
 }
 
 .userPictures {
@@ -152,7 +160,7 @@ main {
     position: absolute;
     bottom: 0;
     left: 2px;
-    text-shadow: 0 0 3px #fff;
+    text-shadow: 0 0 4px #fff;
     pointer-events: none;
 }
 

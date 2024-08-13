@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', async () =>{
-
     //get pins
     async function createLists(x) {
-        //const response = await fetch(`http://localhost:8080/api/pin/admin/${x}roved.json`, {
-        const response = await fetch(`http://localhost:8080/api/pin/admin/all/${x}roved?userId=${localStorage.userId}`, {
+        const response = await fetch(`http://localhost:8080/api/pin/admin/${x}roved.json`, {                  //only for testing purpose Okayge
+        //const response = await fetch(`http://localhost:8080/api/pin/admin/all/${x}roved?userId=${localStorage.userId}`, {
                 method: 'GET',
             headers: {'access_token': localStorage.accessToken}
         })
@@ -11,14 +10,16 @@ document.addEventListener('DOMContentLoaded', async () =>{
         if (data.ok) {
             data.pins.forEach(async pin => {
                 const line = document.createElement('tr');
+                line.setAttribute('onclick', "this.classList.toggle('focus')")
                 line.setAttribute('id', `pin-${pin.pinId}`);
 
                 const user = document.createElement('td');
-                let username = await getUsername(pin.userId);
-                user.textContent = username;
+                let userData = await getUser(pin.userId);
+                user.textContent = userData.display_name;
 
                 const title = document.createElement('td');
                 const titleLink = document.createElement('a');
+                titleLink.setAttribute('id', `li-`)
                 titleLink.setAttribute('href', `http://localhost:8080/${pin.imagePath}`);
                 titleLink.setAttribute('target', '_blank');
                 titleLink.textContent = pin.description;
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 line.appendChild(user);
                 title.appendChild(titleLink);
                 line.appendChild(title);
-                location.appendChild(locationLink)
+                location.appendChild(locationLink);
                 line.appendChild(location);
                 if(x === 'unapp') {
                     const app = document.createElement('td')
@@ -51,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 document.getElementById(`pinList-${x}`).appendChild(line);
             })
         } else if (!data.ok){
-            console.log('no admin or no good');
+            console.log('no admin or no good :/');
             window.location.href = "../";
         }
     }
@@ -74,8 +75,3 @@ async function decision(a, b, id) {
         del.remove();
     }
 }
-
-//<li>
-//    <span id="pinName-1" class="pinName">Pin Name</span>:
-//    <a href="../map/?lat=51.163361&lng=10.447683&zoom=19" class="pinCoords">51.163361, 10.447683</a>
-//</li>

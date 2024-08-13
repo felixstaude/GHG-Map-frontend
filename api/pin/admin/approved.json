@@ -1,0 +1,25 @@
+{
+    "ok": true,
+    "pins": [
+      {
+        "pinId": "1",
+        "userId": "123456789",
+        "description": "A nice place",
+        "lat": "51.12345",
+        "lng": "10.12345",
+        "town": "SampleTown",
+        "imagePath": "path/to/image1.png",
+        "approved": "false"
+      },
+      {
+        "pinId": "2",
+        "userId": "987654321",
+        "description": "Another place",
+        "lat": "52.12345",
+        "lng": "11.12345",
+        "town": "AnotherTown",
+        "imagePath": "path/to/image2.png",
+        "approved": "false"
+      }
+    ]
+  }

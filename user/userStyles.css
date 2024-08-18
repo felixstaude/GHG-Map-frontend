@@ -102,10 +102,6 @@ main {
     border-collapse: collapse;
 }
 
-.pinList tr {
-    border-bottom: 1px solid #fff;
-}
-
 .pinList td {
     padding:0 5px;
     cursor: pointer;

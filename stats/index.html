@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Map | Stats</title>
+        <meta name="description" content="Trage ein, wo du die Welt mit deinen Stickern verschönert hast und finde andere Sticker, die unseren Streamer zeigen!">
+
+        <!-- open graph -->
+        <meta property="og:url" content="https://ghg-sticker-map.de/">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="GHG Sticker Map">
+        <meta property="og:description" content="Trage ein, wo du die Welt mit deinen Stickern verschönert hast und finde andere Sticker, die unseren Streamer zeigen!">
+        <meta property="og:image" content="https://ghg-sticker-map.de/img/thumbnail.png">
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="twitter:domain" content="ghg-sticker-map.de">
+        <meta property="twitter:url" content="https://ghg-sticker-map.de/">
+        <meta name="twitter:title" content="GHG Sticker Map">
+        <meta name="twitter:description" content="Trage ein, wo du die Welt mit deinen Stickern verschönert hast und finde andere Sticker, die unseren Streamer zeigen!">
+        <meta name="twitter:image" content="https://ghg-sticker-map.de/img/thumbnail.png">
+
+        <!-- js und css -->
+        <link rel="icon" type="image/png" href="../img/bastisticker-64x64.png">
+        <link rel="stylesheet" href="statsStyles.css"/>
+        <link rel="stylesheet" href="../globalStyles.css"/>
+        <script src="statsScript.js"></script>
+        <script src="../globalScript.js"></script>
+    </head>
+    <body>
+        <header>
+            <h3>BastiGHG Sticker Map</h3>
+        </header>
+
+        <main>
+            <div class="userInfo contentBox" id="userInfo">
+                <img src="../img/bastisticker-64x64.png" class="userPfp" id="userPfp"/>
+                &nbsp;Guten Tag&nbsp;
+                <span class="userName" id="userName"></span>&nbsp;
+            </div>
+            <div class="statsBox contentBox">
+                <h3>Stats</h3>
+
+                <div class="now">
+                    <div>
+                        <h4>Heute</h4>
+                        <div id="dayNow" class="completeNumber">
+                            <div class="scroller">
+                                <div id="dayH" class="numbers">
+                                    <div>0</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
+                                </div>
+                            </div><div class="scroller">
+                                <div id="dayT" class="numbers">
+                                    <div>0</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
+                                </div>
+                            </div><div class="scroller">
+                                <div id="dayO" class="numbers">
+                                    <div>0</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Diesen Monat</h4>
+                        <div id="monthNow" class="completeNumber">
+                            <div class="scroller">
+                                <div id="monthH" class="numbers">
+                                    <div>0</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
+                                </div>
+                            </div><div class="scroller">
+                                <div id="monthT" class="numbers">
+                                    <div>0</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
+                                </div>
+                            </div><div class="scroller">
+                                <div id="monthO" class="numbers">
+                                    <div>0</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Dieses Jahr</h4>
+                        <div id="yearNow" class="completeNumber">
+                            <div class="scroller">
+                                <div id="yearH" class="numbers">
+                                    <div>0</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
+                                </div>
+                            </div><div class="scroller">
+                                <div id="yearT" class="numbers">
+                                    <div>0</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
+                                </div>
+                            </div><div class="scroller">
+                                <div id="yearO" class="numbers">
+                                    <div>0</div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>&nbsp;</p>
+                <p>Hier kannst du dir anschauen, wie viele Pins an einem Tag, in einem Monat oder in einem Jahr erstellt wurden. Lass ein Feld leer, um den nächstgößeren Zeitabschnitt zu erhalten.</p>
+                <div id="alert" class="alert"></div>
+
+                <div class="choice">
+                    <form><table><tbody>
+                        <tr>
+                            <td><label>Jahr:</label></td>
+                            <td class="inputWrapper">
+                                <span id="yearEx">JJJJ</span>
+                                <input class="date" type="text" maxlength="4" name="year" autocomplete="off" oninput="coi('year','JJJJ')"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="month">Monat:</label></td>
+                            <td class="inputWrapper">
+                                <span id="monthEx">MM</span>
+                                <input class="date" type="text" maxlength="4" name="month" autocomplete="off" oninput="coi('month','MM')" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="day">Tag:</label></td>
+                            <td class="inputWrapper">
+                                <span id="dayEx">TT</span>
+                                <input class="date" type="text" maxlength="4" name="day" autocomplete="off" oninput="coi('day','TT')" />
+                            </td>
+                        </tr>
+                    </tbody></table></form>
+                    <div id="usersRequest" class="button">Suchen</div>
+                </div>
+                <div id="loadingWrapper"></div>
+            </div>
+        </main>
+
+        <aside id="mySidenav" class="sidenav">
+            <a href="javascript:closeNav()" class="closebtn"><div class="wegklicken">&times;</div></a>
+            <a href="../" class="bastiSticker">&nbsp;</a>
+            <p>BastiGHG Sticker Map</p>
+            <a href="../" class="sidenav909">Home</a>
+            <a href="../map" class="sidenav909">Map</a>
+            <a href="#" class="sidenav909">About</a>
+            <hr/>
+            <a id="getPositionEl" class="sidenav909">Meine Position</a>
+            <a id="manuelPositionEl" class="sidenav909">Koords eingeben</a>
+            <hr>
+            <a id="loginLink" href="../login" class="sidenav909">Login</a>
+            <a id="accountDetails" class="sidenav909" href="../login"></a>
+        </aside>
+        <a class="openNav" href="javascript:openNav()">&#9776;</a>
+
+    </body>
+</html>

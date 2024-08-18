@@ -1,0 +1,234 @@
+body {
+    position: relative;
+    height:100vh;
+    width: 100vw;
+    margin:0;
+    padding:0;
+    overflow: hidden;
+    text-shadow: 0 0 2px #909;
+}
+
+.likeALink, a {
+    padding: 0;
+    text-decoration: none;
+    color: rgb(255, 0, 255);
+    transition: 0.3s;
+}
+
+.likeALink:hover, a:hover {
+    color: rgb(77, 19, 158);
+    cursor: pointer;
+}
+
+.leadingAway::before {
+    content: url('../linkArrow.webp');
+    padding: 0;
+    margin:0;
+}
+
+footer, header{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #fff;
+    width: 100%;
+    height: fit-content;
+    padding: 5px 0 5px 0;
+    z-index:1;
+}
+
+
+
+header {
+    top: 0;
+    bottom: auto;
+    z-index: 3;
+}
+
+
+
+main {    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -15px;
+    height: 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('../img/sticker.jpg');
+    background-position: center;
+    background-blend-mode: multiply;
+    background-size: cover !important;
+}
+
+.contentBox {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(51,51,51,0.7);
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding:0;
+    border-radius: 30px 10px 10px 30px;
+    font-size: 25px;
+    height: 32px;
+}
+
+.userPfp {
+    margin-left: -0.5px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.statsBox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 750px;
+    max-width: 75vw;
+}
+
+.now {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.now > div {
+    min-width:fit-content;
+    width:20%;
+    border-radius: 5px;
+    box-shadow: 0 0 3px #909;
+}
+
+.now > div > h4 {
+    margin-top: 5px;
+}
+
+.scroller {
+    display: inline-block;
+    height: 1em;
+    overflow: hidden;
+}
+
+.numbers {
+    margin-top:0;
+    transition-duration: 2s;
+}
+
+.numbers div {
+    height: 1em;
+}
+
+
+#alert {
+    height: 1.8em;
+    overflow: hidden;
+}
+
+.alertSub {
+    opacity: 0;
+    transition-duration: 0.5s;
+}
+
+.showAlert {
+    opacity: 1;
+}
+
+.choice table {
+    border-collapse: collapse;
+}
+.choice tr {
+    border-bottom: 2px solid transparent;
+}
+
+.inputWrapper {
+    position: relative;
+    width: 100px;
+    height: 1.5em;
+    text-align: center;
+}
+
+.choice span {
+    text-shadow: none;
+    color: #666;
+}
+
+.filled {
+    display: inline-block;
+    width: 219px;
+    background-color: rgba(153,0,153,0.2);
+    border: none;
+    border-bottom: 4px solid #909;
+    border-radius: 3px 3px 0 0;
+    width: 100%;
+}
+
+input.date {
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100px;
+    height: calc(100% - 2px);
+    padding:1px;
+    background-color: transparent;
+    background-image: linear-gradient(to right, #909 33.33%, transparent 66.67%);
+    background-size: 300%;
+    background-position: 100%;
+    border-radius: 3px;
+    border: none;
+    outline: none !important;
+    font-family: Helvetica, sans-serif;
+    text-align: center;
+    transition-duration: 0.5s;
+}
+
+input.date:hover, input.date:focus-visible, input.date:focus {
+    color: #fff;
+    outline: none;
+    background-position: -2px;
+}
+
+#usersRequest {
+    padding: 5px;
+    border-radius: 5px;
+    height: 1em;
+    transition-duration: 0.2s;
+    background-color: transparent;
+    color: inherit;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+#usersRequest.button {
+    box-shadow: 2px 2px 5px #909;
+}
+
+#usersRequest.button:hover {
+    box-shadow: 1px 1px 2px #909;
+
+}
+
+#usersRequest.deacivated {
+    box-shadow: 0 0 0 inset #909;
+    cursor: not-allowed;
+}
+
+#usersRequest.number {
+    background-color: #909;
+    color:#fff;
+    box-shadow: 2px 2px 5px inset #fff;
+}
+
+
+#loadingWrapper {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}

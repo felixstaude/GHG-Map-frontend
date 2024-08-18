@@ -3,13 +3,32 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Map - Sticker Map</title>
+
+        <title>Map | Sticker Map</title>
+        <meta name="description" content="Trage ein, wo du die Welt mit deinen Stickern verschönert hast und finde andere Sticker, die unseren Streamer zeigen!">
+
+        <!-- open graph -->
+        <meta property="og:url" content="https://ghg-sticker-map.de/">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="GHG Sticker Map">
+        <meta property="og:description" content="Trage ein, wo du die Welt mit deinen Stickern verschönert hast und finde andere Sticker, die unseren Streamer zeigen!">
+        <meta property="og:image" content="https://ghg-sticker-map.de/img/thumbnail.png">
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="twitter:domain" content="ghg-sticker-map.de">
+        <meta property="twitter:url" content="https://ghg-sticker-map.de/">
+        <meta name="twitter:title" content="GHG Sticker Map">
+        <meta name="twitter:description" content="Trage ein, wo du die Welt mit deinen Stickern verschönert hast und finde andere Sticker, die unseren Streamer zeigen!">
+        <meta name="twitter:image" content="https://ghg-sticker-map.de/img/thumbnail.png">
+
+        <!-- js und css -->
         <link rel="icon" type="image/png" href="../img/bastisticker-64x64.png">
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
         <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
-        <link rel="stylesheet" href="style.css"/>
+        <link rel="stylesheet" href="mapStyles.css"/>
         <link rel="stylesheet" href="../globalStyles.css"/>
-        <script src="script.js"></script>
+        <script src="mapScript.js"></script>
         <script src="../globalScript.js"></script>
     </head>
     <body>
@@ -65,12 +84,12 @@
                 const popupContent = `
                     <form id="pin-form" class="popup-content">
                         <div class="wrapperDescription">
-                            <span class="popupButtons"" id="textDescription">Beschreibung</span>
+                            <label class="popupButtons" id="textDescription">Beschreibung</label>
                             <input type="text" class="popupButtons" id="description" maxlength="33" required />
                         </div>
                         <div class="wrapperDescription">
                             <input type="file" class="popupButtons" id="image" accept=".png,.jpg" hidden required />
-                            <label class="imageLabel" id="textPicture" for="image">Bild hochladen</label>
+                            <label class="imageLabel" id="textPicture" for="image">.jpg/.png hochladen</label>
                         </div>
                         <div class="wrapperDescription">
                             <button class="popupButtons popupSubmit" type="submit">Pin hinzufügen</button>
@@ -85,7 +104,13 @@
 
                 document.getElementById('pin-form').addEventListener('submit', async function(e) {
                     e.preventDefault();
+                    const lcWrapper = document.createElement('div');
+                    lcWrapper.classList.add('loadingWrapper');
+                    this.appendChild(lcWrapper);
+                    //let parent = document.getElementById('lcWrapper')
+                    loadingCircle(1, lcWrapper);
 
+                    localStorage.setItem('renewLogin',0);
                     const validLogin = await validateToken(localStorage.getItem('accessToken'));
                     let valid = Object.keys(validLogin).length > 0;
 

@@ -42,7 +42,31 @@ async function validateToken(x) {
     }
 }
 
-window.addEventListener('load', async ()=> {
+document.addEventListener('DOMContentLoaded', async ()=> {
+
+    //cookie banner
+    let hadBanner = (localStorage.getItem('sawBanner')) ? localStorage.getItem('sawBanner') : sessionStorage.getItem('sawBanner');
+
+    if (!hadBanner) {
+        let parent = document.getElementsByTagName('body')[0];
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('cbWrapper');
+
+        const banner = document.createElement('div');
+        banner.classList.add('cbBanner');
+        banner.innerHTML = `
+            <h4>Willkommen auf der GHG Sticker Map</h4>
+            <p>Damit diese Website funktioniert, werden kleine Textdateien lokal auf deinem Gerät gespeichert. Dafür werden der "Local Storage" (Daten werden nicht automatisch gelöscht) und der "Session Storage" (Daten werden beim Ende der Session automatisch gelöscht) verwendet.</p>
+            <p>In der Datenbank wird dein Twitch-ID, die Koordinaten und das Bild gespeichert, wenn du einen Pin setzt. Du kannst deine Pins jederzeit über deine Userseite löschen. Die lokal gespeicherten Daten kannst du im Footer über "Daten zurücksetzten" oder auf der Login-Seite über "Logout" löschen.</p>
+            <p>Dieses Fenster...</p>
+            <div onclick="safeSettings(0)">beim nächsten Mal wieder anzeigen</div>
+            <div onclick="safeSettings(1)">nicht mehr anzeigen</div>`;
+        
+        wrapper.appendChild(banner);
+        parent.appendChild(wrapper);
+    }
+
+    // get data for user that is logged in
     let onloadTime = new Date().getTime();
     let renewLogin = localStorage.getItem('renewLogin') //compare to onlaod time -> if still valid, validate -> create profile link and remove login
     let accessToken = localStorage.getItem('accessToken');
@@ -79,7 +103,7 @@ window.addEventListener('load', async ()=> {
                     accountDetails.innerHTML = `&nbsp;${localStorage.getItem('username')}`;
                     accountDetails.appendChild(ppImg);
                 }
-                if (window.location.pathname === "/admin/") {
+                if (window.location.pathname === ("/admin/" || "/stats/")) {
                     document.getElementById('userPfp').src = data.data[0].profile_image_url;
                     document.getElementById('userName').innerHTML = localStorage.getItem('username');
                 }
@@ -87,19 +111,45 @@ window.addEventListener('load', async ()=> {
                 throw error;
             }
         }
-    }/* else {
-        let loginPref = localStorage.getItem('loginPref');
+    }
 
-        if (!loginPref) {
-            if (window.confirm('Twitch-Login ist abgelaufen\nMelde dich neu an oder fahre ohne Anmeldung fort') === true) {
-                localStorage.setItem('loginPref', true);
-                window.location.replace('http://localhost:8080/login/');
-            } else {
-                localStorage.setItem('loginPref', false);
+    //reset local storage stuff
+    let rDB = document.getElementById('resetData'); //resetDataButton
+    if (rDB) {
+        rDB.addEventListener('click', async () => {
+            let clientId = 'aof6xcm9xha35dqsm087mqowout2p6';
+            let accessToken = encodeURIComponent(localStorage.getItem('accessToken'));
+            let bodyString = `client_id=${clientId}&token=${accessToken}`;
+        
+            const response = await fetch('https://id.twitch.tv/oauth2/revoke', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: bodyString
+            });
+        
+            if (response.ok) {
+                localStorage.clear();
+                sessionStorage.clear();
+                window.location.reload();
             }
-        }
-    }*/
+        });
+    }
+    
 });
+
+//safe cookie settings
+
+async function safeSettings(x) {
+    (x === 1) ? localStorage.setItem('sawBanner', true) : sessionStorage.setItem('sawBanner', true);
+    let wrapper = document.getElementsByClassName('cbWrapper')[0];
+    let banner = document.getElementsByClassName('cbBanner')[0];
+    wrapper.classList.add('remove');
+    banner.classList.add('remove');
+    await sleep(500)
+    wrapper.remove();
+}
 
 
 
@@ -113,14 +163,14 @@ function closeNav() {
 }
 
 function loadingCircle(x, parent) { // Ladeschnecke, die user zeigt, dass weitere Daten geladen werden
-    if (x === 'start') {
+    if (x === 1) {
         const loadingElement = document.createElement('div');
         loadingElement.classList.add('loadingCircle');
-        loadingElement.setAttribute('id', 'loadingWrapper')
+        loadingElement.setAttribute('id', 'loadingCircle')
         loadingElement.innerHTML='&nbsp;';
         parent.appendChild(loadingElement);
     } else {
-        document.getElementById('loadingWrapper').remove();
+        document.getElementById('loadingCircle').remove();
     }
 }
 
@@ -129,7 +179,7 @@ async function getUser(id) {
     let user = sessionStorage.getItem(`user-${id}`);
     if (waitingForId.includes(id)) {
         while (waitingForId.includes(id)) {
-            console.log('wating for: ' + id)
+            console.log('wating for: ' + id);
             await sleep(1000);
         }
     }
@@ -143,15 +193,19 @@ async function getUser(id) {
                 'Client-Id': 'aof6xcm9xha35dqsm087mqowout2p6'
             }
         });
-        let data = await response.json();
-        user = data.data[0];
-        sessionStorage.setItem(`user-${id}`, JSON.stringify(user));
-        const index = waitingForId.indexOf(id);
-        if (index > -1) { // only splice array when item is found
-            waitingForId.splice(index, 1); // 2nd parameter means remove one item only
+        if (response.ok) { 
+            let data = await response.json();
+            user = data.data[0];
+            sessionStorage.setItem(`user-${id}`, JSON.stringify(user));
+            const index = waitingForId.indexOf(id);
+            if (index > -1) { // only splice array when item is found
+                waitingForId.splice(index, 1); // 2nd parameter means remove one item only
+            }
+            //thanks to https://stackoverflow.com/a/5767357
+        } else {
+            user = 'error'
         }
-        //thanks to https://stackoverflow.com/a/5767357
-    }
+    } 
     return user;
 }
 

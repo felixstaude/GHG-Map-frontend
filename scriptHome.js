@@ -1,11 +1,13 @@
-window.addEventListener('load', async function() {
+document.addEventListener('DOMContentLoaded', async function() {
     let map = document.getElementById('linkMap');
     let login = document.getElementById('linkLogin');
     let search = document.getElementById('linkSearch');
+    let stats = document.getElementById('linkStats');
 
     let mapEl = document.getElementById('mapEl');
     let loginEl = document.getElementById('loginEl');
     let searchEl = document.getElementById('searchEl');
+    let statsEl = document.getElementById('statsEl');
 
     let width = window.innerWidth;
     let factor = width / 3.5;
@@ -14,13 +16,14 @@ window.addEventListener('load', async function() {
     map.style.backgroundSize = `${factor}%`;
     login.style.backgroundSize = `${factor}%`;
     search.style.backgroundSize = `${factor}%`;
-    setBGOffset(map,login,search);
+    stats.style.backgroundSize = `${factor}%`;
+    setBGOffset(map,login,search,stats);
 
     let accessToken = localStorage.getItem('accessToken');
 
     if (accessToken) {
         loginEl.innerHTML = '';
-        loadingCircle('start', loginEl)
+        loadingCircle(1, loginEl)
         const data = await validateToken(accessToken);
         loginEl.textContent = `Hallo ${data.login}`;
     }
@@ -30,11 +33,13 @@ window.addEventListener('load', async function() {
     map.addEventListener('mouseover', (e) => (navHover(e,mapEl,'#fff', 'transparent')))
     login.addEventListener('mouseover', (e) => (navHover(e,loginEl,'#fff', 'transparent')))
     search.addEventListener('mouseover', (e) => (navHover(e,searchEl,'#fff', 'transparent')))
+    stats.addEventListener('mouseover', (e) => (navHover(e,statsEl,'#fff', 'transparent')))
     
     //make nav bg back to transparent/bg-image
     map.addEventListener('mouseout', (e) => (navHover(e,mapEl,'transparent','#fff')))
     login.addEventListener('mouseout', (e) => (navHover(e,loginEl,'transparent','#fff')))
     search.addEventListener('mouseout', (e) => (navHover(e,searchEl,'transparent','#fff')))
+    stats.addEventListener('mouseout', (e) => (navHover(e,statsEl,'transparent','#fff')))
 
     //  --  move footer when user has mouse
     let move = document.getElementById('footerMove');
@@ -73,16 +78,22 @@ window.addEventListener('load', async function() {
     let lable = document.getElementById('searchLable');
 
     // move in field of view and back out
-    search.addEventListener('click', () => {
-        let x;
+    search.addEventListener('click', async () => {
+        let x = 0;
         let element = document.getElementById('searchElement');
-        if (element.offsetTop < document.getElementsByTagName('header')[0].offsetHeight + 20) {
-            x = 0;
-        } else {
-            x = 110;
+        let target = document.getElementsByTagName('header')[0].offsetHeight + 20;
+        let now = document.getElementById('searchElement').offsetTop;
+        if (now > 0) {
+            target = - target;
         }
-        let t = document.getElementsByTagName('header')[0].offsetHeight + 20;
-        moveSearchBox(element, x, t);
+
+        while (x <= 100) {
+            y = smoothTransition(x, target);
+            now = now + y;
+            element.style.top = now + 'px';
+            x+=1;
+            await sleep(1);
+        }
 
         let alertBox = document.getElementById('searchAlert');
         if (alertBox.offsetTop > 35) {
@@ -125,6 +136,26 @@ window.addEventListener('load', async function() {
         }
     });
 
+    function smoothTransition(x, A) {
+        const a = -3 * A / 500000; // Berechneter Koeffizient für das quadratische Glied
+        const b = -100 * a; // Linearer Koeffizient basierend auf den Bedingungen
+        
+        return a * x * x + b * x;
+    }
+
+    async function moveSearchBox(e, x, t) {
+        let progress = 0;
+        while (progress <= t) {
+            x++;
+            progress++;
+            let a = - (t / 10000);
+            let b = t * 0.02;
+            let vt = Math.ceil(a * (x * x) + b * x);
+            e.style.top = `${vt}px`;
+            await sleep(1);
+        }
+    }
+
     document.getElementById('searchUser').addEventListener('click', searchUserOnPage);
     box.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
@@ -164,8 +195,8 @@ window.addEventListener('load', async function() {
                 console.log(data);
 
                 if (data.data.length > 0){
-                    const usrResponse = await fetch(`http://localhost:8080/api/pin/admin/approved.json`, {
-                    //const response = await fetch(`http://localhost:8080/api/pin/get/user?userId=${data.data[0].id}`, {
+                    //const usrResponse = await fetch(`http://localhost:8080/api/pin/admin/approved.json`, {
+                    const response = await fetch(`http://localhost:8080/api/pin/get/user?userId=${data.data[0].id}`, {
                         method: 'GET'
                     })
                     const usrData = await usrResponse.json();
@@ -193,18 +224,22 @@ window.addEventListener('load', async function() {
     }
 });
 
-async function moveSearchBox(e, x, t) {
-    let progress = 0;
-    while (progress <= t) {
-        x++;
-        progress++;
-        let a = - (t / 10000);
-        let b = t * 0.02;
-        let vt = Math.ceil(a * (x * x) + b * x);
-        e.style.top = `${vt}px`;
-        await sleep(1);
-    }
-}
+window.addEventListener('resize', function(){
+    let map = document.getElementById('linkMap');
+    let login = document.getElementById('linkLogin');
+    let search = document.getElementById('linkSearch');
+    let stats = document.getElementById('linkStats');
+    let width = window.innerWidth;
+    let factor = width / 3.5;
+    
+    //set size of backgound for nav elements 
+    map.style.backgroundSize = `${factor}%`;
+    login.style.backgroundSize = `${factor}%`;
+    search.style.backgroundSize = `${factor}%`;
+    stats.style.backgroundSize = `${factor}%`;
+    setBGOffset(map,login,search,stats);
+    setFooter();
+});
 
 function setPosition(x) {
     let link = document.getElementById(`${x}Link`);
@@ -215,21 +250,6 @@ function setPosition(x) {
     popup.style.bottom = posY + 'px';
 }
 
-window.addEventListener('resize', function(){
-    let map = document.getElementById('linkMap');
-    let login = document.getElementById('linkLogin');
-    let search = document.getElementById('linkSearch');
-    let width = window.innerWidth;
-    let factor = width / 3.5;
-    
-    //set size of backgound for nav elements 
-    map.style.backgroundSize = `${factor}%`;
-    login.style.backgroundSize = `${factor}%`;
-    search.style.backgroundSize = `${factor}%`;
-    setBGOffset(map,login,search);
-    setFooter();
-});
-
 function setFooter() {
     let footer = document.getElementsByTagName('footer')[0];
     let move = document.getElementById('footerMove');
@@ -239,7 +259,7 @@ function setFooter() {
     footer.style.height = moveHeight + 'px';
 }
 
-function setBGOffset(a,b,c) {
+function setBGOffset(a,b,c,d) {
     let mw =  document.getElementsByTagName('main')[0].offsetWidth;
     let mh = document.getElementsByTagName('main')[0].offsetHeight;
 
@@ -247,6 +267,7 @@ function setBGOffset(a,b,c) {
     let aTop = (mw / 2 - mh / 2) + a.offsetTop;
     let bTop = (mw / 2 - mh / 2) + b.offsetTop;
     let cTop = (mw / 2 - mh / 2) + c.offsetTop;
+    let dTop = (mw / 2 - mh / 2) + d.offsetTop;
 
     a.style.backgroundPositionX = `-${a.offsetLeft}px`; // set "left margin"
     a.style.backgroundPositionY = `-${aTop}px`; // set "top magin"
@@ -256,6 +277,9 @@ function setBGOffset(a,b,c) {
 
     c.style.backgroundPositionX = `-${c.offsetLeft}px`;
     c.style.backgroundPositionY = `-${cTop}px`;
+
+    d.style.backgroundPositionX = `-${d.offsetLeft}px`;
+    d.style.backgroundPositionY = `-${dTop}px`;
 }
 
 async function navHover(a,e,c1,c2) {
@@ -266,8 +290,8 @@ async function navHover(a,e,c1,c2) {
     let progress = 0;
 
     while (progress < 100) {
-        e.style.background = `radial-gradient(circle at ${x}px ${y}px, ${c1} ${progress}%, ${c2} ${progress + 10}%)`;
         progress+=2;
+        e.style.background = `radial-gradient(circle at ${x}px ${y}px, ${c1} ${progress}%, ${c2} ${progress + 10}%)`;
         await sleep(1);
     };
 }

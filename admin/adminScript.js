@@ -1,20 +1,58 @@
 document.addEventListener('DOMContentLoaded', async () =>{
     //get pins
+    const allUsers = [];
     async function createLists(x) {
-        const response = await fetch(`http://localhost:8080/api/pin/admin/${x}roved.json`, {                  //only for testing purpose Okayge
-        //const response = await fetch(`http://localhost:8080/api/pin/admin/all/${x}roved?userId=${localStorage.userId}`, {
+        const usersIds = [];
+        //const pinsR = await fetch(`http://localhost:8080/api/pin/admin/${x}roved.json`, {                  //only for testing purpose Okayge
+        const pinsR = await fetch(`http://localhost:8080/api/pin/admin/all/${x}roved?userId=${localStorage.userId}`, {
                 method: 'GET',
             headers: {'access_token': localStorage.accessToken}
         })
-        const data = await response.json()
-        if (data.ok) {
-            data.pins.forEach(async pin => {
+        const pinsData = await pinsR.json()
+        if (pinsData.ok) {
+            pinsData.pins.forEach(pin => {
+                let peepoArrive = usersIds.includes(pin.userId) || allUsers.includes(pin.userId);
+                if (!peepoArrive) {
+                    usersIds.push(pin.userId);
+                    allUsers.push(pin.userId)
+                }
+            });
+
+            //split up in 100er to aks twitch for usernames
+            var arrays = [];
+
+            while (usersIds.length > 0) {
+                arrays.push(usersIds.splice(0, 100));
+            }
+
+            arrays.forEach(async request => {
+                let url = 'https://api.twitch.tv/helix/users?';
+
+                request.forEach(id => {
+                    url = `${url}id=${id}&`;
+                });
+
+                const usersR = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.accessToken}`,
+                        'Client-Id': 'aof6xcm9xha35dqsm087mqowout2p6'
+                    }
+                });
+                const usersData = await usersR.json()
+                
+                usersData.data.forEach(user => {
+                    sessionStorage.setItem(`user-${user.id}`, `${JSON.stringify(user)}`);
+                })
+            })
+
+            pinsData.pins.forEach(async pin => {
                 const line = document.createElement('tr');
                 line.setAttribute('onclick', "this.classList.toggle('focus')")
                 line.setAttribute('id', `pin-${pin.pinId}`);
 
                 const user = document.createElement('td');
-                let userData = await getUser(pin.userId);
+                let userData = JSON.parse(sessionStorage.getItem(`user-${pin.userId}`));
                 user.textContent = userData.display_name;
 
                 const title = document.createElement('td');
@@ -53,11 +91,11 @@ document.addEventListener('DOMContentLoaded', async () =>{
             })
         } else if (!data.ok){
             console.log('no admin or no good :/');
-            window.location.href = "../";
+            window.location.href = '../';
         }
     }
-    createLists('unapp'); //unapproved
-    createLists('app'); //approved
+    await createLists('unapp'); //unapproved
+    await createLists('app'); //approved
 })
 
 async function decision(a, b, id) {

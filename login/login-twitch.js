@@ -31,12 +31,12 @@ window.addEventListener('load', async (e) => {
         let valid = await validateToken(accessToken);
         if (valid.valid) {
             let parent = document.getElementById('wrapper');
-            loadingCircle('start', parent);
+            loadingCircle(1, parent);
             loginSuccess();
         }
     } else if (hash != 'logoutSuccess' && hash.length > 0) {
         let parent = document.getElementById('wrapper');
-        loadingCircle('start', parent);
+        loadingCircle(1, parent);
         let response = Object.fromEntries(new URLSearchParams(hash));
         let verifyUser = localStorage.getItem('state');
         

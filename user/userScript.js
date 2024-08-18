@@ -36,8 +36,8 @@ async function userData() {
     const validation = await validateToken(localStorage.getItem('accessToken'));
     let validatedUser = validation.user_id;
 
-    const response = await fetch(`http://localhost:8080/api/pin/get/user/userId.json`, {                  //only for testing purpose Okayge
-    //const response = await fetch(`http://localhost:8080/api/pin/get/user?userId=${localStorage.userId}`, {
+    //const response = await fetch(`http://localhost:8080/api/pin/get/user/userId.json`, {                  //only for testing purpose Okayge
+    const response = await fetch(`http://localhost:8080/api/pin/get/user?userId=${localStorage.userId}`, {
         method: 'GET'
     })
     const data = await response.json();
@@ -124,22 +124,12 @@ async function highlight(id) {
     let x = 0;
     let y = 0;
     
-    if (iScrollStart > 0) {         //scroll to the right  
-        while (x <= 100) {
-            y = smoothTransition(x, iScrollStart);
-            iScroll = iScroll + y;
-            iParent.scrollLeft = iScroll;
-            x+=1;
-            await sleep(1);
-        }
-    } else if (iScrollStart < 0) {  // scroll to the left
-        while (x <= 100) {
-            y = smoothTransition(x, iScrollStart);
-            iScroll = iScroll + y;
-            iParent.scrollLeft = iScroll;
-            x+=1;
-            await sleep(1);
-        }
+    while (x <= 100) {
+        y = smoothTransition(x, iScrollStart);
+        iScroll = iScroll + y;
+        iParent.scrollLeft = iScroll;
+        x+=1;
+        await sleep(1);
     }
 }
 

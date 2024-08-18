@@ -3,7 +3,26 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <title>Map - Startseite</title>
+        <meta name="description" content="Trage ein, wo du die Welt mit deinen Stickern verschönert hast und finde andere Sticker, die unseren Streamer zeigen!">
+
+        <!-- open graph -->
+        <meta property="og:url" content="https://ghg-sticker-map.de/">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="GHG Sticker Map">
+        <meta property="og:description" content="Trage ein, wo du die Welt mit deinen Stickern verschönert hast und finde andere Sticker, die unseren Streamer zeigen!">
+        <meta property="og:image" content="https://ghg-sticker-map.de/img/thumbnail.png">
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="twitter:domain" content="ghg-sticker-map.de">
+        <meta property="twitter:url" content="https://ghg-sticker-map.de/">
+        <meta name="twitter:title" content="GHG Sticker Map">
+        <meta name="twitter:description" content="Trage ein, wo du die Welt mit deinen Stickern verschönert hast und finde andere Sticker, die unseren Streamer zeigen!">
+        <meta name="twitter:image" content="https://ghg-sticker-map.de/img/thumbnail.png">
+
+        <!-- js und css -->
         <link rel="icon" type="image/png" href="img/bastisticker-64x64.png">
         <link rel="stylesheet" href="stylesHome.css"/>
         <link rel="stylesheet" href="globalStyles.css"/>
@@ -18,21 +37,28 @@
 
         <main>
             <div class="container">
-                <a class="navOuter" id="linkMap" href="/map">
-                    <div class="navInner" id="mapEl">
-                        Map
-                    </div>
-                </a>
                 <a class="navOuter" id="linkLogin" href="/login">
                     <div class="navInner" id="loginEl">
                         Login
                     </div>
                 </a>
-                <a class="navOuter" id="linkSearch">
-                    <div class="navInner" id="searchEl">
-                        Benutzer suchen
-                    </div>
-                </a>
+                <div class="scndRow">
+                    <a class="navOuter" id="linkMap" href="/map">
+                        <div class="navInner" id="mapEl">
+                            Map
+                        </div>
+                    </a>
+                    <a class="navOuter" id="linkStats" href="/stats">
+                        <div class="navInner" id="statsEl">
+                            Stats
+                        </div>
+                    </a>
+                    <a class="navOuter" id="linkSearch">
+                        <div class="navInner" id="searchEl">
+                            Benutzer suchen
+                        </div>
+                    </a>
+                </div>
             </div>
             <div class="searchElement" id="searchElement">
                 <i class="searchButtons fa-solid fa-arrow-up" id="hideSearch"></i>
@@ -40,7 +66,7 @@
                     <div id="searchAlert"><span id="searchAlertText"></span></div>
                     <div class="searchBackground"></div>
                     <input id="searchBox" type="text" name="searchBox" autocomplete="false">
-                    <label class="searchLable" id="searchLable" for="searchBox">Nach anderen Benutzern auf der Seite suchen</label>
+                    <label class="searchLable" id="searchLable" for="searchBox">Benutzern suchen</label>
                 </div>
                 <i class="searchButtons fa-solid fa-magnifying-glass" id="searchUser"></i>
             </div>
@@ -48,11 +74,9 @@
 
         <footer>
             <div class="footerMove" id="footerMove">
-                <hr class="footerTrennlinie" style="margin-top:0;"/>
                 <div>Dieses Projekt steht nicht in direkter Verbindung zu dem Twitch-Streamer BastiGHG, es ist ein Projekt aus der Community für die Community &#60;3</div>
-                <!--hr class="footerTrennlinie"/-->
                 <div>
-                    Hauptsächlich verantwortlich sind
+                    Verantwortlich sind
                     <span class="likeALink creatorLink" id="felixLink">
                         TheEpicFlexo
                         <div class="createrPopup" id="felixPopup">
@@ -70,15 +94,18 @@
                     </span>,
                     ein besonderer Dank geht an
                     <span class="likeALink  creatorLink" id="charlieLink">
-                        Charlieluchsini
+                        Charlie
                         <div class="createrPopup" id="charliePopup">
                             <a href="https://github.com/charlieluchsin">GitHub</a><br/>
                             <a href="https://www.twitch.tv/charlieluchsini">twitch</a>
                         </div>
                     </span>
                 </div>
-                <!--hr class="footerTrennlinie"/-->
-                <div><a href="https://github.com/felixstaude/GHG-Map" class="leadingAway"> GitHub</a></div>
+                <div>
+                    <span id="resetData" class="likeALink">Daten zurücksetzten</span>
+                     - 
+                    <a href="https://github.com/felixstaude/GHG-Map" class="leadingAway">GitHub </a>
+                </div>
             </div>
         </footer>
     </body>

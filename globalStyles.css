@@ -152,3 +152,73 @@ h2 {
     0%{transform: rotate(0deg)}
     100%{transform: rotate(360deg)}
 }
+
+/*cookie banner for local storage*/
+.cbWrapper {
+    position:fixed;
+    height: 100vh;
+    width: 100vw;
+    top:0;
+    left:0;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    animation: showWrapper 500ms ease-in;
+    backdrop-filter: blur(10px);
+    transition-duration: 500ms;
+    z-index:1000;
+}
+
+@keyframes showWrapper {
+    0% {backdrop-filter: blur(0px);}
+    100% {backdrop-filter: blur(10px);}
+}
+
+.cbBanner {
+    width: 500px;
+    max-width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #fff;
+    overflow: hidden;
+    animation: showBanner 500ms ease-in-out;
+    transition-duration: 500ms;
+}
+
+@keyframes showBanner {
+    0% {transform: scale(0,0);}
+    100% {transform: scale(1,1);}
+}
+
+.cbBanner div {
+    padding: 5px;
+    margin: 2px auto;
+
+    border-radius: 3px;
+    color: rgb(51, 51, 51);
+    width: fit-content;
+    text-align: center;
+
+    background-color: transparent;
+    background-image: linear-gradient(to right, #909 33.33%, transparent 66.67%);
+    background-size: 300%; 
+    background-position: 99%;
+
+    transition: color 0.3s linear 0.2s, background-position 0.5s ease-in-out;
+}
+
+.cbBanner div:hover {
+    color: #fff !important;
+    outline: none;
+    background-position: 0;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.cbWrapper.remove {
+    backdrop-filter: blur(0px);
+}
+
+.cbBanner.remove {
+    transform: scale(0,0);
+}

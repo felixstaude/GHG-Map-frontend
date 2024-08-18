@@ -39,7 +39,7 @@
             <p>BastiGHG Sticker Map</p>
             <a href="../" class="sidenav909">Home</a>
             <a href="../map" class="sidenav909">Map</a>
-            <a href="#" class="sidenav909">About</a>
+            <a href="../stats" class="sidenav909">Stats</a>
             <hr/>
             <a id="getPositionEl" class="sidenav909">Meine Position</a>
             <a id="manuelPositionEl" class="sidenav909">Koords eingeben</a>
@@ -56,9 +56,9 @@
                 let height = window.innerHeight;
                 let map = document.getElementById('map');
                 map.style.height = `${height}px`;
-            }
-            adjustHeight()
-            window.addEventListener('resize', adjustHeight)
+            };
+            adjustHeight();
+            window.addEventListener('resize', adjustHeight);
         </script>
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <script src="https://unpkg.com/dropzone/dist/dropzone.js"></script>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <title>Login Twitch | Sticker Map</title>
         <meta name="description" content="Trage ein, wo du die Welt mit deinen Stickern verschönert hast und finde andere Sticker, die unseren Streamer zeigen!">
 
@@ -30,19 +30,6 @@
         <script src="../globalScript.js"></script>
     </head>
     <body>
-        <aside id="mySidenav" class="sidenav">
-            <a href="javascript:closeNav()" class="closebtn"><div class="wegklicken">&times;</div></a>
-            <a href="../" class="bastiSticker">&nbsp;</a>
-            <p>BastiGHG Sticker Map</p> 
-            <a href="../">Startseite</a>
-            <a href="../map">Map</a>
-            <a href="#">About</a>
-            <a id="loginLink" href="../login">Login</a>
-            <hr>
-            <a id="accountDetails" href=""></a>
-        </aside>
-        <a class="openNav" href="javascript:openNav()">&#9776;</a>
-
         <main>
             <div id="wrapper">
                     <div class="headline">
@@ -52,5 +39,18 @@
                 <a id="twitchConnection" href="">Über Twitch anmelden</a>
             </div>
         </main>
+        
+        <aside id="mySidenav" class="sidenav">
+            <a href="javascript:closeNav()" class="closebtn"><div class="wegklicken">&times;</div></a>
+            <a href="../" class="bastiSticker">&nbsp;</a>
+            <p>BastiGHG Sticker Map</p>
+            <a href="../" class="sidenav909">Home</a>
+            <a href="../map" class="sidenav909">Map</a>
+            <a href="../stats" class="sidenav909">Stats</a>
+            <hr/>
+            <a id="loginLink" href="../login" class="sidenav909">Login</a>
+            <a id="accountDetails" class="sidenav909" href="../login"></a>
+        </aside>
+        <a class="openNav" href="javascript:openNav()">&#9776;</a>
     </body>
 </html>
